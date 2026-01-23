@@ -100,30 +100,30 @@ public class register extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 420, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 421, Short.MAX_VALUE)
                 .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jToggleButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jToggleButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                .addGap(23, 23, 23))
         );
         header1Layout.setVerticalGroup(
             header1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(header1Layout.createSequentialGroup()
                 .addGroup(header1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
                     .addGroup(header1Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addGroup(header1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jToggleButton4)
                             .addComponent(jToggleButton5)
                             .addComponent(jToggleButton6)
-                            .addComponent(jLabel4))))
-                .addGap(0, 11, Short.MAX_VALUE))
+                            .addComponent(jLabel4)))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        body.add(header1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        body.add(header1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 60));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -141,9 +141,11 @@ public class register extends javax.swing.JFrame {
         body.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 360, -1, -1));
 
         email.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        email.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         body.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 300, 270, 40));
 
         password.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        password.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         body.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 380, 270, 40));
 
         jToggleButton1.setBackground(new java.awt.Color(202, 240, 248));
@@ -155,7 +157,7 @@ public class register extends javax.swing.JFrame {
                 jToggleButton1ActionPerformed(evt);
             }
         });
-        body.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 450, 130, 40));
+        body.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 450, 140, 40));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -182,9 +184,10 @@ public class register extends javax.swing.JFrame {
         body.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 200, -1, -1));
 
         fullname.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        fullname.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         body.add(fullname, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 220, 270, 40));
 
-        getContentPane().add(body, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 640));
+        getContentPane().add(body, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 650));
 
         jPanel1.setBackground(new java.awt.Color(127, 157, 177));
 
@@ -206,10 +209,10 @@ public class register extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel8)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 640, 1000, 60));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 650, 1000, 50));
 
         pack();
         setLocationRelativeTo(null);

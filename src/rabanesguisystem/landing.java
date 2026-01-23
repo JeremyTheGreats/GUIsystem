@@ -5,6 +5,8 @@
  */
 package rabanesguisystem;
 
+import javafx.scene.paint.Color;
+
 /**
  *
  * @author JeremyTheGreats
@@ -27,27 +29,50 @@ public class landing extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        body = new javax.swing.JPanel();
+        footer = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
         header = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jToggleButton1 = new javax.swing.JToggleButton();
         jToggleButton2 = new javax.swing.JToggleButton();
         l = new javax.swing.JToggleButton();
+        jPanel1 = new javax.swing.JPanel();
+        body = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jToggleButton4 = new javax.swing.JToggleButton();
-        footer = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
+        get = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        body.setBackground(new java.awt.Color(13, 59, 102));
-        body.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        footer.setBackground(new java.awt.Color(127, 157, 177));
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("© 2026 J-Tech. A Student Project by Jeremy Rabanes.");
+
+        javax.swing.GroupLayout footerLayout = new javax.swing.GroupLayout(footer);
+        footer.setLayout(footerLayout);
+        footerLayout.setHorizontalGroup(
+            footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(footerLayout.createSequentialGroup()
+                .addGap(314, 314, 314)
+                .addComponent(jLabel8)
+                .addContainerGap(346, Short.MAX_VALUE))
+        );
+        footerLayout.setVerticalGroup(
+            footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, footerLayout.createSequentialGroup()
+                .addContainerGap(12, Short.MAX_VALUE)
+                .addComponent(jLabel8)
+                .addContainerGap())
+        );
+
+        getContentPane().add(footer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 660, 1000, 40));
 
         header.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -88,94 +113,105 @@ public class landing extends javax.swing.JFrame {
         headerLayout.setHorizontalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerLayout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addGap(34, 34, 34)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 420, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 421, Short.MAX_VALUE)
                 .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(l, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                .addGap(27, 27, 27))
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerLayout.createSequentialGroup()
                 .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
                     .addGroup(headerLayout.createSequentialGroup()
-                        .addGap(23, 23, 23)
+                        .addGap(17, 17, 17)
                         .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jToggleButton1)
-                            .addComponent(jToggleButton2)
-                            .addComponent(l)
-                            .addComponent(jLabel2))))
-                .addGap(0, 11, Short.MAX_VALUE))
+                            .addComponent(jLabel2)
+                            .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jToggleButton1)
+                                .addComponent(jToggleButton2)
+                                .addComponent(l))))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 3, Short.MAX_VALUE))
         );
 
-        body.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 60));
+
+        jPanel1.setBackground(new java.awt.Color(202, 240, 248));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        body.setBackground(new java.awt.Color(13, 59, 102));
+        body.setForeground(new java.awt.Color(255, 255, 255));
+        body.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/computer-removebg-preview.png"))); // NOI18N
-        body.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 160, 520, 420));
+        body.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 60, 520, 420));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 60)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Welcome");
-        body.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 410, 190));
+        body.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, -30, 410, 190));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Whether you’re a beginner or an enthusiast, ");
-        body.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, 490, 30));
+        body.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 490, 30));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("J-Tech helps you easily find, compare, and understand PC parts.");
-        body.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, 690, 30));
+        body.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 690, 30));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("we make building the right computer simple and stress-free.");
-        body.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, 670, 40));
+        body.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 670, 40));
 
-        jToggleButton4.setBackground(new java.awt.Color(187, 188, 190));
-        jToggleButton4.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 18)); // NOI18N
-        jToggleButton4.setText("Get Started");
-        jToggleButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton4ActionPerformed(evt);
+        get.setBackground(new java.awt.Color(187, 188, 190));
+        get.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 18)); // NOI18N
+        get.setText("Get Started");
+        get.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                getMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                getMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                getMouseExited(evt);
             }
         });
-        body.add(jToggleButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 450, 180, 70));
+        get.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                getActionPerformed(evt);
+            }
+        });
+        body.add(get, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 330, 180, 70));
 
-        getContentPane().add(body, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 640));
-
-        footer.setBackground(new java.awt.Color(127, 157, 177));
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("© 2026 J-Tech. A Student Project by Jeremy Rabanes.");
-
-        javax.swing.GroupLayout footerLayout = new javax.swing.GroupLayout(footer);
-        footer.setLayout(footerLayout);
-        footerLayout.setHorizontalGroup(
-            footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(footerLayout.createSequentialGroup()
-                .addGap(311, 311, 311)
-                .addComponent(jLabel8)
-                .addContainerGap(349, Short.MAX_VALUE))
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(49, Short.MAX_VALUE)
+                .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, 910, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39))
         );
-        footerLayout.setVerticalGroup(
-            footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(footerLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel8)
-                .addContainerGap(24, Short.MAX_VALUE))
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(36, Short.MAX_VALUE)
+                .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34))
         );
 
-        getContentPane().add(footer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 640, 1000, 60));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 1000, 600));
 
         pack();
         setLocationRelativeTo(null);
@@ -199,14 +235,31 @@ public class landing extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_lActionPerformed
 
-    private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
+    private void getActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getActionPerformed
         
         register reg = new register();
         reg.setLocationRelativeTo(null);
         reg.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jToggleButton4ActionPerformed
+    }//GEN-LAST:event_getActionPerformed
 
+    private void getMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_getMouseClicked
+                
+    }//GEN-LAST:event_getMouseClicked
+
+    private void getMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_getMouseEntered
+        if (!get.isSelected()) {
+        get.setBackground(new java.awt.Color(100, 150, 255)); 
+        get.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    }
+    }//GEN-LAST:event_getMouseEntered
+
+    private void getMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_getMouseExited
+        get.setBackground(new java.awt.Color(200, 200, 200));
+        get.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+    }//GEN-LAST:event_getMouseExited
+    
     /**
      * @param args the command line arguments
      */
@@ -245,6 +298,7 @@ public class landing extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel body;
     private javax.swing.JPanel footer;
+    private javax.swing.JToggleButton get;
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -254,9 +308,9 @@ public class landing extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
-    private javax.swing.JToggleButton jToggleButton4;
     private javax.swing.JToggleButton l;
     // End of variables declaration//GEN-END:variables
 }

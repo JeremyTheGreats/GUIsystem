@@ -112,18 +112,18 @@ public class login extends javax.swing.JFrame {
             header1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(header1Layout.createSequentialGroup()
                 .addGroup(header1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
                     .addGroup(header1Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addGroup(header1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jToggleButton4)
                             .addComponent(jToggleButton5)
                             .addComponent(jToggleButton6)
-                            .addComponent(jLabel4))))
-                .addGap(0, 11, Short.MAX_VALUE))
+                            .addComponent(jLabel4)))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        body.add(header1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        body.add(header1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 60));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/login-removebg-preview.png"))); // NOI18N
         body.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 190, 500, 370));
@@ -136,29 +136,34 @@ public class login extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Email");
-        body.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, -1, -1));
+        jLabel5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        body.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(91, 260, 270, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Password");
-        body.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 350, -1, -1));
+        jLabel6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        body.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 350, 270, -1));
 
         email.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        email.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         body.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 280, 270, 40));
 
         password.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        password.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         body.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 370, 270, 40));
 
         signin.setBackground(new java.awt.Color(202, 240, 248));
         signin.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         signin.setForeground(new java.awt.Color(13, 59, 102));
         signin.setText("Sign in");
+        signin.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         signin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 signinActionPerformed(evt);
             }
         });
-        body.add(signin, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 440, 130, 40));
+        body.add(signin, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 430, 140, 40));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -176,7 +181,7 @@ public class login extends javax.swing.JFrame {
         });
         body.add(jToggleButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 580, 120, 30));
 
-        getContentPane().add(body, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 640));
+        getContentPane().add(body, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 650));
 
         footer.setBackground(new java.awt.Color(127, 157, 177));
 
@@ -189,16 +194,16 @@ public class login extends javax.swing.JFrame {
         footerLayout.setHorizontalGroup(
             footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(footerLayout.createSequentialGroup()
-                .addGap(311, 311, 311)
+                .addGap(312, 312, 312)
                 .addComponent(jLabel8)
-                .addContainerGap(349, Short.MAX_VALUE))
+                .addContainerGap(348, Short.MAX_VALUE))
         );
         footerLayout.setVerticalGroup(
             footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(footerLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, footerLayout.createSequentialGroup()
+                .addContainerGap(23, Short.MAX_VALUE)
                 .addComponent(jLabel8)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
 
         getContentPane().add(footer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 640, 1000, 60));
@@ -259,7 +264,11 @@ public class login extends javax.swing.JFrame {
                     password.setText("");
                 }
                 else{
-                    JOptionPane.showMessageDialog(null, "Hello, " + em);
+                    
+                    dashboard dash = new dashboard( (String) find.get(0).get("fullname"), em, "/image/profile.png");   
+                    dash.setVisible(true);
+                    this.dispose();
+                    
                 }
              
         }
