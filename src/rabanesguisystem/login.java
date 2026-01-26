@@ -265,7 +265,7 @@ public class login extends javax.swing.JFrame {
                 }
                 else{
                     
-                    dashboard dash = new dashboard( (String) find.get(0).get("fullname"), em, "/image/profile.png");   
+                    dashboardAdmin dash = new dashboardAdmin( (String) find.get(0).get("fullname"), em, "/image/profile.png");   
                     dash.setVisible(true);
                     this.dispose();
                     
