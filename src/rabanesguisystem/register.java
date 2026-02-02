@@ -6,6 +6,8 @@
 package rabanesguisystem;
 
 import config.config;
+import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 
 /**
@@ -250,27 +252,57 @@ public class register extends javax.swing.JFrame {
         String name = fullname.getText();
         String em = email.getText();
         String pass = password.getText();
+        
         String hash = con.hashPassword(pass);
         
-        if ( name.isEmpty() && em.isEmpty() && pass.isEmpty() ){
+        if ( name.isEmpty() || em.isEmpty() || pass.isEmpty() ){
+            
             JOptionPane.showMessageDialog(null, "Please Fill out the blanks to Register!");
 
             return;
         }
-        else{
-                    
-            String sql = "INSERT INTO user_account ( fullname, email, password ) VALUES ( ?, ?, ? )";
-
-            con.addRecord(sql, name, em, hash);
-
-            JOptionPane.showMessageDialog(null, "Register Successfully!");
-
-            login log = new login();
-            log.setLocationRelativeTo(null);
-            log.setVisible(true);
-            this.dispose();
-        }
         
+        String emailPattern = "^[A-Za-z0-9+_.-]+@(gmail\\.com|yahoo\\.com|outlook\\.com)$";
+        
+            if (!em.matches(emailPattern)) {
+                
+                JOptionPane.showMessageDialog(null,
+                    "Invalid email! Use @gmail.com, @yahoo.com, or @outlook.com only.");
+                
+                fullname.setText("");
+                email.setText("");
+                password.setText("");
+                
+                return;
+            }
+        
+        String check = " SELECT * FROM  user_account WHERE email = ?";
+        
+        List<Map<String, Object>> find = con.fetchRecords(check, em);
+        
+            if ( find.isEmpty()){
+                
+                String sql = "INSERT INTO user_account ( fullname, email, password, role, Status ) VALUES ( ?, ?, ?, ?, ? )";
+
+                con.addRecord(sql, name, em, hash, "Staff", "Pending");
+
+                JOptionPane.showMessageDialog(null, "Register Successfully!");
+
+                login log = new login();
+                log.setLocationRelativeTo(null);
+                log.setVisible(true);
+                this.dispose();
+                
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "The Email is already register. Try another email!");
+                
+                fullname.setText("");
+                email.setText("");
+                password.setText("");
+            }
+        
+            
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     /**

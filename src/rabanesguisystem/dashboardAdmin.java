@@ -5,19 +5,26 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 
 
+
 public class dashboardAdmin extends javax.swing.JFrame {
+    private String NAME;
+    private String ema;
     
      public dashboardAdmin(String username, String em, String imagePath) {
         initComponents();
         name.setText(username);
         email.setText(em);
         
+        NAME = username;
+        ema = em;
+        
+        
         ImageIcon icon = new ImageIcon(getClass().getResource(imagePath));
         Profile.setIcon(icon);
       
     }
      
-    public dashboardAdmin() {
+    private dashboardAdmin() {
         initComponents();
     }
 
@@ -124,6 +131,9 @@ public class dashboardAdmin extends javax.swing.JFrame {
 
         user.setBackground(new java.awt.Color(0, 119, 176));
         user.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                userMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 userMouseEntered(evt);
             }
@@ -513,11 +523,14 @@ public class dashboardAdmin extends javax.swing.JFrame {
 
     private void UsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsersMouseClicked
         
-        Users s = new Users();
-        s.setVisible(true);
-        this.dispose();
-        
+   
     }//GEN-LAST:event_UsersMouseClicked
+
+    private void userMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userMouseClicked
+        Users use = new Users( NAME, ema );
+        use.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_userMouseClicked
 
     
     public static void main(String args[]) {
