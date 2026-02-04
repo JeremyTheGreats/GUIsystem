@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 public class dashboardAdmin extends javax.swing.JFrame {
     private String NAME;
     private String ema;
+    private String path;
     
      public dashboardAdmin(String username, String em, String imagePath) {
         initComponents();
@@ -17,6 +18,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
         
         NAME = username;
         ema = em;
+        path = imagePath;
         
         
         ImageIcon icon = new ImageIcon(getClass().getResource(imagePath));
@@ -527,7 +529,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_UsersMouseClicked
 
     private void userMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userMouseClicked
-        Users use = new Users( NAME, ema );
+        Users use = new Users( NAME, ema, path );
         use.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_userMouseClicked

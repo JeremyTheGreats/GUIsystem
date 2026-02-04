@@ -3,16 +3,30 @@ package rabanesguisystem;
 
 import config.config;
 import java.awt.Color;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 
 public final class Users extends javax.swing.JFrame {
     
- 
-    Users( String names, String emailss) {
+    private String dis_email;
+    private String dis_name;
+    private  String dis_image;
+    
+    
+    Users( String names, String emailss, String ima) {
         initComponents();
         
         name.setText(names);
         email.setText(emailss);
+        
+        ImageIcon icon = new ImageIcon(getClass().getResource(ima));
+        profile.setIcon(icon);
+        
+        dis_name = names;
+        dis_email = emailss;
+        dis_image = ima;
+        
         display();
     }
 
@@ -24,10 +38,18 @@ public final class Users extends javax.swing.JFrame {
     void display(){
         
         config con = new config();
-        String sql = "SELECT * FROM user_account";
+        String sql = "SELECT id, fullname, email, role, Status FROM user_account";
         con.displayData(sql, table);
         
     }
+    
+    private void refreshTable() {
+        
+        config con = new config();
+        String sql = "SELECT id, fullname, email, role, Status FROM user_account";
+        con.displayData(sql, table);
+}
+
 
   
     @SuppressWarnings("unchecked")
@@ -37,7 +59,7 @@ public final class Users extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         name = new javax.swing.JLabel();
         email = new javax.swing.JLabel();
-        lblProfile = new javax.swing.JLabel();
+        profile = new javax.swing.JLabel();
         user = new javax.swing.JPanel();
         Users = new javax.swing.JLabel();
         product = new javax.swing.JPanel();
@@ -46,17 +68,16 @@ public final class Users extends javax.swing.JFrame {
         SalesReport = new javax.swing.JLabel();
         setings = new javax.swing.JPanel();
         Setings = new javax.swing.JLabel();
-        Logout = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
         body = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
-        jToggleButton1 = new javax.swing.JToggleButton();
-        jToggleButton2 = new javax.swing.JToggleButton();
-        jTextField1 = new javax.swing.JTextField();
-        jToggleButton3 = new javax.swing.JToggleButton();
+        update = new javax.swing.JToggleButton();
+        delete = new javax.swing.JToggleButton();
+        find = new javax.swing.JTextField();
+        search = new javax.swing.JToggleButton();
+        refresh = new javax.swing.JToggleButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         header1 = new javax.swing.JPanel();
@@ -87,11 +108,14 @@ public final class Users extends javax.swing.JFrame {
         email.setText("email");
         jPanel2.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 190, 23));
 
-        lblProfile.setPreferredSize(new java.awt.Dimension(100, 100));
-        jPanel2.add(lblProfile, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, -1, -1));
+        profile.setPreferredSize(new java.awt.Dimension(100, 100));
+        jPanel2.add(profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, -1, -1));
 
         user.setBackground(new java.awt.Color(0, 119, 176));
         user.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                userMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 userMouseEntered(evt);
             }
@@ -103,7 +127,7 @@ public final class Users extends javax.swing.JFrame {
         Users.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         Users.setForeground(new java.awt.Color(255, 255, 255));
         Users.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Users.setText("Users");
+        Users.setText("Dashboard");
         Users.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 UsersMouseEntered(evt);
@@ -117,7 +141,7 @@ public final class Users extends javax.swing.JFrame {
             .addGroup(userLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(Users)
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
         userLayout.setVerticalGroup(
             userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,31 +251,6 @@ public final class Users extends javax.swing.JFrame {
 
         jPanel2.add(setings, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 470, 220, 50));
 
-        Logout.setBackground(new java.awt.Color(0, 119, 176));
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("Logout");
-
-        javax.swing.GroupLayout LogoutLayout = new javax.swing.GroupLayout(Logout);
-        Logout.setLayout(LogoutLayout);
-        LogoutLayout.setHorizontalGroup(
-            LogoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LogoutLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jLabel10)
-                .addContainerGap(129, Short.MAX_VALUE))
-        );
-        LogoutLayout.setVerticalGroup(
-            LogoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LogoutLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel2.add(Logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 530, 220, -1));
-
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 230, 600));
 
         body.setBackground(new java.awt.Color(255, 255, 255));
@@ -261,8 +260,8 @@ public final class Users extends javax.swing.JFrame {
         jLabel2.setBackground(new java.awt.Color(13, 59, 102));
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(13, 59, 102));
-        jLabel2.setText("DASHBOARD");
-        body.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 170, -1));
+        jLabel2.setText("Users Account");
+        body.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 170, -1));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -278,24 +277,51 @@ public final class Users extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(table);
 
-        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 690, -1));
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 690, 430));
 
-        jToggleButton1.setText("Update");
-        jPanel3.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 120, -1));
-
-        jToggleButton2.setText("Delete");
-        jPanel3.add(jToggleButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 120, -1));
-        jPanel3.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, 270, 20));
-
-        jToggleButton3.setText("Search");
-        jToggleButton3.addActionListener(new java.awt.event.ActionListener() {
+        update.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        update.setText("Approve");
+        update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton3ActionPerformed(evt);
+                updateActionPerformed(evt);
             }
         });
-        jPanel3.add(jToggleButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 20, 70, -1));
+        jPanel3.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 120, -1));
 
-        body.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, 730, 490));
+        delete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        delete.setText("Delete");
+        delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteActionPerformed(evt);
+            }
+        });
+        jPanel3.add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 120, -1));
+
+        find.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                findActionPerformed(evt);
+            }
+        });
+        jPanel3.add(find, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, 270, 30));
+
+        search.setText("Search");
+        search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchActionPerformed(evt);
+            }
+        });
+        jPanel3.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 20, 70, -1));
+
+        refresh.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        refresh.setText("Refresh");
+        refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshActionPerformed(evt);
+            }
+        });
+        jPanel3.add(refresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 120, -1));
+
+        body.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, 730, 530));
 
         getContentPane().add(body, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 1000, 600));
 
@@ -351,7 +377,7 @@ public final class Users extends javax.swing.JFrame {
         jToggleButton6.setBackground(new java.awt.Color(255, 255, 255));
         jToggleButton6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jToggleButton6.setForeground(new java.awt.Color(13, 59, 102));
-        jToggleButton6.setText("Login");
+        jToggleButton6.setText("Log out");
         jToggleButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton6ActionPerformed(evt);
@@ -452,9 +478,109 @@ public final class Users extends javax.swing.JFrame {
         setings.setBackground(new Color(0,119,176));
     }//GEN-LAST:event_setingsMouseExited
 
-    private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformed
+    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
         
-    }//GEN-LAST:event_jToggleButton3ActionPerformed
+        String findings = find.getText();
+        
+        config con = new config();
+        String sql = "SELECT id, fullname, email, role, Status FROM user_account WHERE fullname = " + findings + " OR email = " + findings + " OR id = " + findings + " ";
+        con.displayData(sql, table);
+        
+    }//GEN-LAST:event_searchActionPerformed
+
+    private void findActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_findActionPerformed
+
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+        
+        config con = new config(); 
+
+        int row = table.getSelectedRow();
+
+            if (row < 0) {
+                JOptionPane.showMessageDialog(this, "Please select a user to delete.");
+                return;
+            }
+
+        int userId = Integer.parseInt(table.getValueAt(row, 0).toString());
+        String selectedEmail = table.getValueAt(row, 2).toString();
+        
+            if ( selectedEmail.equals(dis_email)){
+
+                JOptionPane.showMessageDialog(this, "You cannot delete your own ACCOUNT!");
+                return;
+            }
+            
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Are you sure you want to delete this user?",
+                "Confirm Delete",
+                JOptionPane.YES_NO_OPTION
+        );
+
+            if (confirm != JOptionPane.YES_OPTION) return;
+
+        try {
+            String del = "DELETE FROM user_account WHERE id = ?";
+            con.deleteRecord(del, userId);
+
+            JOptionPane.showMessageDialog(this, "Deleted successfully!");
+            refreshTable();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Delete failed: " + e.getMessage());
+        }
+    }//GEN-LAST:event_deleteActionPerformed
+
+    private void userMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userMouseClicked
+        
+        dashboardAdmin ad = new dashboardAdmin( dis_name, dis_email, dis_image);
+        ad.setVisible(true);
+        this.dispose();
+        
+    }//GEN-LAST:event_userMouseClicked
+
+    private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
+        
+        int row = table.getSelectedRow();
+
+            if (row == -1) {
+                JOptionPane.showMessageDialog(this, "Please select a user.");
+                return;
+            }
+
+        int userId = Integer.parseInt(table.getValueAt(row, 0).toString());
+        String selectedEmail = table.getValueAt(row, 2).toString();
+
+            if (selectedEmail.equals(dis_email)) {
+                JOptionPane.showMessageDialog(this, 
+                    "You cannot change your own account status.");
+                return;
+            }
+
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Are you sure you want to Approve this account?",
+                "Confirm",
+                JOptionPane.YES_NO_OPTION
+        );
+
+            if (confirm != JOptionPane.YES_OPTION) return;
+
+        config con = new config();
+        String sql = "UPDATE user_account SET Status = ? WHERE id = ?";
+        con.updateRecord(sql, "Approved", userId);
+
+        JOptionPane.showMessageDialog(this, "Account Approved successfully.");
+        
+        refreshTable();
+    }//GEN-LAST:event_updateActionPerformed
+
+    private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
+        
+        refreshTable();
+    }//GEN-LAST:event_refreshActionPerformed
 
     
     public static void main(String args[]) {
@@ -521,15 +647,15 @@ public final class Users extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Logout;
     private javax.swing.JLabel Products;
     private javax.swing.JLabel SalesReport;
     private javax.swing.JLabel Setings;
     private javax.swing.JLabel Users;
     private javax.swing.JPanel body;
+    private javax.swing.JToggleButton delete;
     private javax.swing.JLabel email;
+    private javax.swing.JTextField find;
     private javax.swing.JPanel header1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -538,19 +664,18 @@ public final class Users extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JToggleButton jToggleButton2;
-    private javax.swing.JToggleButton jToggleButton3;
     private javax.swing.JToggleButton jToggleButton4;
     private javax.swing.JToggleButton jToggleButton5;
     private javax.swing.JToggleButton jToggleButton6;
-    private javax.swing.JLabel lblProfile;
     private javax.swing.JLabel name;
     private javax.swing.JPanel product;
+    private javax.swing.JLabel profile;
+    private javax.swing.JToggleButton refresh;
     private javax.swing.JPanel salesreport;
+    private javax.swing.JToggleButton search;
     private javax.swing.JPanel setings;
     private javax.swing.JTable table;
+    private javax.swing.JToggleButton update;
     private javax.swing.JPanel user;
     // End of variables declaration//GEN-END:variables
 }

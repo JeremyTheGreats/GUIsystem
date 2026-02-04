@@ -254,7 +254,7 @@ public class login extends javax.swing.JFrame {
                     password.setText("");
                     return;
                 }
-
+               
         String role = find.get(0).get("role").toString();
         String status = find.get(0).get("Status").toString();
 
