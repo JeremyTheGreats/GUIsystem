@@ -4,16 +4,28 @@ package rabanesguisystem;
 import config.Session;
 import config.config;
 import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import static java.lang.System.in;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import org.omg.CORBA.portable.InputStream;
 
 
 
 public class EditProfile extends javax.swing.JFrame {
     
     private String selectedImagePath = null;
-
+    private String path;
     
      public EditProfile() {
         initComponents();
@@ -75,7 +87,7 @@ public class EditProfile extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        update = new javax.swing.JToggleButton();
         Pic = new javax.swing.JLabel();
         changepic = new javax.swing.JToggleButton();
         conformpass = new javax.swing.JPasswordField();
@@ -122,10 +134,10 @@ public class EditProfile extends javax.swing.JFrame {
                 editMouseExited(evt);
             }
         });
-        jPanel2.add(edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 100, 100));
+        jPanel2.add(edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, 110, 100));
 
         Profile.setPreferredSize(new java.awt.Dimension(100, 100));
-        jPanel2.add(Profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, -1, 100));
+        jPanel2.add(Profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, 110, 100));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -312,14 +324,14 @@ public class EditProfile extends javax.swing.JFrame {
         jLabel9.setText("Password");
         body.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 250, 80, 20));
 
-        jToggleButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jToggleButton1.setText("Update");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+        update.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        update.setText("Update");
+        update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
+                updateActionPerformed(evt);
             }
         });
-        body.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 470, 170, 40));
+        body.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 470, 170, 40));
 
         Pic.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Pic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/profile.png"))); // NOI18N
@@ -455,9 +467,24 @@ public class EditProfile extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_LogoutActionPerformed
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
+    private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
+        
+        config con = new config();
+        Session ses = Session.getInstance();
+
+        String sql = "UPDATE user_account SET fullname = ?, email = ?, ImagePath = ? WHERE id = ?";
+
+        con.updateRecord(sql,
+                fullname.getText(),
+                email.getText(),
+                path,
+                ses.getId()
+        );
+
+        JOptionPane.showMessageDialog(this, "Profile updated!");
+        
+        
+    }//GEN-LAST:event_updateActionPerformed
 
     private void salesreportMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreportMouseExited
         salesreport.setBackground(new Color(0,119,176));
@@ -522,10 +549,43 @@ public class EditProfile extends javax.swing.JFrame {
     private void changepicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changepicActionPerformed
        
         JFileChooser chooser = new JFileChooser();
-        
-        chooser.setFileFilter( new javax.swing.filechooser.FileNameExtensionFilter("Image Files", "jpg", "jpeg", "png"));
-        
         int result = chooser.showOpenDialog(this);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+
+            File f = chooser.getSelectedFile();
+
+            try {
+
+                BufferedImage original = ImageIO.read(f);
+
+
+                Image img = original.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+                BufferedImage resized = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
+
+                Graphics2D g2d = resized.createGraphics();
+                g2d.drawImage(img, 0, 0, 100, 100, null);
+                g2d.dispose();
+
+
+                File dir = new File("src/image");
+                if (!dir.exists()) {
+                    dir.mkdirs();
+                }
+
+
+                String fileName = "profile_" + System.currentTimeMillis() + ".png";
+                File savedFile = new File(dir, fileName);
+                ImageIO.write(resized, "png", savedFile);
+
+                path = "image/" + fileName;
+
+                Pic.setIcon(new ImageIcon(resized));
+
+            } catch (IOException ex) {
+                Logger.getLogger(EditProfile.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         
         
         
@@ -598,7 +658,6 @@ public class EditProfile extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton4;
     private javax.swing.JToggleButton jToggleButton5;
     private javax.swing.JLabel name;
@@ -606,6 +665,7 @@ public class EditProfile extends javax.swing.JFrame {
     private javax.swing.JPanel product;
     private javax.swing.JPanel salesreport;
     private javax.swing.JPanel setings;
+    private javax.swing.JToggleButton update;
     private javax.swing.JPanel user;
     // End of variables declaration//GEN-END:variables
 }
