@@ -1,6 +1,7 @@
 
 package rabanesguisystem;
 
+import config.Session;
 import config.config;
 import java.awt.Color;
 import javax.swing.ImageIcon;
@@ -9,30 +10,24 @@ import javax.swing.JOptionPane;
 
 public final class Users extends javax.swing.JFrame {
     
-    private String dis_email;
-    private String dis_name;
-    private  String dis_image;
     
-    
-    Users( String names, String emailss, String ima) {
+    public Users() {
         initComponents();
         
-        name.setText(names);
-        email.setText(emailss);
+        Session s = Session.getInstance();
+            
+        if ( s.getEmail() == null ){
+            
+            JOptionPane.showMessageDialog(this, "Please Log in First to proceed!");
+        }
         
-        ImageIcon icon = new ImageIcon(getClass().getResource(ima));
-        profile.setIcon(icon);
+        name.setText(s.getFullname());
+        email.setText(s.getEmail());
         
-        dis_name = names;
-        dis_email = emailss;
-        dis_image = ima;
+        ImageIcon icon = new ImageIcon(getClass().getResource(s.getImagePath()));
+        Profile.setIcon(icon);
         
         display();
-    }
-
-    private Users() {
-        initComponents();
-        
     }
 
     void display(){
@@ -59,7 +54,9 @@ public final class Users extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         name = new javax.swing.JLabel();
         email = new javax.swing.JLabel();
-        profile = new javax.swing.JLabel();
+        edit1 = new javax.swing.JLabel();
+        Profile = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         user = new javax.swing.JPanel();
         Users = new javax.swing.JLabel();
         product = new javax.swing.JPanel();
@@ -77,7 +74,8 @@ public final class Users extends javax.swing.JFrame {
         delete = new javax.swing.JToggleButton();
         find = new javax.swing.JTextField();
         search = new javax.swing.JToggleButton();
-        refresh = new javax.swing.JToggleButton();
+        Edit = new javax.swing.JToggleButton();
+        refresh1 = new javax.swing.JToggleButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         header1 = new javax.swing.JPanel();
@@ -99,17 +97,35 @@ public final class Users extends javax.swing.JFrame {
         name.setText("User");
         name.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         name.setName("name"); // NOI18N
-        jPanel2.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 190, 37));
-        name.getAccessibleContext().setAccessibleName("lblUser");
-        name.getAccessibleContext().setAccessibleDescription("User");
+        jPanel2.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 190, 37));
 
         email.setForeground(new java.awt.Color(255, 255, 255));
         email.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         email.setText("email");
-        jPanel2.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 190, 23));
+        jPanel2.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 230, 23));
 
-        profile.setPreferredSize(new java.awt.Dimension(100, 100));
-        jPanel2.add(profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, -1, -1));
+        edit1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        edit1.setForeground(new java.awt.Color(255, 255, 255));
+        edit1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        edit1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        edit1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                edit1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                edit1MouseExited(evt);
+            }
+        });
+        jPanel2.add(edit1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 100, 100));
+
+        Profile.setPreferredSize(new java.awt.Dimension(100, 100));
+        jPanel2.add(Profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, -1, 100));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Admin");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 150, 30));
 
         user.setBackground(new java.awt.Color(0, 119, 176));
         user.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -231,7 +247,7 @@ public final class Users extends javax.swing.JFrame {
         Setings.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         Setings.setForeground(new java.awt.Color(255, 255, 255));
         Setings.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Setings.setText("Setings");
+        Setings.setText("Edit Profile");
 
         javax.swing.GroupLayout setingsLayout = new javax.swing.GroupLayout(setings);
         setings.setLayout(setingsLayout);
@@ -240,7 +256,7 @@ public final class Users extends javax.swing.JFrame {
             .addGroup(setingsLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(Setings)
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
         setingsLayout.setVerticalGroup(
             setingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,7 +302,7 @@ public final class Users extends javax.swing.JFrame {
                 updateActionPerformed(evt);
             }
         });
-        jPanel3.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 120, -1));
+        jPanel3.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 120, -1));
 
         delete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         delete.setText("Delete");
@@ -295,7 +311,7 @@ public final class Users extends javax.swing.JFrame {
                 deleteActionPerformed(evt);
             }
         });
-        jPanel3.add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 120, -1));
+        jPanel3.add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 120, -1));
 
         find.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -307,7 +323,7 @@ public final class Users extends javax.swing.JFrame {
                 findKeyTyped(evt);
             }
         });
-        jPanel3.add(find, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, 270, 30));
+        jPanel3.add(find, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, 270, 30));
 
         search.setText("Search");
         search.addActionListener(new java.awt.event.ActionListener() {
@@ -315,16 +331,25 @@ public final class Users extends javax.swing.JFrame {
                 searchActionPerformed(evt);
             }
         });
-        jPanel3.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 20, 70, -1));
+        jPanel3.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 30, 80, 30));
 
-        refresh.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        refresh.setText("Refresh");
-        refresh.addActionListener(new java.awt.event.ActionListener() {
+        Edit.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        Edit.setText("Refresh");
+        Edit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refreshActionPerformed(evt);
+                EditActionPerformed(evt);
             }
         });
-        jPanel3.add(refresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 120, -1));
+        jPanel3.add(Edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 120, -1));
+
+        refresh1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        refresh1.setText("Edit Profile");
+        refresh1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refresh1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(refresh1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 120, -1));
 
         body.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, 730, 530));
 
@@ -500,7 +525,8 @@ public final class Users extends javax.swing.JFrame {
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         
         config con = new config(); 
-
+        Session s = Session.getInstance();
+        
         int row = table.getSelectedRow();
 
             if (row < 0) {
@@ -511,7 +537,7 @@ public final class Users extends javax.swing.JFrame {
         int userId = Integer.parseInt(table.getValueAt(row, 0).toString());
         String selectedEmail = table.getValueAt(row, 2).toString();
         
-            if ( selectedEmail.equals(dis_email)){
+            if ( selectedEmail.equals(s.getEmail())){
 
                 JOptionPane.showMessageDialog(this, "You cannot delete your own ACCOUNT!");
                 return;
@@ -540,13 +566,15 @@ public final class Users extends javax.swing.JFrame {
 
     private void userMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userMouseClicked
         
-        dashboardAdmin ad = new dashboardAdmin( dis_name, dis_email, dis_image);
+        dashboardAdmin ad = new dashboardAdmin();
         ad.setVisible(true);
         this.dispose();
         
     }//GEN-LAST:event_userMouseClicked
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
+        
+        Session s = Session.getInstance();
         
         int row = table.getSelectedRow();
 
@@ -556,12 +584,22 @@ public final class Users extends javax.swing.JFrame {
             }
 
         int userId = Integer.parseInt(table.getValueAt(row, 0).toString());
+        
         String selectedEmail = table.getValueAt(row, 2).toString();
-
-            if (selectedEmail.equals(dis_email)) {
+           
+            if (selectedEmail.equals(s.getEmail())) {
                 JOptionPane.showMessageDialog(this, 
                     "You cannot change your own account status.");
                 return;
+            }
+            
+        String selectedStatus = table.getValueAt(row, 4).toString();
+
+            if ( selectedStatus.equals("Approved")){
+                JOptionPane.showMessageDialog(this, 
+                    "The user you selected is already Approved!");
+                return;
+                
             }
 
         int confirm = JOptionPane.showConfirmDialog(
@@ -582,10 +620,10 @@ public final class Users extends javax.swing.JFrame {
         refreshTable();
     }//GEN-LAST:event_updateActionPerformed
 
-    private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
+    private void EditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditActionPerformed
         
         refreshTable();
-    }//GEN-LAST:event_refreshActionPerformed
+    }//GEN-LAST:event_EditActionPerformed
 
     private void findKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_findKeyTyped
         
@@ -597,6 +635,18 @@ public final class Users extends javax.swing.JFrame {
         con.displayData(sql, table, "%" +findings + "%", "%" +findings + "%" , "%" +findings + "%");
         
     }//GEN-LAST:event_findKeyTyped
+
+    private void edit1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_edit1MouseEntered
+        edit1.setText("EDIT");
+    }//GEN-LAST:event_edit1MouseEntered
+
+    private void edit1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_edit1MouseExited
+        edit1.setText("");
+    }//GEN-LAST:event_edit1MouseExited
+
+    private void refresh1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refresh1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_refresh1ActionPerformed
 
     
     public static void main(String args[]) {
@@ -663,15 +713,19 @@ public final class Users extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton Edit;
     private javax.swing.JLabel Products;
+    private javax.swing.JLabel Profile;
     private javax.swing.JLabel SalesReport;
     private javax.swing.JLabel Setings;
     private javax.swing.JLabel Users;
     private javax.swing.JPanel body;
     private javax.swing.JToggleButton delete;
+    private javax.swing.JLabel edit1;
     private javax.swing.JLabel email;
     private javax.swing.JTextField find;
     private javax.swing.JPanel header1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -685,8 +739,7 @@ public final class Users extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButton6;
     private javax.swing.JLabel name;
     private javax.swing.JPanel product;
-    private javax.swing.JLabel profile;
-    private javax.swing.JToggleButton refresh;
+    private javax.swing.JToggleButton refresh1;
     private javax.swing.JPanel salesreport;
     private javax.swing.JToggleButton search;
     private javax.swing.JPanel setings;

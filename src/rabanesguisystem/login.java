@@ -1,6 +1,7 @@
 
 package rabanesguisystem;
 
+import config.Session;
 import config.config;
 import java.util.List;
 import java.util.Map;
@@ -231,6 +232,7 @@ public class login extends javax.swing.JFrame {
         String pass = password.getText();
         String hash = con.hashPassword(pass);
         
+        
         if ( em.isEmpty() || pass.isEmpty() ){
             
             JOptionPane.showMessageDialog(null, "Enter the email & password to proceed!");
@@ -240,52 +242,53 @@ public class login extends javax.swing.JFrame {
             
             return;
         }
-        else{
+        
+        String sql = "SELECT * FROM user_account WHERE email = ? AND password = ? ";
+        
+        List<Map<String, Object>> find = con.fetchRecords(sql, em, hash);
             
-            String sql = "SELECT * FROM user_account WHERE email = ? AND password = ?";
-            
-            List<Map<String, Object>> find = con.fetchRecords(sql, em, hash);
+            if (find.isEmpty()) {
 
-                if (find.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Email or Password is wrong! Try again");
 
-                    JOptionPane.showMessageDialog(null, "Email or Password is wrong! Try again");
+                email.setText("");
+                password.setText("");
 
-                    email.setText("");
-                    password.setText("");
-                    return;
-                }
-               
-        String role = find.get(0).get("role").toString();
-        String status = find.get(0).get("Status").toString();
+                return;
+            }
+        
+        Session ses = Session.getInstance();
+        
+        ses.setId((int) find.get(0).get("id"));
+        ses.setFullname(find.get(0).get("fullname").toString());
+        ses.setEmail(find.get(0).get("email").toString());
+        ses.setRole(find.get(0).get("role").toString());
+        ses.setStatus(find.get(0).get("Status").toString());
+        ses.setImagePath(find.get(0).get("ImagePath").toString());
+        
+        if (ses.getRole().equalsIgnoreCase("Admin")) {
 
-            if (role.equals("Admin")) {
+            dashboardAdmin dash = new dashboardAdmin();
+            dash.setVisible(true);
+            this.dispose();
 
-                dashboardAdmin dash = new dashboardAdmin(
-                    (String) find.get(0).get("fullname"), 
-                    em, 
-                    "/image/profile.png"
-                );
-                dash.setVisible(true);
+        } 
+        else if (ses.getRole().equalsIgnoreCase("Staff")) {
+
+            if (ses.getStatus().equalsIgnoreCase("Approved")) {
+
+                Staff staff = new Staff();
+                staff.setVisible(true);
                 this.dispose();
 
-            } else {
-
-                if (status.equals("Approved")) {
-
-                    Staff sta = new Staff(
-                        (String) find.get(0).get("fullname"), 
-                        em, 
-                        "/image/profile.png"
-                    );
-                    sta.setVisible(true);
-                    this.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Your account is not approved yet.");
-                }
+            } 
+            else {
+                JOptionPane.showMessageDialog(null, "Your account is not approved yet.");
             }
-
-             
+ 
         }
+        
+        
     }//GEN-LAST:event_signinActionPerformed
 
     /**

@@ -12,8 +12,9 @@ public class Session {
     private String email;
     private String role;
     private String status;
+    private String ImagePath;
     
-        private Session (){
+        public Session (){
 
         }
         
@@ -65,6 +66,22 @@ public class Session {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public String getImagePath() {
+        return ImagePath;
+    }
+
+    public void setImagePath(String ImagePath) {
+        this.ImagePath = ImagePath;
+    }
+    
+    public static void destroy (){
+        
+        instance = null;
+    }
+    
+
+    
         
     
     

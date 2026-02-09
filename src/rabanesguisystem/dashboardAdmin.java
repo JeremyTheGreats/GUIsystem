@@ -1,34 +1,33 @@
 
 package rabanesguisystem;
 
+import config.Session;
 import java.awt.Color;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 
 
 public class dashboardAdmin extends javax.swing.JFrame {
-    private String NAME;
-    private String ema;
-    private String path;
     
-     public dashboardAdmin(String username, String em, String imagePath) {
+     public dashboardAdmin() {
         initComponents();
-        name.setText(username);
-        email.setText(em);
         
-        NAME = username;
-        ema = em;
-        path = imagePath;
+        Session s = Session.getInstance();
         
-        
-        ImageIcon icon = new ImageIcon(getClass().getResource(imagePath));
+            if (s.getEmail() == null ){
+                
+                JOptionPane.showMessageDialog(this, "Please Log in First to proceed!");
+            }
+        name.setText(s.getFullname());
+        email.setText(s.getEmail());
+       
+        ImageIcon icon = new ImageIcon(getClass().getResource(s.getImagePath()));
         Profile.setIcon(icon);
       
     }
      
-    private dashboardAdmin() {
-        initComponents();
-    }
+    
 
   
     @SuppressWarnings("unchecked")
@@ -38,6 +37,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         name = new javax.swing.JLabel();
         email = new javax.swing.JLabel();
+        edit = new javax.swing.JLabel();
         Profile = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         setings = new javax.swing.JPanel();
@@ -66,7 +66,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jToggleButton4 = new javax.swing.JToggleButton();
         jToggleButton5 = new javax.swing.JToggleButton();
-        jToggleButton6 = new javax.swing.JToggleButton();
+        Logout = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -89,8 +89,22 @@ public class dashboardAdmin extends javax.swing.JFrame {
         email.setText("email");
         jPanel2.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 230, 23));
 
+        edit.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        edit.setForeground(new java.awt.Color(255, 255, 255));
+        edit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        edit.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        edit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                editMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                editMouseExited(evt);
+            }
+        });
+        jPanel2.add(edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 100, 100));
+
         Profile.setPreferredSize(new java.awt.Dimension(100, 100));
-        jPanel2.add(Profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, -1, -1));
+        jPanel2.add(Profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, -1, 100));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -111,7 +125,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
         Setings.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         Setings.setForeground(new java.awt.Color(255, 255, 255));
         Setings.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Setings.setText("Setings");
+        Setings.setText("Edit Profile");
 
         javax.swing.GroupLayout setingsLayout = new javax.swing.GroupLayout(setings);
         setings.setLayout(setingsLayout);
@@ -120,7 +134,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
             .addGroup(setingsLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(Setings)
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
         setingsLayout.setVerticalGroup(
             setingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -419,13 +433,13 @@ public class dashboardAdmin extends javax.swing.JFrame {
         jToggleButton5.setForeground(new java.awt.Color(13, 59, 102));
         jToggleButton5.setText("About Us");
 
-        jToggleButton6.setBackground(new java.awt.Color(255, 255, 255));
-        jToggleButton6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jToggleButton6.setForeground(new java.awt.Color(13, 59, 102));
-        jToggleButton6.setText("Log out");
-        jToggleButton6.addActionListener(new java.awt.event.ActionListener() {
+        Logout.setBackground(new java.awt.Color(255, 255, 255));
+        Logout.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        Logout.setForeground(new java.awt.Color(13, 59, 102));
+        Logout.setText("Log out");
+        Logout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton6ActionPerformed(evt);
+                LogoutActionPerformed(evt);
             }
         });
 
@@ -443,7 +457,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jToggleButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToggleButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Logout, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
         );
         header1Layout.setVerticalGroup(
@@ -455,7 +469,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
                         .addGroup(header1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jToggleButton4)
                             .addComponent(jToggleButton5)
-                            .addComponent(jToggleButton6)))
+                            .addComponent(Logout)))
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(header1Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
@@ -477,13 +491,14 @@ public class dashboardAdmin extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jToggleButton4ActionPerformed
 
-    private void jToggleButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton6ActionPerformed
-
+    private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
+        
         login log = new login();
         log.setLocationRelativeTo(null);
         log.setVisible(true);
+        Session.destroy();
         this.dispose();
-    }//GEN-LAST:event_jToggleButton6ActionPerformed
+    }//GEN-LAST:event_LogoutActionPerformed
 
     private void UsersMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsersMouseEntered
        
@@ -529,10 +544,18 @@ public class dashboardAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_UsersMouseClicked
 
     private void userMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userMouseClicked
-        Users use = new Users( NAME, ema, path );
+        Users use = new Users( );
         use.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_userMouseClicked
+
+    private void editMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseEntered
+        edit.setText("EDIT");
+    }//GEN-LAST:event_editMouseEntered
+
+    private void editMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseExited
+        edit.setText("");
+    }//GEN-LAST:event_editMouseExited
 
     
     public static void main(String args[]) {
@@ -571,12 +594,14 @@ public class dashboardAdmin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton Logout;
     private javax.swing.JLabel Products;
     private javax.swing.JLabel Profile;
     private javax.swing.JLabel SalesReport;
     private javax.swing.JLabel Setings;
     private javax.swing.JLabel Users;
     private javax.swing.JPanel body;
+    private javax.swing.JLabel edit;
     private javax.swing.JLabel email;
     private javax.swing.JPanel header1;
     private javax.swing.JLabel jLabel1;
@@ -597,7 +622,6 @@ public class dashboardAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JToggleButton jToggleButton4;
     private javax.swing.JToggleButton jToggleButton5;
-    private javax.swing.JToggleButton jToggleButton6;
     private javax.swing.JLabel name;
     private javax.swing.JPanel product;
     private javax.swing.JPanel salesreport;

@@ -282,9 +282,9 @@ public class register extends javax.swing.JFrame {
         
             if ( find.isEmpty()){
                 
-                String sql = "INSERT INTO user_account ( fullname, email, password, role, Status ) VALUES ( ?, ?, ?, ?, ? )";
+                String sql = "INSERT INTO user_account ( fullname, email, password, role, Status, ImagePath ) VALUES ( ?, ?, ?, ?, ?, ? )";
 
-                con.addRecord(sql, name, em, hash, "Staff", "Pending");
+                con.addRecord(sql, name, em, hash, "Staff", "Pending", "/image/profile.png");
 
                 JOptionPane.showMessageDialog(null, "Register Successfully!");
 
