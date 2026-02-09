@@ -302,6 +302,11 @@ public final class Users extends javax.swing.JFrame {
                 findActionPerformed(evt);
             }
         });
+        find.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                findKeyTyped(evt);
+            }
+        });
         jPanel3.add(find, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, 270, 30));
 
         search.setText("Search");
@@ -483,7 +488,7 @@ public final class Users extends javax.swing.JFrame {
         String findings = find.getText();
         
         config con = new config();
-        String sql = "SELECT id, fullname, email, role, Status FROM user_account WHERE fullname = " + findings + " OR email = " + findings + " OR id = " + findings + " ";
+        String sql = "SELECT id, fullname, email, role, Status FROM user_account WHERE fullname = '" + findings + "' OR email = '" + findings + "' OR id = '" + findings + "' ";
         con.displayData(sql, table);
         
     }//GEN-LAST:event_searchActionPerformed
@@ -581,6 +586,17 @@ public final class Users extends javax.swing.JFrame {
         
         refreshTable();
     }//GEN-LAST:event_refreshActionPerformed
+
+    private void findKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_findKeyTyped
+        
+        String findings = find.getText();
+        
+        config con = new config();
+        String sql = "SELECT id, fullname, email, role, Status FROM user_account WHERE fullname LIKE ? OR email LIKE ? OR id LIKE ? ";
+        
+        con.displayData(sql, table, "%" +findings + "%", "%" +findings + "%" , "%" +findings + "%");
+        
+    }//GEN-LAST:event_findKeyTyped
 
     
     public static void main(String args[]) {
