@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import javax.swing.ImageIcon;
 import net.proteanit.sql.DbUtils;
 
 public class config {
@@ -205,6 +206,31 @@ public void displayData(String sql, javax.swing.JTable table, Object... values) 
         System.out.println("Error filtering data: " + e.getMessage());
     }
 }
+
+public void setProfileIcon(javax.swing.JLabel label, String path) {
+    try {
+        if (path == null || path.trim().isEmpty()) {
+            label.setIcon(new ImageIcon(getClass().getResource("/image/profile.png")));
+            return;
+        }
+
+        java.io.File f = new java.io.File(path);
+        if (f.exists()) {
+            label.setIcon(new ImageIcon(path)); // file path
+            return;
+        }
+
+        java.net.URL url = getClass().getResource(path.startsWith("/") ? path : "/" + path);
+        if (url != null) {
+            label.setIcon(new ImageIcon(url)); // resource path
+        } else {
+            label.setIcon(new ImageIcon(getClass().getResource("/image/profile.png")));
+        }
+    } catch (Exception e) {
+        label.setIcon(new ImageIcon(getClass().getResource("/image/profile.png")));
+    }
+}
+
 
 
 

@@ -2,28 +2,47 @@
 package rabanesguisystem;
 
 import config.Session;
+import config.config;
 import java.awt.Color;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 
 
 public class EditProfile extends javax.swing.JFrame {
     
+    private String selectedImagePath = null;
+
+    
      public EditProfile() {
         initComponents();
         
+        config con = new config();
         Session s = Session.getInstance();
         
             if (s.getEmail() == null ){
                 
                 JOptionPane.showMessageDialog(this, "Please Log in First to proceed!");
+                
+                login log = new login();
+                log.setVisible(true);
+                this.dispose();
+                
+                return;
             }
+            
         name.setText(s.getFullname());
         email.setText(s.getEmail());
-       
-        ImageIcon icon = new ImageIcon(getClass().getResource(s.getImagePath()));
-        Profile.setIcon(icon);
+
+        emailField.setEditable(false);
+        emailField.setBackground(new Color(230,230,230));
+        
+        fullname.setText(s.getFullname());
+        emailField.setText(s.getEmail());
+        
+        con.setProfileIcon(Pic, s.getImagePath());
+        con.setProfileIcon(Profile, s.getImagePath());
       
     }
      
@@ -50,15 +69,17 @@ public class EditProfile extends javax.swing.JFrame {
         SalesReport = new javax.swing.JLabel();
         body = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        fullname = new javax.swing.JTextField();
+        emailField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jToggleButton1 = new javax.swing.JToggleButton();
+        Pic = new javax.swing.JLabel();
+        changepic = new javax.swing.JToggleButton();
+        conformpass = new javax.swing.JPasswordField();
+        password = new javax.swing.JPasswordField();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         header1 = new javax.swing.JPanel();
@@ -266,14 +287,18 @@ public class EditProfile extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(13, 59, 102));
         jLabel2.setText("Edit Profile");
         body.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 170, -1));
-        body.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 360, 260, 40));
-        body.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 260, 40));
-        body.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 190, 260, 40));
-        body.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, 260, 40));
+
+        fullname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fullnameActionPerformed(evt);
+            }
+        });
+        body.add(fullname, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 260, 40));
+        body.add(emailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 190, 260, 40));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel5.setText("jLabel5");
-        body.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 80, 20));
+        jLabel5.setText("Conform Password");
+        body.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 150, 20));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Full name");
@@ -295,6 +320,22 @@ public class EditProfile extends javax.swing.JFrame {
             }
         });
         body.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 470, 170, 40));
+
+        Pic.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Pic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/profile.png"))); // NOI18N
+        Pic.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        Pic.setPreferredSize(new java.awt.Dimension(100, 100));
+        body.add(Pic, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 150, 160, 140));
+
+        changepic.setText("Change Picture");
+        changepic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changepicActionPerformed(evt);
+            }
+        });
+        body.add(changepic, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 310, 120, 40));
+        body.add(conformpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 360, 260, 40));
+        body.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, 260, 40));
 
         getContentPane().add(body, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 1000, 600));
 
@@ -474,6 +515,22 @@ public class EditProfile extends javax.swing.JFrame {
         edit.setText("EDIT");
     }//GEN-LAST:event_editMouseEntered
 
+    private void fullnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fullnameActionPerformed
+        
+    }//GEN-LAST:event_fullnameActionPerformed
+
+    private void changepicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changepicActionPerformed
+       
+        JFileChooser chooser = new JFileChooser();
+        
+        chooser.setFileFilter( new javax.swing.filechooser.FileNameExtensionFilter("Image Files", "jpg", "jpeg", "png"));
+        
+        int result = chooser.showOpenDialog(this);
+        
+        
+        
+    }//GEN-LAST:event_changepicActionPerformed
+
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -516,14 +573,19 @@ public class EditProfile extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton Logout;
+    private javax.swing.JLabel Pic;
     private javax.swing.JLabel Products;
     private javax.swing.JLabel Profile;
     private javax.swing.JLabel SalesReport;
     private javax.swing.JLabel Setings;
     private javax.swing.JLabel Users;
     private javax.swing.JPanel body;
+    private javax.swing.JToggleButton changepic;
+    private javax.swing.JPasswordField conformpass;
     private javax.swing.JLabel edit;
     private javax.swing.JLabel email;
+    private javax.swing.JTextField emailField;
+    private javax.swing.JTextField fullname;
     private javax.swing.JPanel header1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -536,14 +598,11 @@ public class EditProfile extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton4;
     private javax.swing.JToggleButton jToggleButton5;
     private javax.swing.JLabel name;
+    private javax.swing.JPasswordField password;
     private javax.swing.JPanel product;
     private javax.swing.JPanel salesreport;
     private javax.swing.JPanel setings;

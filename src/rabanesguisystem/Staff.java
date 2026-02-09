@@ -2,8 +2,9 @@
 package rabanesguisystem;
 
 import config.Session;
+import config.config;
 import java.awt.Color;
-import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 
 
@@ -12,12 +13,23 @@ public class Staff extends javax.swing.JFrame {
      public Staff() {
         initComponents();
         
+        config con = new config();
         Session s = Session.getInstance();
+        
+            if (s.getEmail() == null ){
+                
+                JOptionPane.showMessageDialog(null, "Please Log in First to proceed!");
+                
+                login log = new login();
+                log.setVisible(true);
+                this.dispose();
+ 
+            }
+        
         name.setText(s.getFullname());
         email.setText(s.getEmail());
 
-        ImageIcon icon = new ImageIcon(getClass().getResource(s.getImagePath()));
-        Profile.setIcon(icon);
+        con.setProfileIcon(Profile, s.getImagePath());
       
     }
      

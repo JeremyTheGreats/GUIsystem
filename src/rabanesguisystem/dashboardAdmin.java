@@ -2,6 +2,7 @@
 package rabanesguisystem;
 
 import config.Session;
+import config.config;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -14,16 +15,23 @@ public class dashboardAdmin extends javax.swing.JFrame {
         initComponents();
         
         Session s = Session.getInstance();
+        config con = new config();
         
             if (s.getEmail() == null ){
                 
-                JOptionPane.showMessageDialog(this, "Please Log in First to proceed!");
+                JOptionPane.showMessageDialog(null, "Please Log in First to proceed!");
+                
+                login log = new login();
+                log.setVisible(true);
+                this.dispose();
+ 
             }
+            
         name.setText(s.getFullname());
         email.setText(s.getEmail());
        
-        ImageIcon icon = new ImageIcon(getClass().getResource(s.getImagePath()));
-        Profile.setIcon(icon);
+        
+        con.setProfileIcon(Profile, s.getImagePath());
       
     }
      
@@ -94,6 +102,9 @@ public class dashboardAdmin extends javax.swing.JFrame {
         edit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         edit.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         edit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 editMouseEntered(evt);
             }
@@ -556,6 +567,13 @@ public class dashboardAdmin extends javax.swing.JFrame {
     private void editMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseExited
         edit.setText("");
     }//GEN-LAST:event_editMouseExited
+
+    private void editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseClicked
+       
+        EditProfile edit = new EditProfile();
+        edit.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_editMouseClicked
 
     
     public static void main(String args[]) {
