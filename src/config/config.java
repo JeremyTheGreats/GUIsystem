@@ -2,6 +2,7 @@
 
 package config;
 
+import java.awt.Image;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -230,6 +231,16 @@ public void setProfileIcon(javax.swing.JLabel label, String path) {
         label.setIcon(new ImageIcon(getClass().getResource("/image/profile.png")));
     }
 }
+
+public ImageIcon resizeImage(String path) {
+
+    ImageIcon icon = new ImageIcon(path);
+    Image img = icon.getImage();
+    Image scaled = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+
+    return new ImageIcon(scaled);
+}
+
 
 
 

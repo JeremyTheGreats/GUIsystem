@@ -1,6 +1,7 @@
 
 package rabanesguisystem;
 
+import Build.Parts;
 import config.Session;
 import config.config;
 import java.awt.Color;
@@ -54,14 +55,7 @@ public class Staff extends javax.swing.JFrame {
         body = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         header1 = new javax.swing.JPanel();
@@ -150,6 +144,9 @@ public class Staff extends javax.swing.JFrame {
 
         product.setBackground(new java.awt.Color(0, 119, 176));
         product.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                productMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 productMouseEntered(evt);
             }
@@ -161,7 +158,7 @@ public class Staff extends javax.swing.JFrame {
         Products.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         Products.setForeground(new java.awt.Color(255, 255, 255));
         Products.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Products.setText("Products");
+        Products.setText("Sale a Product");
 
         javax.swing.GroupLayout productLayout = new javax.swing.GroupLayout(product);
         product.setLayout(productLayout);
@@ -170,7 +167,7 @@ public class Staff extends javax.swing.JFrame {
             .addGroup(productLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(Products)
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
         productLayout.setVerticalGroup(
             productLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,114 +226,31 @@ public class Staff extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel9.setText("Total Users :");
-
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("64");
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE))
-                .addContainerGap())
+            .addGap(0, 348, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel9)
-                .addGap(35, 35, 35)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
+            .addGap(0, 178, Short.MAX_VALUE)
         );
 
         body.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, 350, 180));
 
-        jPanel4.setBackground(new java.awt.Color(13, 59, 102));
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 140, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 130, Short.MAX_VALUE)
-        );
-
-        body.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 330, 140, 130));
-
-        jPanel5.setBackground(new java.awt.Color(13, 59, 102));
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 140, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 130, Short.MAX_VALUE)
-        );
-
-        body.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 330, 140, 130));
-
-        jPanel6.setBackground(new java.awt.Color(13, 59, 102));
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 140, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 130, Short.MAX_VALUE)
-        );
-
-        body.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 330, 140, 130));
-
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
         jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel6.setText("Total Sales : ");
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("1,543,135.12 ");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE))
-                .addContainerGap())
+            .addGap(0, 338, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel6)
-                .addGap(35, 35, 35)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
+            .addGap(0, 178, Short.MAX_VALUE)
         );
 
         body.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 60, 340, 180));
@@ -491,6 +405,13 @@ public class Staff extends javax.swing.JFrame {
         edit.setText("");
     }//GEN-LAST:event_editMouseExited
 
+    private void productMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productMouseClicked
+        
+        ComputerSets sale = new ComputerSets();
+        sale.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_productMouseClicked
+
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -550,20 +471,13 @@ public class Staff extends javax.swing.JFrame {
     private javax.swing.JLabel email;
     private javax.swing.JPanel header1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JToggleButton jToggleButton4;
     private javax.swing.JToggleButton jToggleButton5;
