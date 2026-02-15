@@ -5,9 +5,9 @@ import config.Session;
 import config.config;
 import java.awt.Color;
 import javax.swing.JOptionPane;
-import rabanesguisystem.ComputerSets;
-import rabanesguisystem.landing;
-import rabanesguisystem.login;
+import StaffFuction.ComputerSets;
+import Main.landing;
+import Main.login;
 
 
 
