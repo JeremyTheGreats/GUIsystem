@@ -35,17 +35,7 @@ public class EditStaff extends javax.swing.JFrame {
         config con = new config();
         Session s = Session.getInstance();
         
-            if (s.getEmail() == null ){
-                
-                JOptionPane.showMessageDialog(this, "Please Log in First to proceed!");
-                
-                login log = new login();
-                log.setVisible(true);
-                this.dispose();
-                
-                return;
-            }
-            
+           
         name.setText(s.getFullname());
         email.setText(s.getEmail());
 
@@ -58,6 +48,20 @@ public class EditStaff extends javax.swing.JFrame {
         con.setProfileIcon(Pic, s.getImagePath());
         con.setProfileIcon(Profile, s.getImagePath());
       
+    }
+     
+     public void getdata(){
+    
+        Session s = Session.getInstance();
+
+            if (s.getId() == 0 ){
+
+                login log = new login();
+                log.setVisible(true);
+                this.dispose();
+                JOptionPane.showMessageDialog(null, "Please Log in First to proceed!");
+                
+            }
     }
      
     
@@ -79,19 +83,17 @@ public class EditStaff extends javax.swing.JFrame {
         Products = new javax.swing.JLabel();
         salesreport = new javax.swing.JPanel();
         SalesReport = new javax.swing.JLabel();
+        salesreport1 = new javax.swing.JPanel();
+        SalesReport1 = new javax.swing.JLabel();
         body = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         fullname = new javax.swing.JTextField();
         emailField = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         update = new javax.swing.JToggleButton();
         Pic = new javax.swing.JLabel();
         changepic = new javax.swing.JToggleButton();
-        conformpass = new javax.swing.JPasswordField();
-        password = new javax.swing.JPasswordField();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         header1 = new javax.swing.JPanel();
@@ -102,6 +104,11 @@ public class EditStaff extends javax.swing.JFrame {
         Logout = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(13, 59, 102));
@@ -252,6 +259,42 @@ public class EditStaff extends javax.swing.JFrame {
 
         jPanel2.add(salesreport, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 220, 50));
 
+        salesreport1.setBackground(new java.awt.Color(0, 119, 176));
+        salesreport1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                salesreport1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                salesreport1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                salesreport1MouseExited(evt);
+            }
+        });
+
+        SalesReport1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        SalesReport1.setForeground(new java.awt.Color(255, 255, 255));
+        SalesReport1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        SalesReport1.setText("Back");
+
+        javax.swing.GroupLayout salesreport1Layout = new javax.swing.GroupLayout(salesreport1);
+        salesreport1.setLayout(salesreport1Layout);
+        salesreport1Layout.setHorizontalGroup(
+            salesreport1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(salesreport1Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(SalesReport1)
+                .addContainerGap(147, Short.MAX_VALUE))
+        );
+        salesreport1Layout.setVerticalGroup(
+            salesreport1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, salesreport1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(SalesReport1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel2.add(salesreport1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 530, 220, 50));
+
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 230, 600));
 
         body.setBackground(new java.awt.Color(255, 255, 255));
@@ -269,24 +312,16 @@ public class EditStaff extends javax.swing.JFrame {
                 fullnameActionPerformed(evt);
             }
         });
-        body.add(fullname, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 260, 40));
-        body.add(emailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 190, 260, 40));
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel5.setText("Conform Password");
-        body.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 150, 20));
+        body.add(fullname, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 210, 260, 40));
+        body.add(emailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 300, 260, 40));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Full name");
-        body.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, 80, 20));
+        body.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 190, 80, 20));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Email");
-        body.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 170, 80, 20));
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel9.setText("Password");
-        body.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 250, 80, 20));
+        body.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 280, 80, 20));
 
         update.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         update.setText("Update");
@@ -310,8 +345,6 @@ public class EditStaff extends javax.swing.JFrame {
             }
         });
         body.add(changepic, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 310, 120, 40));
-        body.add(conformpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 360, 260, 40));
-        body.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, 260, 40));
 
         getContentPane().add(body, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 1000, 600));
 
@@ -545,6 +578,25 @@ public class EditStaff extends javax.swing.JFrame {
         salesreport.setBackground(new Color(0,119,176));
     }//GEN-LAST:event_salesreportMouseExited
 
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        
+        getdata();        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowActivated
+
+    private void salesreport1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport1MouseClicked
+        Staff sta = new Staff();
+        sta.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_salesreport1MouseClicked
+
+    private void salesreport1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport1MouseEntered
+        salesreport.setBackground(new Color(13,59,102));
+    }//GEN-LAST:event_salesreport1MouseEntered
+
+    private void salesreport1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport1MouseExited
+        salesreport.setBackground(new Color(0,119,176));
+    }//GEN-LAST:event_salesreport1MouseExited
+
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -599,10 +651,10 @@ public class EditStaff extends javax.swing.JFrame {
     private javax.swing.JLabel Products;
     private javax.swing.JLabel Profile;
     private javax.swing.JLabel SalesReport;
+    private javax.swing.JLabel SalesReport1;
     private javax.swing.JLabel Users;
     private javax.swing.JPanel body;
     private javax.swing.JToggleButton changepic;
-    private javax.swing.JPasswordField conformpass;
     private javax.swing.JLabel edit;
     private javax.swing.JLabel email;
     private javax.swing.JTextField emailField;
@@ -612,19 +664,17 @@ public class EditStaff extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JToggleButton jToggleButton4;
     private javax.swing.JToggleButton jToggleButton5;
     private javax.swing.JLabel name;
-    private javax.swing.JPasswordField password;
     private javax.swing.JPanel product;
     private javax.swing.JPanel salesreport;
+    private javax.swing.JPanel salesreport1;
     private javax.swing.JToggleButton update;
     private javax.swing.JPanel user;
     // End of variables declaration//GEN-END:variables

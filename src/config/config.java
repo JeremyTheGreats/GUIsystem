@@ -2,6 +2,7 @@
 
 package config;
 
+import Main.login;
 import java.awt.Image;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
 public class config {
@@ -232,17 +234,35 @@ public void setProfileIcon(javax.swing.JLabel label, String path) {
     }
 }
 
-public ImageIcon resizeImage(String path) {
 
-    ImageIcon icon = new ImageIcon(path);
-    Image img = icon.getImage();
-    Image scaled = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
 
-    return new ImageIcon(scaled);
+
+public int fetchLastId() {
+    int id = -1;
+    String sql = "SELECT last_insert_rowid()";
+    try (Connection conn = connectDB();
+         PreparedStatement pst = conn.prepareStatement(sql);
+         ResultSet rs = pst.executeQuery()) {
+
+        if (rs.next()) id = rs.getInt(1);
+
+    } catch (Exception e) {
+        System.out.println("Error last id: " + e.getMessage());
+    }
+    return id;
 }
 
-
-
-
+public int getLastInsertId() {
+    int id = -1;
+    String sql = "SELECT last_insert_rowid()";
+    try (Connection conn = connectDB();
+         PreparedStatement pst = conn.prepareStatement(sql);
+         ResultSet rs = pst.executeQuery()) {
+        if (rs.next()) id = rs.getInt(1);
+    } catch (Exception e) {
+        System.out.println("Error: " + e.getMessage());
+    }
+    return id;
+}
 
 }

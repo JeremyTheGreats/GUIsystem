@@ -20,23 +20,25 @@ public class Staff extends javax.swing.JFrame {
         config con = new config();
         Session s = Session.getInstance();
         
-            if (s.getEmail() == null ){
-                
-                JOptionPane.showMessageDialog(null, "Please Log in First to proceed!");
-                
-                login log = new login();
-                log.setVisible(true);
-                this.dispose();
- 
-            }
-        
         name.setText(s.getFullname());
         email.setText(s.getEmail());
 
         con.setProfileIcon(Profile, s.getImagePath());
       
     }
-     
+     public void getdata(){
+    
+        Session s = Session.getInstance();
+
+            if (s.getId() == 0 ){
+
+                login log = new login();
+                log.setVisible(true);
+                this.dispose();
+                JOptionPane.showMessageDialog(null, "Please Log in First to proceed!");
+                
+            }
+    }
 
   
     @SuppressWarnings("unchecked")
@@ -71,6 +73,11 @@ public class Staff extends javax.swing.JFrame {
         Logout = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(13, 59, 102));
@@ -476,6 +483,10 @@ public class Staff extends javax.swing.JFrame {
         search.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_setingsMouseClicked
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        getdata();        
+    }//GEN-LAST:event_formWindowActivated
 
     
     public static void main(String args[]) {

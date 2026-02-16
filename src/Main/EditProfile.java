@@ -9,17 +9,14 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import static java.lang.System.in;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import org.omg.CORBA.portable.InputStream;
+
 
 
 
@@ -33,18 +30,7 @@ public class EditProfile extends javax.swing.JFrame {
         
         config con = new config();
         Session s = Session.getInstance();
-        
-            if (s.getEmail() == null ){
-                
-                JOptionPane.showMessageDialog(this, "Please Log in First to proceed!");
-                
-                login log = new login();
-                log.setVisible(true);
-                this.dispose();
-                
-                return;
-            }
-            
+
         name.setText(s.getFullname());
         email.setText(s.getEmail());
 
@@ -57,6 +43,19 @@ public class EditProfile extends javax.swing.JFrame {
         con.setProfileIcon(Pic, s.getImagePath());
         con.setProfileIcon(Profile, s.getImagePath());
       
+    }
+     public void getdata(){
+    
+        Session s = Session.getInstance();
+
+            if (s.getId() == 0 ){
+                
+                login log = new login();
+                log.setVisible(true);
+                this.dispose();
+                JOptionPane.showMessageDialog(null, "Please Log in First to proceed!");
+
+            }
     }
      
     
@@ -103,6 +102,11 @@ public class EditProfile extends javax.swing.JFrame {
         Logout = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(13, 59, 102));
@@ -592,6 +596,10 @@ public class EditProfile extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_changepicActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        getdata();// TODO add your handling code here:
+    }//GEN-LAST:event_formWindowActivated
 
     
     public static void main(String args[]) {

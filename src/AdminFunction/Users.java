@@ -20,16 +20,7 @@ public final class Users extends javax.swing.JFrame {
         
         Session s = Session.getInstance();
             
-            if (s.getEmail() == null ){
-
-                JOptionPane.showMessageDialog(null, "Please Log in First to proceed!");
-
-                login log = new login();
-                log.setVisible(true);
-                this.dispose();
-
-            }
-        
+          
         name.setText(s.getFullname());
         email.setText(s.getEmail());
         
@@ -53,6 +44,19 @@ public final class Users extends javax.swing.JFrame {
         String sql = "SELECT id, fullname, email, role, Status FROM user_account";
         con.displayData(sql, table);
 }
+    public void getdata(){
+    
+        Session s = Session.getInstance();
+
+            if (s.getId() == 0 ){
+
+                login log = new login();
+                log.setVisible(true);
+                this.dispose();
+                JOptionPane.showMessageDialog(null, "Please Log in First to proceed!");
+                
+            }
+    }
 
 
   
@@ -72,6 +76,8 @@ public final class Users extends javax.swing.JFrame {
         Products = new javax.swing.JLabel();
         salesreport = new javax.swing.JPanel();
         SalesReport = new javax.swing.JLabel();
+        salesreport1 = new javax.swing.JPanel();
+        SalesReport1 = new javax.swing.JLabel();
         body = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -92,6 +98,11 @@ public final class Users extends javax.swing.JFrame {
         jToggleButton6 = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(13, 59, 102));
@@ -179,6 +190,9 @@ public final class Users extends javax.swing.JFrame {
 
         product.setBackground(new java.awt.Color(0, 119, 176));
         product.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                productMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 productMouseEntered(evt);
             }
@@ -242,6 +256,42 @@ public final class Users extends javax.swing.JFrame {
         );
 
         jPanel2.add(salesreport, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 220, 50));
+
+        salesreport1.setBackground(new java.awt.Color(0, 119, 176));
+        salesreport1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                salesreport1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                salesreport1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                salesreport1MouseExited(evt);
+            }
+        });
+
+        SalesReport1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        SalesReport1.setForeground(new java.awt.Color(255, 255, 255));
+        SalesReport1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        SalesReport1.setText("Back");
+
+        javax.swing.GroupLayout salesreport1Layout = new javax.swing.GroupLayout(salesreport1);
+        salesreport1.setLayout(salesreport1Layout);
+        salesreport1Layout.setHorizontalGroup(
+            salesreport1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(salesreport1Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(SalesReport1)
+                .addContainerGap(147, Short.MAX_VALUE))
+        );
+        salesreport1Layout.setVerticalGroup(
+            salesreport1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, salesreport1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(SalesReport1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel2.add(salesreport1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 520, 220, 50));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 230, 600));
 
@@ -610,6 +660,31 @@ public final class Users extends javax.swing.JFrame {
         edit.setText("");
     }//GEN-LAST:event_editMouseExited
 
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        getdata();        
+    }//GEN-LAST:event_formWindowActivated
+
+    private void productMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productMouseClicked
+        Product pro = new Product();
+        pro.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_productMouseClicked
+
+    private void salesreport1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport1MouseClicked
+        dashboardAdmin dash = new dashboardAdmin();
+        dash.setVisible(true);
+        this.dispose();
+
+    }//GEN-LAST:event_salesreport1MouseClicked
+
+    private void salesreport1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport1MouseEntered
+        salesreport.setBackground(new Color(13,59,102));
+    }//GEN-LAST:event_salesreport1MouseEntered
+
+    private void salesreport1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport1MouseExited
+        salesreport.setBackground(new Color(0,119,176));
+    }//GEN-LAST:event_salesreport1MouseExited
+
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -679,6 +754,7 @@ public final class Users extends javax.swing.JFrame {
     private javax.swing.JLabel Products;
     private javax.swing.JLabel Profile;
     private javax.swing.JLabel SalesReport;
+    private javax.swing.JLabel SalesReport1;
     private javax.swing.JLabel Users;
     private javax.swing.JPanel body;
     private javax.swing.JToggleButton delete;
@@ -701,6 +777,7 @@ public final class Users extends javax.swing.JFrame {
     private javax.swing.JLabel name;
     private javax.swing.JPanel product;
     private javax.swing.JPanel salesreport;
+    private javax.swing.JPanel salesreport1;
     private javax.swing.JToggleButton search;
     private javax.swing.JTable table;
     private javax.swing.JToggleButton update;

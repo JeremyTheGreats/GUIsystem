@@ -18,27 +18,22 @@ public class Case extends javax.swing.JFrame {
     
      public Case() {
         initComponents();
-        
-        config con = new config();
-      
+
         Session s = Session.getInstance();
         
 
-        
-            if (s.getEmail() == null ){
+            if (s.getId() == 0 ){
                 
-                JOptionPane.showMessageDialog(this, "Please Log in First to proceed!");
+                JOptionPane.showMessageDialog(null, "Please Log in First to proceed!");
                 
                 login log = new login();
                 log.setVisible(true);
+                
                 this.dispose();
                 
                 return;
             }
-        
-        
- 
-      
+   
     }
      
     
@@ -9088,6 +9083,7 @@ public class Case extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                
                 new Case().setVisible(true);
             }
         });

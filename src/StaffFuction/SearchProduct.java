@@ -8,6 +8,7 @@ import Main.login;
 import config.Session;
 import config.config;
 import java.awt.Color;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 
@@ -20,17 +21,7 @@ public final class SearchProduct extends javax.swing.JFrame {
         config con = new config();
         
         Session s = Session.getInstance();
-            
-            if (s.getEmail() == null ){
 
-                JOptionPane.showMessageDialog(null, "Please Log in First to proceed!");
-
-                login log = new login();
-                log.setVisible(true);
-                this.dispose();
-
-            }
-        
         name.setText(s.getFullname());
         email.setText(s.getEmail());
         
@@ -39,7 +30,20 @@ public final class SearchProduct extends javax.swing.JFrame {
         
         display();
     }
+    
+    public void getdata(){
+    
+        Session s = Session.getInstance();
 
+            if (s.getId() == 0 ){
+
+                login log = new login();
+                log.setVisible(true);
+                this.dispose();
+                JOptionPane.showMessageDialog(null, "Please Log in First to proceed!");                
+            }
+    }
+    
     void display(){
         
         config con = new config();
@@ -54,6 +58,25 @@ public final class SearchProduct extends javax.swing.JFrame {
         String sql = "SELECT id, part_name, category, price, stock FROM parts_inventory";
         con.displayData(sql, Product);
 }
+    private static class CartItem {
+        int id;
+        String name;
+        double price;
+        int qty;
+
+        CartItem(int id, String name, double price, int qty) {
+            this.id = id;
+            this.name = name;
+            this.price = price;
+            this.qty = qty;
+        }
+
+        double subtotal() {
+            return price * qty;
+        }
+    }
+
+    private final ArrayList<CartItem> cart = new ArrayList<>();
 
 
   
@@ -73,6 +96,8 @@ public final class SearchProduct extends javax.swing.JFrame {
         Products = new javax.swing.JLabel();
         salesreport = new javax.swing.JPanel();
         SalesReport = new javax.swing.JLabel();
+        salesreport1 = new javax.swing.JPanel();
+        SalesReport1 = new javax.swing.JLabel();
         body = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -81,6 +106,9 @@ public final class SearchProduct extends javax.swing.JFrame {
         find = new javax.swing.JTextField();
         search = new javax.swing.JToggleButton();
         Edit = new javax.swing.JToggleButton();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        jToggleButton2 = new javax.swing.JToggleButton();
+        jToggleButton3 = new javax.swing.JToggleButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         header1 = new javax.swing.JPanel();
@@ -91,6 +119,11 @@ public final class SearchProduct extends javax.swing.JFrame {
         jToggleButton6 = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(13, 59, 102));
@@ -211,6 +244,9 @@ public final class SearchProduct extends javax.swing.JFrame {
 
         salesreport.setBackground(new java.awt.Color(0, 119, 176));
         salesreport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                salesreportMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 salesreportMouseEntered(evt);
             }
@@ -222,7 +258,7 @@ public final class SearchProduct extends javax.swing.JFrame {
         SalesReport.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         SalesReport.setForeground(new java.awt.Color(255, 255, 255));
         SalesReport.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        SalesReport.setText("Sales Report");
+        SalesReport.setText("Back");
 
         javax.swing.GroupLayout salesreportLayout = new javax.swing.GroupLayout(salesreport);
         salesreport.setLayout(salesreportLayout);
@@ -231,7 +267,7 @@ public final class SearchProduct extends javax.swing.JFrame {
             .addGroup(salesreportLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(SalesReport)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(147, Short.MAX_VALUE))
         );
         salesreportLayout.setVerticalGroup(
             salesreportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,7 +276,40 @@ public final class SearchProduct extends javax.swing.JFrame {
                 .addComponent(SalesReport, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel2.add(salesreport, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 220, 50));
+        jPanel2.add(salesreport, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 530, 220, 50));
+
+        salesreport1.setBackground(new java.awt.Color(0, 119, 176));
+        salesreport1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                salesreport1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                salesreport1MouseExited(evt);
+            }
+        });
+
+        SalesReport1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        SalesReport1.setForeground(new java.awt.Color(255, 255, 255));
+        SalesReport1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        SalesReport1.setText("Sales Report");
+
+        javax.swing.GroupLayout salesreport1Layout = new javax.swing.GroupLayout(salesreport1);
+        salesreport1.setLayout(salesreport1Layout);
+        salesreport1Layout.setHorizontalGroup(
+            salesreport1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(salesreport1Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(SalesReport1)
+                .addContainerGap(78, Short.MAX_VALUE))
+        );
+        salesreport1Layout.setVerticalGroup(
+            salesreport1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, salesreport1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(SalesReport1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel2.add(salesreport1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 220, 50));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 230, 600));
 
@@ -258,6 +327,7 @@ public final class SearchProduct extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        Product.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Product.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -268,7 +338,7 @@ public final class SearchProduct extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(Product);
 
-        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 690, 430));
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 730, 450));
 
         find.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -297,7 +367,34 @@ public final class SearchProduct extends javax.swing.JFrame {
                 EditActionPerformed(evt);
             }
         });
-        jPanel3.add(Edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 120, -1));
+        jPanel3.add(Edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 120, -1));
+
+        jToggleButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jToggleButton1.setText("View Cart");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 120, -1));
+
+        jToggleButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jToggleButton2.setText("Check out");
+        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton2ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jToggleButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 120, -1));
+
+        jToggleButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jToggleButton3.setText("Add to Cart");
+        jToggleButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton3ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jToggleButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 120, -1));
 
         body.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, 730, 530));
 
@@ -501,6 +598,152 @@ public final class SearchProduct extends javax.swing.JFrame {
         edit.setText("");
     }//GEN-LAST:event_editMouseExited
 
+    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
+        
+        if (cart.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Cart is empty!");
+        return;
+    }
+
+    double total = 0;
+    for (CartItem item : cart) total += item.subtotal();
+
+    String payInput = JOptionPane.showInputDialog(this, "TOTAL: ₱" + total + "\nEnter payment amount:");
+    
+    if (payInput == null) return;
+
+    double payment = Double.parseDouble(payInput);
+
+        if (payment < total) {
+            JOptionPane.showMessageDialog(this, "Not enough payment!");
+            return;
+        }
+
+    double change = payment - total;
+
+    int userId = Session.getInstance().getId();
+
+    config con = new config();
+
+    
+    String sqlTrans = "INSERT INTO transactions (user_id, total_amount, payment, change_amount) VALUES (?,?,?,?)";
+    con.addRecord(sqlTrans, userId, total, payment, change);
+
+    
+    int transactionId = con.getLastInsertId();
+
+    
+    for (CartItem item : cart) {
+
+        String sqlItem =
+            "INSERT INTO transaction_items (transaction_id, part_id, part_name, price, quantity, subtotal) " +
+            "VALUES (?,?,?,?,?,?)";
+        con.addRecord(sqlItem, transactionId, item.id, item.name, item.price, item.qty, item.subtotal());
+
+        String sqlDeduct = "UPDATE parts_inventory SET stock = stock - ? WHERE id = ?";
+        con.updateRecord(sqlDeduct, item.qty, item.id);
+    }
+
+    JOptionPane.showMessageDialog(this,
+        "Checkout Successful!\n\n" +
+        "Total          : ₱" + total + "\n" +
+        "Payment        : ₱" + payment + "\n" +
+        "Change         : ₱" + change + "\n" +
+        "Transaction ID :  " + transactionId
+    );
+
+    cart.clear();
+    display(); 
+    
+    }//GEN-LAST:event_jToggleButton2ActionPerformed
+
+    private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformed
+
+    int row = Product.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Select a product!");
+            return;
+        }
+
+    int id = Integer.parseInt(Product.getValueAt(row, 0).toString());
+    String name = Product.getValueAt(row, 1).toString();
+    double price = Double.parseDouble(Product.getValueAt(row, 3).toString());
+    int stock = Integer.parseInt(Product.getValueAt(row, 4).toString());
+
+    String input = JOptionPane.showInputDialog(this, "Quantity:");
+    if (input == null) return;
+
+    int qty;
+    try { qty = Integer.parseInt(input); }
+    catch (Exception e) { JOptionPane.showMessageDialog(this, "Invalid number!"); return; }
+
+    if (qty <= 0) { JOptionPane.showMessageDialog(this, "Qty must be > 0"); return; }
+    if (qty > stock) { JOptionPane.showMessageDialog(this, "Not enough stock!"); return; }
+
+    
+    for (CartItem item : cart) {
+        if (item.id == id) {
+            if (item.qty + qty > stock) {
+                JOptionPane.showMessageDialog(this, "Not enough stock for added quantity!");
+                return;
+            }
+            item.qty += qty;
+            JOptionPane.showMessageDialog(this, "Added to cart! (updated qty)");
+            return;
+        }
+    }
+
+    
+    cart.add(new CartItem(id, name, price, qty));
+    JOptionPane.showMessageDialog(this, "Added to cart!");
+
+
+    }//GEN-LAST:event_jToggleButton3ActionPerformed
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+         if (cart.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Cart is empty!");
+        return;
+    }
+
+    StringBuilder sb = new StringBuilder();
+    double total = 0;
+
+    sb.append("ITEMS CHOSEN:\n\n");
+
+    for (CartItem item : cart) {
+        sb.append(item.name)
+          .append(" | ₱").append(item.price)
+          .append(" x ").append(item.qty)
+          .append(" = ₱").append(item.subtotal())
+          .append("\n");
+        
+        total += item.subtotal();
+    }
+
+    sb.append("\nTOTAL: ₱").append(total);
+
+    JOptionPane.showMessageDialog(this, sb.toString());
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        getdata();
+    }//GEN-LAST:event_formWindowActivated
+
+    private void salesreport1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_salesreport1MouseEntered
+
+    private void salesreport1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_salesreport1MouseExited
+
+    private void salesreportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreportMouseClicked
+        Staff sta = new Staff();
+        sta.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_salesreportMouseClicked
+
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -667,6 +910,7 @@ public final class SearchProduct extends javax.swing.JFrame {
     private javax.swing.JLabel Products;
     private javax.swing.JLabel Profile;
     private javax.swing.JLabel SalesReport;
+    private javax.swing.JLabel SalesReport1;
     private javax.swing.JLabel Users;
     private javax.swing.JPanel body;
     private javax.swing.JLabel edit;
@@ -682,12 +926,16 @@ public final class SearchProduct extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JToggleButton jToggleButton2;
+    private javax.swing.JToggleButton jToggleButton3;
     private javax.swing.JToggleButton jToggleButton4;
     private javax.swing.JToggleButton jToggleButton5;
     private javax.swing.JToggleButton jToggleButton6;
     private javax.swing.JLabel name;
     private javax.swing.JPanel product;
     private javax.swing.JPanel salesreport;
+    private javax.swing.JPanel salesreport1;
     private javax.swing.JToggleButton search;
     private javax.swing.JPanel user;
     // End of variables declaration//GEN-END:variables
