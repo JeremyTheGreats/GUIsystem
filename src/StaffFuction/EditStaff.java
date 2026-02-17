@@ -509,7 +509,7 @@ public class EditStaff extends javax.swing.JFrame {
 
                 BufferedImage original = ImageIO.read(f);
 
-
+                
                 Image img = original.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
                 BufferedImage resized = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
 

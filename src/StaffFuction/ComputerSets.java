@@ -1,13 +1,12 @@
 
 package StaffFuction;
 
-import StaffFuction.Staff;
 import Build.HighEnd;
 import Build.LowEnd;
 import Build.MedEnd;
 import Main.landing;
 import Main.login;
-import Parts.Processor;
+import Parts.DisplayProducts;
 import config.Session;
 import config.config;
 import java.awt.Color;
@@ -455,7 +454,7 @@ public class ComputerSets extends javax.swing.JFrame {
     }//GEN-LAST:event_hover2MouseClicked
 
     private void hover3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hover3MouseClicked
-        Processor part = new Processor();
+        DisplayProducts part = new DisplayProducts();
         part.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_hover3MouseClicked

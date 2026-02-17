@@ -4,7 +4,7 @@ package StaffFuction;
 import Main.EditProfile;
 import Main.landing;
 import Main.login;
-import Parts.Processor;
+
 import config.Session;
 import config.config;
 import java.awt.Color;
@@ -209,7 +209,7 @@ public class Staff extends javax.swing.JFrame {
         SalesReport.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         SalesReport.setForeground(new java.awt.Color(255, 255, 255));
         SalesReport.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        SalesReport.setText("Sales Report");
+        SalesReport.setText("My Sales");
 
         javax.swing.GroupLayout salesreportLayout = new javax.swing.GroupLayout(salesreport);
         salesreport.setLayout(salesreportLayout);
@@ -218,7 +218,7 @@ public class Staff extends javax.swing.JFrame {
             .addGroup(salesreportLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(SalesReport)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
         salesreportLayout.setVerticalGroup(
             salesreportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

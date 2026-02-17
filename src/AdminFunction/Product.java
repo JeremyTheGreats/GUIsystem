@@ -1,4 +1,3 @@
-
 package AdminFunction;
 
 import Main.EditProfile;
@@ -7,69 +6,111 @@ import Main.login;
 import config.Session;
 import config.config;
 import java.awt.Color;
+import java.awt.Graphics2D;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-
 public final class Product extends javax.swing.JFrame {
-    
-    
+
+    private String path;
+
     public Product() {
         initComponents();
-        
+
         config con = new config();
-        
+
         Session s = Session.getInstance();
-            
-            if (s.getEmail() == null ){
 
-                JOptionPane.showMessageDialog(null, "Please Log in First to proceed!");
+        if (s.getEmail() == null) {
 
-                login log = new login();
-                log.setVisible(true);
-                this.dispose();
+            JOptionPane.showMessageDialog(null, "Please Log in First to proceed!");
 
-            }
-        
+            login log = new login();
+            log.setVisible(true);
+            this.dispose();
+
+        }
+
         name.setText(s.getFullname());
         email.setText(s.getEmail());
-        
+
         con.setProfileIcon(Profile, s.getImagePath());
-        
-        
+
         display();
     }
 
-    void display(){
-        
+    void display() {
+
         config con = new config();
         String sql = "SELECT id, part_name, category, price, stock FROM parts_inventory";
         con.displayData(sql, Product);
-        
+
     }
-    
-    private void refreshTable() {
-        
-        config con = new config();
-        String sql = "SELECT id, part_name, category, price, stock FROM parts_inventory";
-        con.displayData(sql, Product);
-    }
-    public void getdata(){
-    
+
+    public void getdata() {
+
         Session s = Session.getInstance();
 
-            if (s.getId() == 0 ){
+        if (s.getId() == 0) {
 
-                JOptionPane.showMessageDialog(null, "Please Log in First to proceed!");
+            JOptionPane.showMessageDialog(null, "Please Log in First to proceed!");
 
-                login log = new login();
-                log.setVisible(true);
-                this.dispose();
-                
-            }
+            login log = new login();
+            log.setVisible(true);
+            this.dispose();
+
+        }
     }
 
+    private void clearFields() {
+        name.setText("");
+        price.setText("");
+        Stock.setText("");
+        cate.setSelectedIndex(0);
+        // Reset your image label here if needed
+    }
 
-  
+    private void processStockUpdate(boolean isAdding, int row) {
+        try {
+            // Get the ID from the selected row (Assuming ID is in Column 0)
+            String id = Product.getValueAt(row, 0).toString();
+
+            // Get the quantity the user typed in your Stock text field
+            String input = JOptionPane.showInputDialog(null, "Enter the Quantity : ");
+            
+            if (input.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please enter a quantity in the Stock field.");
+                return;
+            }
+
+            int amount = Integer.parseInt(input);
+
+            // If Deducting, turn the number negative (e.g., 5 becomes -5)
+            int finalChange = isAdding ? amount : -amount;
+
+            config con = new config();
+            // Use p_stock = p_stock + ? so SQL handles the math correctly
+            String sql = "UPDATE parts_inventory SET stock = stock + ? WHERE id = ?";
+
+            con.updateRecord(sql, finalChange, id);
+
+            JOptionPane.showMessageDialog(this, (isAdding ? "Added " : "Deducted ") + amount + " units successfully.");
+
+            // Refresh your table to show the new stock levels
+            display();
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid whole number for the quantity.");
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -89,7 +130,8 @@ public final class Product extends javax.swing.JFrame {
         salesreport1 = new javax.swing.JPanel();
         SalesReport1 = new javax.swing.JLabel();
         body = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        tab = new javax.swing.JTabbedPane();
+        table1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Product = new javax.swing.JTable();
@@ -98,6 +140,21 @@ public final class Product extends javax.swing.JFrame {
         find = new javax.swing.JTextField();
         search = new javax.swing.JToggleButton();
         Edit = new javax.swing.JToggleButton();
+        delete1 = new javax.swing.JToggleButton();
+        jLabel2 = new javax.swing.JLabel();
+        table2 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        price = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        cate = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
+        naaaaa = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        Stock = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        Pic = new javax.swing.JLabel();
+        save = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         header1 = new javax.swing.JPanel();
@@ -200,6 +257,9 @@ public final class Product extends javax.swing.JFrame {
 
         product.setBackground(new java.awt.Color(0, 119, 176));
         product.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                productMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 productMouseEntered(evt);
             }
@@ -306,12 +366,6 @@ public final class Product extends javax.swing.JFrame {
         body.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         body.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setBackground(new java.awt.Color(13, 59, 102));
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(13, 59, 102));
-        jLabel2.setText("Products");
-        body.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 170, -1));
-
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -324,46 +378,35 @@ public final class Product extends javax.swing.JFrame {
 
             }
         ));
+        Product.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ProductMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(Product);
 
-        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 690, 430));
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 720, 460));
 
         update.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        update.setText("Add Stock");
+        update.setText("Update Product");
         update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateActionPerformed(evt);
             }
         });
-        jPanel3.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 120, -1));
+        jPanel3.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 150, -1));
 
         delete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        delete.setText("Deduct Stock");
+        delete.setText("Delete Product");
         delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteActionPerformed(evt);
             }
         });
-        jPanel3.add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 130, -1));
-
-        find.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                findActionPerformed(evt);
-            }
-        });
-        find.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                findKeyTyped(evt);
-            }
-        });
+        jPanel3.add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, 140, -1));
         jPanel3.add(find, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, 270, 30));
 
         search.setText("Search");
-        search.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchActionPerformed(evt);
-            }
-        });
         jPanel3.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 30, 80, 30));
 
         Edit.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -373,9 +416,185 @@ public final class Product extends javax.swing.JFrame {
                 EditActionPerformed(evt);
             }
         });
-        jPanel3.add(Edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 120, -1));
+        jPanel3.add(Edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 150, -1));
 
-        body.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, 730, 530));
+        delete1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        delete1.setText("Add Product");
+        delete1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                delete1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(delete1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, 140, -1));
+
+        jLabel2.setBackground(new java.awt.Color(13, 59, 102));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(13, 59, 102));
+        jLabel2.setText("Products");
+
+        javax.swing.GroupLayout table1Layout = new javax.swing.GroupLayout(table1);
+        table1.setLayout(table1Layout);
+        table1Layout.setHorizontalGroup(
+            table1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(table1Layout.createSequentialGroup()
+                .addGap(304, 304, 304)
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(table1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 745, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        table1Layout.setVerticalGroup(
+            table1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(table1Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        tab.addTab("tab1", table1);
+
+        jPanel4.setBackground(new java.awt.Color(0, 119, 182));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Product Name");
+
+        price.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        price.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                priceActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Category");
+
+        cate.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Processor", "Graphics Card", "Mother Board", "Memory", "Storage", "Power Supply", "Case", "Monitor" }));
+        cate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cateActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Price");
+
+        naaaaa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        naaaaa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                naaaaaActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Stock");
+
+        Stock.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Stock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                StockActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(naaaaa)
+                    .addComponent(cate, 0, 327, Short.MAX_VALUE)
+                    .addComponent(price)
+                    .addComponent(Stock)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(naaaaa, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cate, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Stock, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jButton1.setText("Choose a Picture");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        Pic.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        save.setText("Save Product");
+        save.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout table2Layout = new javax.swing.GroupLayout(table2);
+        table2.setLayout(table2Layout);
+        table2Layout.setHorizontalGroup(
+            table2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(table2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(table2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(table2Layout.createSequentialGroup()
+                        .addGap(90, 90, 90)
+                        .addComponent(Pic, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(table2Layout.createSequentialGroup()
+                        .addGap(125, 125, 125)
+                        .addGroup(table2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(98, Short.MAX_VALUE))
+        );
+        table2Layout.setVerticalGroup(
+            table2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(table2Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, table2Layout.createSequentialGroup()
+                .addContainerGap(136, Short.MAX_VALUE)
+                .addComponent(Pic, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(115, 115, 115)
+                .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(58, 58, 58))
+        );
+
+        tab.addTab("tab2", table2);
+
+        body.add(tab, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, -30, 770, 630));
 
         getContentPane().add(body, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 1000, 600));
 
@@ -496,196 +715,41 @@ public final class Product extends javax.swing.JFrame {
 
     private void UsersMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsersMouseEntered
 
-        Users.setBackground(new Color(13,59,102));
+        Users.setBackground(new Color(13, 59, 102));
 
     }//GEN-LAST:event_UsersMouseEntered
 
     private void userMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userMouseEntered
-        user.setBackground(new Color(13,59,102));
+        user.setBackground(new Color(13, 59, 102));
     }//GEN-LAST:event_userMouseEntered
 
     private void userMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userMouseExited
-        user.setBackground(new Color(0,119,176));
+        user.setBackground(new Color(0, 119, 176));
     }//GEN-LAST:event_userMouseExited
 
     private void productMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productMouseEntered
-        product.setBackground(new Color(13,59,102));
+        product.setBackground(new Color(13, 59, 102));
     }//GEN-LAST:event_productMouseEntered
 
     private void productMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productMouseExited
-        product.setBackground(new Color(0,119,176));
+        product.setBackground(new Color(0, 119, 176));
     }//GEN-LAST:event_productMouseExited
 
     private void salesreportMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreportMouseEntered
-        salesreport.setBackground(new Color(13,59,102));
+        salesreport.setBackground(new Color(13, 59, 102));
     }//GEN-LAST:event_salesreportMouseEntered
 
     private void salesreportMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreportMouseExited
-        salesreport.setBackground(new Color(0,119,176));
+        salesreport.setBackground(new Color(0, 119, 176));
     }//GEN-LAST:event_salesreportMouseExited
 
-    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
-        
-        String findings = find.getText();
-        
-        config con = new config();
-        String sql = "SELECT id, part_name, category, price, stock FROM parts_inventory WHERE id = '" + findings + "' OR part_name = '" + findings + "' OR category = '" + findings + "' ";
-        con.displayData(sql, Product);
-        
-    }//GEN-LAST:event_searchActionPerformed
-
-    private void findActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_findActionPerformed
-
     private void userMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userMouseClicked
-        
+
         dashboardAdmin ad = new dashboardAdmin();
         ad.setVisible(true);
         this.dispose();
-        
+
     }//GEN-LAST:event_userMouseClicked
-
-    private void EditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditActionPerformed
-        
-        refreshTable();
-    }//GEN-LAST:event_EditActionPerformed
-
-    private void findKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_findKeyTyped
-        
-        String findings = find.getText();
-        
-        config con = new config();
-        String sql = "SELECT id, part_name, category, price, stock FROM parts_inventory WHERE id LIKE ? OR part_name LIKE ? OR category LIKE ? ";
-        
-        con.displayData(sql, Product, "%" +findings + "%", "%" +findings + "%" , "%" +findings + "%");
-        
-    }//GEN-LAST:event_findKeyTyped
-
-    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
-
-        config con = new config();
-
-        int row = Product.getSelectedRow();
-
-        if (row < 0) {
-            JOptionPane.showMessageDialog(this, "Please select a Product to deduct.");
-            return;
-        }
-
-        int productId = Integer.parseInt(Product.getValueAt(row, 0).toString());
-        int currentStock = Integer.parseInt(Product.getValueAt(row, 4).toString());
-   
-
-        int confirm = JOptionPane.showConfirmDialog(
-            this,
-            "Are you sure you want to deduct this Product?",
-            "Confirm deduct",
-            JOptionPane.YES_NO_OPTION
-        );
-
-        if (confirm != JOptionPane.YES_OPTION) return;
-        
-        String input = JOptionPane.showInputDialog(this, "Enter quantity to deduct:");
-        
-        if (input == null) return;
-        
-        int quantity;
-        
-            try {
-
-            quantity = Integer.parseInt(input);
-
-            } 
-            catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Invalid number!");
-                return;
-            }
-            
-            if (quantity <= 0) {
-                JOptionPane.showMessageDialog(this, "Quantity must be greater than 0!");
-                return;
-            }
-            
-            if (quantity > currentStock) {
-                JOptionPane.showMessageDialog(this, "Not enough stock!");
-                return;
-            }
-        
-        try {
-            String deduct = "UPDATE parts_inventory SET stock = stock - ? WHERE id = ?";
-            con.updateRecord(deduct, quantity, productId);
-
-            JOptionPane.showMessageDialog(this, "Deduct successfully!");
-            refreshTable();
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Deduct failed: " + e.getMessage());
-        }
-    }//GEN-LAST:event_deleteActionPerformed
-
-    private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
-
-
-        config con = new config();
-
-        int row = Product.getSelectedRow();
-
-        if (row < 0) {
-            JOptionPane.showMessageDialog(this, "Please select a Product to Add.");
-            return;
-        }
-
-        int productId = Integer.parseInt(Product.getValueAt(row, 0).toString());
-        int currentStock = Integer.parseInt(Product.getValueAt(row, 4).toString());
-   
-
-        int confirm = JOptionPane.showConfirmDialog(
-            this,
-            "Are you sure you want to Add this Product?",
-            "Confirm Add",
-            JOptionPane.YES_NO_OPTION
-        );
-
-        if (confirm != JOptionPane.YES_OPTION) return;
-        
-        String input = JOptionPane.showInputDialog(this, "Enter quantity to Add:");
-        
-        if (input == null) return;
-        
-        int quantity;
-        
-            try {
-
-            quantity = Integer.parseInt(input);
-
-            } 
-            catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Invalid number!");
-                return;
-            }
-            
-            if (quantity <= 0) {
-                JOptionPane.showMessageDialog(this, "Quantity must be greater than 0!");
-                return;
-            }
-            
-            if (quantity > currentStock) {
-                JOptionPane.showMessageDialog(this, "Not enough stock!");
-                return;
-            }
-        
-        try {
-            String deduct = "UPDATE parts_inventory SET stock = stock + ? WHERE id = ?";
-            con.updateRecord(deduct, quantity, productId);
-
-            JOptionPane.showMessageDialog(this, "Add successfully!");
-            refreshTable();
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Add failed: " + e.getMessage());
-        }
-    }//GEN-LAST:event_updateActionPerformed
 
     private void editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseClicked
 
@@ -703,7 +767,7 @@ public final class Product extends javax.swing.JFrame {
     }//GEN-LAST:event_editMouseExited
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-            getdata();        // TODO add your handling code here:
+        getdata();        // TODO add your handling code here:
     }//GEN-LAST:event_formWindowActivated
 
     private void salesreport1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport1MouseEntered
@@ -715,13 +779,196 @@ public final class Product extends javax.swing.JFrame {
     }//GEN-LAST:event_salesreport1MouseExited
 
     private void salesreportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreportMouseClicked
-        dashboardAdmin dash = new dashboardAdmin();    
+        dashboardAdmin dash = new dashboardAdmin();
         dash.setVisible(true);
         this.dispose();
-        
+
     }//GEN-LAST:event_salesreportMouseClicked
 
-    
+    private void delete1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delete1ActionPerformed
+
+        tab.setSelectedIndex(1);
+
+    }//GEN-LAST:event_delete1ActionPerformed
+
+    private void priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_priceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_priceActionPerformed
+
+    private void naaaaaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_naaaaaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_naaaaaActionPerformed
+
+    private void StockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StockActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_StockActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        JFileChooser chooser = new JFileChooser();
+        int result = chooser.showOpenDialog(this);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File f = chooser.getSelectedFile();
+            try {
+                // 1. Read the image
+                BufferedImage original = ImageIO.read(f);
+
+                // 2. Create the target canvas (Match the size of your JLabel)
+                int width = 200;
+                int height = 200;
+                BufferedImage resized = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+
+                // 3. Draw original to resized canvas (0,0 to 200,200)
+                Graphics2D g2d = resized.createGraphics();
+                g2d.drawImage(original, 0, 0, width, height, null);
+                g2d.dispose();
+
+                // 4. Handle Directory
+                File dir = new File("src/Products");
+                if (!dir.exists()) {
+                    dir.mkdirs();
+                }
+
+                // 5. Save with unique name
+                String fileName = System.currentTimeMillis() + ".png";
+                File savedFile = new File(dir, fileName);
+                boolean success = ImageIO.write(resized, "png", savedFile);
+
+                if (success) {
+                    // 6. Set path for Database
+                    path = fileName; // Store only the name; let the display logic handle the folder path
+
+                    // 7. Update UI
+                    Pic.setIcon(new ImageIcon(resized));
+                    System.out.println("Saved to: " + savedFile.getAbsolutePath());
+                }
+
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "Upload failed: " + ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
+
+        config con = new config();
+
+        // 1. Collect data from UI
+        String pname = naaaaa.getText().trim();
+        String category = cate.getSelectedItem().toString();
+        String amount = price.getText().trim();
+        String stock = Stock.getText().trim();
+
+        // 2. Validation: Check if fields are empty
+        if (pname.isEmpty() || amount.isEmpty() || stock.isEmpty() || path == null) {
+            JOptionPane.showMessageDialog(null, "Please fill in all fields and select an image!");
+            return;
+        }
+
+        try {
+
+            double d_price = Double.parseDouble(amount);
+            int i_stock = Integer.parseInt(stock);
+
+            String sql = "INSERT INTO parts_inventory (part_name, category, price, stock, image_path) VALUES (?, ?, ?, ?, ?)";
+            con.addRecord(sql, pname, category, d_price, i_stock, path);
+
+            JOptionPane.showMessageDialog(null, "Product Added Successfully!");
+
+            clearFields();
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Price must be a decimal and Stock must be a whole number!");
+        }
+
+    }//GEN-LAST:event_saveActionPerformed
+
+    private void cateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cateActionPerformed
+
+    private void productMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productMouseClicked
+        tab.setSelectedIndex(0);
+    }//GEN-LAST:event_productMouseClicked
+
+    private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
+ 
+        int row = Product.getSelectedRow();
+
+        // 1. Check if a row is selected
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a Product from the table.");
+            return;
+        }
+
+        // 2. Define your custom buttons
+        Object[] options = {"Add Stock", "Deduct Stock", "Cancel"};
+
+        // 3. Show the custom Option Dialog
+        int response = JOptionPane.showOptionDialog(this,
+                "Would you like to Add or Deduct stock for the selected product?",
+                "Inventory Action",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null, // No custom icon
+                options, // The button labels
+                options[0]); // Default focus on first button
+
+        if (response == 0) { // Add Stock clicked
+            processStockUpdate(true, row);
+        } else if (response == 1) { // Deduct Stock clicked
+            processStockUpdate(false, row);
+        }
+
+    }//GEN-LAST:event_updateActionPerformed
+
+    private void ProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductMouseClicked
+
+    }//GEN-LAST:event_ProductMouseClicked
+
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+
+        config con = new config();
+
+        int row = Product.getSelectedRow();
+
+        if (row < 0) {
+
+            JOptionPane.showMessageDialog(this, "Please select a Product.");
+
+            return;
+        }
+
+        int pid = Integer.parseInt(Product.getValueAt(row, 0).toString());
+
+        int response = JOptionPane.showConfirmDialog(this,
+                "Do you want to proceed with this action?",
+                "Confirm Action",
+                JOptionPane.YES_NO_OPTION);
+
+        if (response == JOptionPane.YES_OPTION) {
+
+            String sql = "DELETE FROM parts_inventory WHERE id = ?";
+
+            con.deleteRecord(sql, pid);
+
+            display();
+
+            JOptionPane.showMessageDialog(null, "Product has beed DELETED!");
+        } else {
+
+            return;
+        }
+
+
+    }//GEN-LAST:event_deleteActionPerformed
+
+    private void EditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditActionPerformed
+
+        display();
+    }//GEN-LAST:event_EditActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -819,35 +1066,51 @@ public final class Product extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton Edit;
+    private javax.swing.JLabel Pic;
     private javax.swing.JTable Product;
     private javax.swing.JLabel Products;
     private javax.swing.JLabel Profile;
     private javax.swing.JLabel SalesReport;
     private javax.swing.JLabel SalesReport1;
+    private javax.swing.JTextField Stock;
     private javax.swing.JLabel Users;
     private javax.swing.JPanel body;
+    private javax.swing.JComboBox<String> cate;
     private javax.swing.JToggleButton delete;
+    private javax.swing.JToggleButton delete1;
     private javax.swing.JLabel edit;
     private javax.swing.JLabel email;
     private javax.swing.JTextField find;
     private javax.swing.JPanel header1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToggleButton jToggleButton4;
     private javax.swing.JToggleButton jToggleButton5;
     private javax.swing.JToggleButton jToggleButton6;
+    private javax.swing.JTextField naaaaa;
     private javax.swing.JLabel name;
+    private javax.swing.JTextField price;
     private javax.swing.JPanel product;
     private javax.swing.JPanel salesreport;
     private javax.swing.JPanel salesreport1;
+    private javax.swing.JButton save;
     private javax.swing.JToggleButton search;
+    private javax.swing.JTabbedPane tab;
+    private javax.swing.JPanel table1;
+    private javax.swing.JPanel table2;
     private javax.swing.JToggleButton update;
     private javax.swing.JPanel user;
     // End of variables declaration//GEN-END:variables

@@ -106,9 +106,6 @@ public final class SearchProduct extends javax.swing.JFrame {
         find = new javax.swing.JTextField();
         search = new javax.swing.JToggleButton();
         Edit = new javax.swing.JToggleButton();
-        jToggleButton1 = new javax.swing.JToggleButton();
-        jToggleButton2 = new javax.swing.JToggleButton();
-        jToggleButton3 = new javax.swing.JToggleButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         header1 = new javax.swing.JPanel();
@@ -367,34 +364,7 @@ public final class SearchProduct extends javax.swing.JFrame {
                 EditActionPerformed(evt);
             }
         });
-        jPanel3.add(Edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 120, -1));
-
-        jToggleButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jToggleButton1.setText("View Cart");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 120, -1));
-
-        jToggleButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jToggleButton2.setText("Check out");
-        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton2ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jToggleButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 120, -1));
-
-        jToggleButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jToggleButton3.setText("Add to Cart");
-        jToggleButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton3ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jToggleButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 120, -1));
+        jPanel3.add(Edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 120, -1));
 
         body.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, 730, 530));
 
@@ -598,134 +568,6 @@ public final class SearchProduct extends javax.swing.JFrame {
         edit.setText("");
     }//GEN-LAST:event_editMouseExited
 
-    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
-        
-        if (cart.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Cart is empty!");
-        return;
-    }
-
-    double total = 0;
-    for (CartItem item : cart) total += item.subtotal();
-
-    String payInput = JOptionPane.showInputDialog(this, "TOTAL: ₱" + total + "\nEnter payment amount:");
-    
-    if (payInput == null) return;
-
-    double payment = Double.parseDouble(payInput);
-
-        if (payment < total) {
-            JOptionPane.showMessageDialog(this, "Not enough payment!");
-            return;
-        }
-
-    double change = payment - total;
-
-    int userId = Session.getInstance().getId();
-
-    config con = new config();
-
-    
-    String sqlTrans = "INSERT INTO transactions (user_id, total_amount, payment, change_amount) VALUES (?,?,?,?)";
-    con.addRecord(sqlTrans, userId, total, payment, change);
-
-    
-    int transactionId = con.getLastInsertId();
-
-    
-    for (CartItem item : cart) {
-
-        String sqlItem =
-            "INSERT INTO transaction_items (transaction_id, part_id, part_name, price, quantity, subtotal) " +
-            "VALUES (?,?,?,?,?,?)";
-        con.addRecord(sqlItem, transactionId, item.id, item.name, item.price, item.qty, item.subtotal());
-
-        String sqlDeduct = "UPDATE parts_inventory SET stock = stock - ? WHERE id = ?";
-        con.updateRecord(sqlDeduct, item.qty, item.id);
-    }
-
-    JOptionPane.showMessageDialog(this,
-        "Checkout Successful!\n\n" +
-        "Total          : ₱" + total + "\n" +
-        "Payment        : ₱" + payment + "\n" +
-        "Change         : ₱" + change + "\n" +
-        "Transaction ID :  " + transactionId
-    );
-
-    cart.clear();
-    display(); 
-    
-    }//GEN-LAST:event_jToggleButton2ActionPerformed
-
-    private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformed
-
-    int row = Product.getSelectedRow();
-        if (row == -1) {
-            JOptionPane.showMessageDialog(this, "Select a product!");
-            return;
-        }
-
-    int id = Integer.parseInt(Product.getValueAt(row, 0).toString());
-    String name = Product.getValueAt(row, 1).toString();
-    double price = Double.parseDouble(Product.getValueAt(row, 3).toString());
-    int stock = Integer.parseInt(Product.getValueAt(row, 4).toString());
-
-    String input = JOptionPane.showInputDialog(this, "Quantity:");
-    if (input == null) return;
-
-    int qty;
-    try { qty = Integer.parseInt(input); }
-    catch (Exception e) { JOptionPane.showMessageDialog(this, "Invalid number!"); return; }
-
-    if (qty <= 0) { JOptionPane.showMessageDialog(this, "Qty must be > 0"); return; }
-    if (qty > stock) { JOptionPane.showMessageDialog(this, "Not enough stock!"); return; }
-
-    
-    for (CartItem item : cart) {
-        if (item.id == id) {
-            if (item.qty + qty > stock) {
-                JOptionPane.showMessageDialog(this, "Not enough stock for added quantity!");
-                return;
-            }
-            item.qty += qty;
-            JOptionPane.showMessageDialog(this, "Added to cart! (updated qty)");
-            return;
-        }
-    }
-
-    
-    cart.add(new CartItem(id, name, price, qty));
-    JOptionPane.showMessageDialog(this, "Added to cart!");
-
-
-    }//GEN-LAST:event_jToggleButton3ActionPerformed
-
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-         if (cart.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Cart is empty!");
-        return;
-    }
-
-    StringBuilder sb = new StringBuilder();
-    double total = 0;
-
-    sb.append("ITEMS CHOSEN:\n\n");
-
-    for (CartItem item : cart) {
-        sb.append(item.name)
-          .append(" | ₱").append(item.price)
-          .append(" x ").append(item.qty)
-          .append(" = ₱").append(item.subtotal())
-          .append("\n");
-        
-        total += item.subtotal();
-    }
-
-    sb.append("\nTOTAL: ₱").append(total);
-
-    JOptionPane.showMessageDialog(this, sb.toString());
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
-
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         getdata();
     }//GEN-LAST:event_formWindowActivated
@@ -926,9 +768,6 @@ public final class SearchProduct extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JToggleButton jToggleButton2;
-    private javax.swing.JToggleButton jToggleButton3;
     private javax.swing.JToggleButton jToggleButton4;
     private javax.swing.JToggleButton jToggleButton5;
     private javax.swing.JToggleButton jToggleButton6;
