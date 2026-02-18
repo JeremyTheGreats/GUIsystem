@@ -23,6 +23,24 @@ public class Payment extends javax.swing.JFrame {
         initComponents();
         this.checkoutList = items;
 
+        // Set up the Table Columns
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(new Object[]{"Product Name", "Quantity", "Price", "Total"});
+        table.setModel(model);
+
+        // Populate the table with chosen items
+        for (Map<String, Object> item : checkoutList) {
+            String name = item.get("name").toString();
+            int qty = Integer.parseInt(item.get("quantity").toString());
+            double total = Double.parseDouble(item.get("total").toString());
+
+            // Calculate unit price for display (Total / Quantity)
+            double unitPrice = total / qty;
+
+            model.addRow(new Object[]{name, qty, unitPrice, total});
+        }
+
+        // Generate the text-based receipt and calculate totals
         generateReceipt();
     }
 
@@ -44,7 +62,6 @@ public class Payment extends javax.swing.JFrame {
         receipt.append(String.format("%-20s %-5s %-10s\n", "Item", "Qty", "Total"));
         receipt.append("---------------------------------------------------------------------\n");
 
-        // 2. Items Loop
         for (Map<String, Object> item : checkoutList) {
             String name = item.get("name").toString();
             if (name.length() > 18) {
@@ -56,9 +73,9 @@ public class Payment extends javax.swing.JFrame {
 
             grandTotal += total;
             receipt.append(String.format("%-20s %-5d ₱%-10.2f\n", name, qty, total));
+
         }
 
-        // 3. Financial Calculations
         double vatableSales = grandTotal / 1.12;
         double vatAmount = grandTotal - vatableSales;
 
@@ -84,28 +101,25 @@ public class Payment extends javax.swing.JFrame {
         finalInfo.append("========================================\n\n");
         finalInfo.append("        Thank you for shopping!");
 
-        // Find where "Thank you for shopping!" was and replace it with the payment info
         String currentReceipt = txtReceipt.getText().replace("Thank you for shopping!", "");
         txtReceipt.setText(currentReceipt + finalInfo.toString());
     }
 
     private void saveTransactionToDatabase(double cash, double change) {
+
         config db = new config();
         Session session = Session.getInstance();
         int userId = session.getId();
 
-        // 1. Save the main Transaction (The "Master" record)
-        // Adjust table/column names to match your SQLite database
         String salesSql = "INSERT INTO sales (u_id, total_amount, cash_received, cash_change, sale_date) "
                 + "VALUES (?, ?, ?, ?, DATETIME('now', 'localtime'))";
 
         db.addRecord(salesSql, userId, grandTotal, cash, change);
 
-        // 2. Get the ID of the sale we just created
-        int salesId = db.getLastInsertId();
+        int salesId = db.getLastSaleID();
 
         if (salesId != -1) {
-            // 3. Save each item in the list (The "Detail" records)
+
             for (Map<String, Object> item : checkoutList) {
                 String name = item.get("name").toString();
                 int qty = Integer.parseInt(item.get("quantity").toString());
@@ -116,9 +130,23 @@ public class Payment extends javax.swing.JFrame {
             }
 
             JOptionPane.showMessageDialog(this, "Transaction saved successfully!");
-            btnProceed.setEnabled(false); // Prevent duplicate saves
+            btnProceed.setEnabled(false);
         } else {
             JOptionPane.showMessageDialog(this, "Error: Could not retrieve Sales ID.");
+        }
+    }
+    
+    public void getdata() {
+
+        Session s = Session.getInstance();
+
+        if (s.getId() == 0) {
+
+            login log = new login();
+            log.setVisible(true);
+            this.dispose();
+            JOptionPane.showMessageDialog(null, "Please Log in First to proceed!");
+
         }
     }
 
@@ -147,8 +175,15 @@ public class Payment extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        table = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         header1.setBackground(new java.awt.Color(255, 255, 255));
@@ -225,12 +260,14 @@ public class Payment extends javax.swing.JFrame {
 
         getContentPane().add(footer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 660, 1000, 40));
 
-        body.setBackground(new java.awt.Color(255, 255, 255));
+        body.setBackground(new java.awt.Color(202, 240, 248));
         body.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         body.setForeground(new java.awt.Color(255, 255, 255));
         body.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setBackground(new java.awt.Color(13, 59, 102));
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(13, 59, 102));
         jLabel1.setText("CHECKOUT / PAYMENT");
         body.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 240, 50));
 
@@ -247,14 +284,15 @@ public class Payment extends javax.swing.JFrame {
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 100, 40));
 
         lblTotalAmount.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jPanel2.add(lblTotalAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 170, 40));
+        lblTotalAmount.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jPanel2.add(lblTotalAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 270, 40));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel9.setText("Cash Recieved");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 100, 40));
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 100, 40));
 
         txtCashReceived.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jPanel2.add(txtCashReceived, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, 270, 40));
+        jPanel2.add(txtCashReceived, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 270, 40));
 
         btnProceed.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnProceed.setText("Proceed");
@@ -263,16 +301,17 @@ public class Payment extends javax.swing.JFrame {
                 btnProceedActionPerformed(evt);
             }
         });
-        jPanel2.add(btnProceed, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 430, 170, 50));
+        jPanel2.add(btnProceed, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 150, 170, 50));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel10.setText("Change");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 100, 40));
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 90, 40));
 
         lblChange.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jPanel2.add(lblChange, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 190, 50));
+        lblChange.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jPanel2.add(lblChange, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 170, 50));
 
-        body.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, 500, 550));
+        body.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 380, 530, 210));
 
         jPanel1.setBackground(new java.awt.Color(13, 59, 102));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -314,6 +353,18 @@ public class Payment extends javax.swing.JFrame {
 
         body.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 150, 580));
 
+        table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(table);
+
+        body.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 530, 320));
+
         getContentPane().add(body, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 1000, 600));
 
         pack();
@@ -346,31 +397,30 @@ public class Payment extends javax.swing.JFrame {
 
     private void btnProceedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProceedActionPerformed
         try {
-            String cashStr = txtCashReceived.getText().trim();
-            if (cashStr.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Please enter cash amount.");
+            double cash = Double.parseDouble(txtCashReceived.getText());
+
+            if (cash < grandTotal) {
+                JOptionPane.showMessageDialog(this, "Insufficient Cash!");
                 return;
             }
 
-            double cashValue = Double.parseDouble(cashStr);
+            double change = cash - grandTotal;
+            lblChange.setText("₱" + String.format("%.2f", change));
 
-            if (cashValue >= grandTotal) {
-                double changeValue = cashValue - grandTotal;
+            // 1. Update the visual receipt
+            updateFinalReceipt(cash, change);
 
-                // Update labels and Receipt Text
-                lblChange.setText("₱" + String.format("%.2f", changeValue));
-                updateFinalReceipt(cashValue, changeValue);
+            // 2. Save everything to the database (Sale + All Items)
+            saveTransactionToDatabase(cash, change);
 
-                // SAVE TO SQL DATABASE
-                saveTransactionToDatabase(cashValue, changeValue);
-
-            } else {
-                JOptionPane.showMessageDialog(this, "Insufficient Cash!");
-            }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Invalid number format.");
+            JOptionPane.showMessageDialog(this, "Please enter a valid cash amount.");
         }
     }//GEN-LAST:event_btnProceedActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        getdata();
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -428,8 +478,10 @@ public class Payment extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblChange;
     private javax.swing.JLabel lblTotalAmount;
+    private javax.swing.JTable table;
     private javax.swing.JTextField txtCashReceived;
     private javax.swing.JTextArea txtReceipt;
     // End of variables declaration//GEN-END:variables

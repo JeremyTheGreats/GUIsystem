@@ -76,15 +76,16 @@ public class EditStaff extends javax.swing.JFrame {
         email = new javax.swing.JLabel();
         edit = new javax.swing.JLabel();
         Profile = new javax.swing.JLabel();
+        id = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         user = new javax.swing.JPanel();
         Users = new javax.swing.JLabel();
         product = new javax.swing.JPanel();
         Products = new javax.swing.JLabel();
-        salesreport = new javax.swing.JPanel();
-        SalesReport = new javax.swing.JLabel();
         salesreport1 = new javax.swing.JPanel();
         SalesReport1 = new javax.swing.JLabel();
+        salesreport = new javax.swing.JPanel();
+        SalesReport = new javax.swing.JLabel();
         body = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         fullname = new javax.swing.JTextField();
@@ -120,20 +121,21 @@ public class EditStaff extends javax.swing.JFrame {
         name.setText("User");
         name.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         name.setName("name"); // NOI18N
-        jPanel2.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 190, 37));
-        name.getAccessibleContext().setAccessibleName("lblUser");
-        name.getAccessibleContext().setAccessibleDescription("User");
+        jPanel2.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 190, 37));
 
         email.setForeground(new java.awt.Color(255, 255, 255));
         email.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         email.setText("email");
-        jPanel2.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 230, 23));
+        jPanel2.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 230, 23));
 
         edit.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         edit.setForeground(new java.awt.Color(255, 255, 255));
         edit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         edit.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         edit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 editMouseEntered(evt);
             }
@@ -141,10 +143,16 @@ public class EditStaff extends javax.swing.JFrame {
                 editMouseExited(evt);
             }
         });
-        jPanel2.add(edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, 110, 100));
+        jPanel2.add(edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 100, 100));
 
         Profile.setPreferredSize(new java.awt.Dimension(100, 100));
-        jPanel2.add(Profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, 110, 100));
+        jPanel2.add(Profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, -1, -1));
+
+        id.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        id.setForeground(new java.awt.Color(255, 255, 255));
+        id.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        id.setText("ID");
+        jPanel2.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 164, 220, 30));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -226,39 +234,6 @@ public class EditStaff extends javax.swing.JFrame {
 
         jPanel2.add(product, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 220, 50));
 
-        salesreport.setBackground(new java.awt.Color(0, 119, 176));
-        salesreport.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                salesreportMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                salesreportMouseExited(evt);
-            }
-        });
-
-        SalesReport.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        SalesReport.setForeground(new java.awt.Color(255, 255, 255));
-        SalesReport.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        SalesReport.setText("Sales Report");
-
-        javax.swing.GroupLayout salesreportLayout = new javax.swing.GroupLayout(salesreport);
-        salesreport.setLayout(salesreportLayout);
-        salesreportLayout.setHorizontalGroup(
-            salesreportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(salesreportLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(SalesReport)
-                .addContainerGap(78, Short.MAX_VALUE))
-        );
-        salesreportLayout.setVerticalGroup(
-            salesreportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, salesreportLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(SalesReport, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel2.add(salesreport, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 220, 50));
-
         salesreport1.setBackground(new java.awt.Color(0, 119, 176));
         salesreport1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -294,6 +269,39 @@ public class EditStaff extends javax.swing.JFrame {
         );
 
         jPanel2.add(salesreport1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 530, 220, 50));
+
+        salesreport.setBackground(new java.awt.Color(0, 119, 176));
+        salesreport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                salesreportMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                salesreportMouseExited(evt);
+            }
+        });
+
+        SalesReport.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        SalesReport.setForeground(new java.awt.Color(255, 255, 255));
+        SalesReport.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        SalesReport.setText("My Sales");
+
+        javax.swing.GroupLayout salesreportLayout = new javax.swing.GroupLayout(salesreport);
+        salesreport.setLayout(salesreportLayout);
+        salesreportLayout.setHorizontalGroup(
+            salesreportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(salesreportLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(SalesReport)
+                .addContainerGap(113, Short.MAX_VALUE))
+        );
+        salesreportLayout.setVerticalGroup(
+            salesreportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, salesreportLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(SalesReport, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel2.add(salesreport, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 220, 50));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 230, 600));
 
@@ -484,14 +492,6 @@ public class EditStaff extends javax.swing.JFrame {
         
     }//GEN-LAST:event_updateActionPerformed
 
-    private void editMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseExited
-        edit.setText("");
-    }//GEN-LAST:event_editMouseExited
-
-    private void editMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseEntered
-        edit.setText("EDIT");
-    }//GEN-LAST:event_editMouseEntered
-
     private void fullnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fullnameActionPerformed
         
     }//GEN-LAST:event_fullnameActionPerformed
@@ -570,14 +570,6 @@ public class EditStaff extends javax.swing.JFrame {
         product.setBackground(new Color(0,119,176));
     }//GEN-LAST:event_productMouseExited
 
-    private void salesreportMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreportMouseEntered
-        salesreport.setBackground(new Color(13,59,102));
-    }//GEN-LAST:event_salesreportMouseEntered
-
-    private void salesreportMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreportMouseExited
-        salesreport.setBackground(new Color(0,119,176));
-    }//GEN-LAST:event_salesreportMouseExited
-
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         
         getdata();        // TODO add your handling code here:
@@ -596,6 +588,29 @@ public class EditStaff extends javax.swing.JFrame {
     private void salesreport1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport1MouseExited
         salesreport.setBackground(new Color(0,119,176));
     }//GEN-LAST:event_salesreport1MouseExited
+
+    private void salesreportMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreportMouseEntered
+        salesreport.setBackground(new Color(13, 59, 102));
+    }//GEN-LAST:event_salesreportMouseEntered
+
+    private void salesreportMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreportMouseExited
+        salesreport.setBackground(new Color(0, 119, 176));
+    }//GEN-LAST:event_salesreportMouseExited
+
+    private void editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseClicked
+
+        EditStaff edit = new EditStaff();
+        edit.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_editMouseClicked
+
+    private void editMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseEntered
+        edit.setText("EDIT");
+    }//GEN-LAST:event_editMouseEntered
+
+    private void editMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseExited
+        edit.setText("");
+    }//GEN-LAST:event_editMouseExited
 
     
     public static void main(String args[]) {
@@ -660,6 +675,7 @@ public class EditStaff extends javax.swing.JFrame {
     private javax.swing.JTextField emailField;
     private javax.swing.JTextField fullname;
     private javax.swing.JPanel header1;
+    private javax.swing.JLabel id;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -24,6 +24,7 @@ public final class SearchProduct extends javax.swing.JFrame {
 
         name.setText(s.getFullname());
         email.setText(s.getEmail());
+        id.setText(String.valueOf(s.getId()));
         
         con.setProfileIcon(Profile, s.getImagePath());
         
@@ -89,6 +90,7 @@ public final class SearchProduct extends javax.swing.JFrame {
         email = new javax.swing.JLabel();
         edit = new javax.swing.JLabel();
         Profile = new javax.swing.JLabel();
+        id = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         user = new javax.swing.JPanel();
         Users = new javax.swing.JLabel();
@@ -96,8 +98,8 @@ public final class SearchProduct extends javax.swing.JFrame {
         Products = new javax.swing.JLabel();
         salesreport = new javax.swing.JPanel();
         SalesReport = new javax.swing.JLabel();
-        salesreport1 = new javax.swing.JPanel();
-        SalesReport1 = new javax.swing.JLabel();
+        salesreport2 = new javax.swing.JPanel();
+        SalesReport2 = new javax.swing.JLabel();
         body = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -132,12 +134,12 @@ public final class SearchProduct extends javax.swing.JFrame {
         name.setText("User");
         name.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         name.setName("name"); // NOI18N
-        jPanel2.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 190, 37));
+        jPanel2.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 190, 37));
 
         email.setForeground(new java.awt.Color(255, 255, 255));
         email.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         email.setText("email");
-        jPanel2.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 230, 23));
+        jPanel2.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 230, 23));
 
         edit.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         edit.setForeground(new java.awt.Color(255, 255, 255));
@@ -154,10 +156,16 @@ public final class SearchProduct extends javax.swing.JFrame {
                 editMouseExited(evt);
             }
         });
-        jPanel2.add(edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 100, 100));
+        jPanel2.add(edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 100, 100));
 
         Profile.setPreferredSize(new java.awt.Dimension(100, 100));
-        jPanel2.add(Profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, -1, 100));
+        jPanel2.add(Profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, -1, -1));
+
+        id.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        id.setForeground(new java.awt.Color(255, 255, 255));
+        id.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        id.setText("ID");
+        jPanel2.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 164, 220, 30));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -275,38 +283,38 @@ public final class SearchProduct extends javax.swing.JFrame {
 
         jPanel2.add(salesreport, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 530, 220, 50));
 
-        salesreport1.setBackground(new java.awt.Color(0, 119, 176));
-        salesreport1.addMouseListener(new java.awt.event.MouseAdapter() {
+        salesreport2.setBackground(new java.awt.Color(0, 119, 176));
+        salesreport2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                salesreport1MouseEntered(evt);
+                salesreport2MouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                salesreport1MouseExited(evt);
+                salesreport2MouseExited(evt);
             }
         });
 
-        SalesReport1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        SalesReport1.setForeground(new java.awt.Color(255, 255, 255));
-        SalesReport1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        SalesReport1.setText("Sales Report");
+        SalesReport2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        SalesReport2.setForeground(new java.awt.Color(255, 255, 255));
+        SalesReport2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        SalesReport2.setText("My Sales");
 
-        javax.swing.GroupLayout salesreport1Layout = new javax.swing.GroupLayout(salesreport1);
-        salesreport1.setLayout(salesreport1Layout);
-        salesreport1Layout.setHorizontalGroup(
-            salesreport1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(salesreport1Layout.createSequentialGroup()
+        javax.swing.GroupLayout salesreport2Layout = new javax.swing.GroupLayout(salesreport2);
+        salesreport2.setLayout(salesreport2Layout);
+        salesreport2Layout.setHorizontalGroup(
+            salesreport2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(salesreport2Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addComponent(SalesReport1)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addComponent(SalesReport2)
+                .addContainerGap(113, Short.MAX_VALUE))
         );
-        salesreport1Layout.setVerticalGroup(
-            salesreport1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, salesreport1Layout.createSequentialGroup()
+        salesreport2Layout.setVerticalGroup(
+            salesreport2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, salesreport2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(SalesReport1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(SalesReport2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel2.add(salesreport1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 220, 50));
+        jPanel2.add(salesreport2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 220, 50));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 230, 600));
 
@@ -553,9 +561,27 @@ public final class SearchProduct extends javax.swing.JFrame {
         
     }//GEN-LAST:event_findKeyTyped
 
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        getdata();
+    }//GEN-LAST:event_formWindowActivated
+
+    private void salesreportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreportMouseClicked
+        Staff sta = new Staff();
+        sta.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_salesreportMouseClicked
+
+    private void salesreport2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport2MouseEntered
+        salesreport.setBackground(new Color(13, 59, 102));
+    }//GEN-LAST:event_salesreport2MouseEntered
+
+    private void salesreport2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport2MouseExited
+        salesreport.setBackground(new Color(0, 119, 176));
+    }//GEN-LAST:event_salesreport2MouseExited
+
     private void editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseClicked
 
-        EditProfile edit = new EditProfile();
+        EditStaff edit = new EditStaff();
         edit.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_editMouseClicked
@@ -567,24 +593,6 @@ public final class SearchProduct extends javax.swing.JFrame {
     private void editMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseExited
         edit.setText("");
     }//GEN-LAST:event_editMouseExited
-
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        getdata();
-    }//GEN-LAST:event_formWindowActivated
-
-    private void salesreport1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport1MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_salesreport1MouseEntered
-
-    private void salesreport1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_salesreport1MouseExited
-
-    private void salesreportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreportMouseClicked
-        Staff sta = new Staff();
-        sta.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_salesreportMouseClicked
 
     
     public static void main(String args[]) {
@@ -752,13 +760,14 @@ public final class SearchProduct extends javax.swing.JFrame {
     private javax.swing.JLabel Products;
     private javax.swing.JLabel Profile;
     private javax.swing.JLabel SalesReport;
-    private javax.swing.JLabel SalesReport1;
+    private javax.swing.JLabel SalesReport2;
     private javax.swing.JLabel Users;
     private javax.swing.JPanel body;
     private javax.swing.JLabel edit;
     private javax.swing.JLabel email;
     private javax.swing.JTextField find;
     private javax.swing.JPanel header1;
+    private javax.swing.JLabel id;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -774,7 +783,7 @@ public final class SearchProduct extends javax.swing.JFrame {
     private javax.swing.JLabel name;
     private javax.swing.JPanel product;
     private javax.swing.JPanel salesreport;
-    private javax.swing.JPanel salesreport1;
+    private javax.swing.JPanel salesreport2;
     private javax.swing.JToggleButton search;
     private javax.swing.JPanel user;
     // End of variables declaration//GEN-END:variables

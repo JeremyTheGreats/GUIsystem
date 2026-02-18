@@ -1,6 +1,5 @@
 package config;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
-import javax.swing.JTable;
 import net.proteanit.sql.DbUtils;
 
 public class config {
@@ -229,37 +227,62 @@ public class config {
         }
     }
 
-    public int getLastInsertId() {
+    public int getLastSaleID() {
         int id = -1;
-        String sql = "SELECT last_insert_rowid()";
+        // We select the Maximum ID from the sales table
+        String sql = "SELECT MAX(sale_id) FROM sales";
+
         try (Connection conn = connectDB();
                 PreparedStatement pst = conn.prepareStatement(sql);
                 ResultSet rs = pst.executeQuery()) {
+
             if (rs.next()) {
                 id = rs.getInt(1);
             }
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+        } catch (SQLException e) {
+            System.out.println("Error fetching last ID: " + e.getMessage());
         }
         return id;
     }
 
-    public int getPendingCartCount(int userId) {
-        int count = 0;
-        // We only count items that haven't been bought yet
-        String sql = "SELECT SUM(p_qty) FROM cart WHERE u_id = ? AND cart_status = 'Pending'";
-        try (Connection conn = connectDB();
-                PreparedStatement pst = conn.prepareStatement(sql)) {
-            pst.setInt(1, userId);
-            try (ResultSet rs = pst.executeQuery()) {
+    public double getTotalUserSales(int userId) {
+        double total = 0;
+        // Query sums the total_amount for the specific user
+        String sql = "SELECT SUM(total_amount) FROM sales WHERE u_id = ?";
+
+        try (Connection conn = this.connectDB();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, userId);
+            try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
-                    count = rs.getInt(1);
+                    total = rs.getDouble(1);
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("Error fetching total sales: " + e.getMessage());
         }
-        return count;
+        return total;
     }
+    
+    public int getTransactionCount(int userId) {
+    int count = 0;
+    // COUNT(sale_id) counts how many rows exist for this user ID
+    String sql = "SELECT COUNT(sale_id) FROM sales WHERE u_id = ?";
+    
+    try (Connection conn = this.connectDB();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        
+        pstmt.setInt(1, userId);
+        try (ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        }
+    } catch (SQLException e) {
+        System.out.println("Error fetching transaction count: " + e.getMessage());
+    }
+    return count;
+}
 
 }

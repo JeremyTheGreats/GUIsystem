@@ -407,6 +407,11 @@ public final class Product extends javax.swing.JFrame {
         jPanel3.add(find, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, 270, 30));
 
         search.setText("Search");
+        search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchActionPerformed(evt);
+            }
+        });
         jPanel3.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 30, 80, 30));
 
         Edit.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -968,6 +973,10 @@ public final class Product extends javax.swing.JFrame {
 
         display();
     }//GEN-LAST:event_EditActionPerformed
+
+    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

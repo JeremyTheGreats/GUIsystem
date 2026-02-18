@@ -1,4 +1,3 @@
-
 package StaffFuction;
 
 import Main.EditProfile;
@@ -10,37 +9,58 @@ import config.config;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
-
-
 public class Staff extends javax.swing.JFrame {
 
-     public Staff() {
+    public Staff() {
         initComponents();
-        
+
         config con = new config();
         Session s = Session.getInstance();
-        
+
         name.setText(s.getFullname());
         email.setText(s.getEmail());
+        id.setText(String.valueOf(s.getId()));
 
         con.setProfileIcon(Profile, s.getImagePath());
-      
+        updateDashboardStats();
+        updateTransactionCount();
     }
-     public void getdata(){
-    
+
+    public void getdata() {
+
         Session s = Session.getInstance();
 
-            if (s.getId() == 0 ){
+        if (s.getId() == 0) {
 
-                login log = new login();
-                log.setVisible(true);
-                this.dispose();
-                JOptionPane.showMessageDialog(null, "Please Log in First to proceed!");
-                
-            }
+            login log = new login();
+            log.setVisible(true);
+            this.dispose();
+            JOptionPane.showMessageDialog(null, "Please Log in First to proceed!");
+
+        }
     }
 
-  
+    public void updateDashboardStats() {
+        config db = new config();
+        // Use your Session class to get the current user's ID
+        int currentUserId = Session.getInstance().getId();
+
+        double totalSales = db.getTotalUserSales(currentUserId);
+
+        sales.setText("₱" + String.format("%.2f", totalSales));
+    }
+
+    public void updateTransactionCount() {
+        config db = new config();
+        // Get the ID from your existing Session class
+        int currentUserId = Session.getInstance().getId();
+
+        int totalTransactions = db.getTransactionCount(currentUserId);
+
+        // Update the label on your Dashboard
+        tran.setText(String.valueOf(totalTransactions));
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -50,6 +70,7 @@ public class Staff extends javax.swing.JFrame {
         email = new javax.swing.JLabel();
         edit = new javax.swing.JLabel();
         Profile = new javax.swing.JLabel();
+        id = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         setings = new javax.swing.JPanel();
         Setings = new javax.swing.JLabel();
@@ -62,7 +83,11 @@ public class Staff extends javax.swing.JFrame {
         body = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        tran = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        sales = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         header1 = new javax.swing.JPanel();
@@ -89,14 +114,14 @@ public class Staff extends javax.swing.JFrame {
         name.setText("User");
         name.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         name.setName("name"); // NOI18N
-        jPanel2.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 190, 37));
+        jPanel2.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 190, 37));
         name.getAccessibleContext().setAccessibleName("lblUser");
         name.getAccessibleContext().setAccessibleDescription("User");
 
         email.setForeground(new java.awt.Color(255, 255, 255));
         email.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         email.setText("email");
-        jPanel2.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 230, 23));
+        jPanel2.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 230, 23));
 
         edit.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         edit.setForeground(new java.awt.Color(255, 255, 255));
@@ -113,10 +138,16 @@ public class Staff extends javax.swing.JFrame {
                 editMouseExited(evt);
             }
         });
-        jPanel2.add(edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 100, 100));
+        jPanel2.add(edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 100, 100));
 
         Profile.setPreferredSize(new java.awt.Dimension(100, 100));
-        jPanel2.add(Profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, -1, -1));
+        jPanel2.add(Profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, -1, -1));
+
+        id.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        id.setForeground(new java.awt.Color(255, 255, 255));
+        id.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        id.setText("ID");
+        jPanel2.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 164, 220, 30));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -198,6 +229,9 @@ public class Staff extends javax.swing.JFrame {
 
         salesreport.setBackground(new java.awt.Color(0, 119, 176));
         salesreport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                salesreportMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 salesreportMouseEntered(evt);
             }
@@ -277,15 +311,35 @@ public class Staff extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel5.setText("Total of Transaction");
+
+        tran.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        tran.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tran.setText("jLabel6");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 348, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel5))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(61, 61, 61)
+                        .addComponent(tran, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 178, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(tran, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         body.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, 350, 180));
@@ -293,15 +347,34 @@ public class Staff extends javax.swing.JFrame {
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
         jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel6.setText("Total of Sales");
+
+        sales.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        sales.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        sales.setText("jLabel6");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 338, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(59, Short.MAX_VALUE)
+                .addComponent(sales, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 178, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(sales, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         body.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 60, 340, 180));
@@ -425,31 +498,31 @@ public class Staff extends javax.swing.JFrame {
     }//GEN-LAST:event_LogoutActionPerformed
 
     private void productMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productMouseEntered
-        product.setBackground(new Color(13,59,102));
+        product.setBackground(new Color(13, 59, 102));
     }//GEN-LAST:event_productMouseEntered
 
     private void salesreportMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreportMouseEntered
-        salesreport.setBackground(new Color(13,59,102));
+        salesreport.setBackground(new Color(13, 59, 102));
     }//GEN-LAST:event_salesreportMouseEntered
 
     private void setingsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_setingsMouseEntered
-        setings.setBackground(new Color(13,59,102));
+        setings.setBackground(new Color(13, 59, 102));
     }//GEN-LAST:event_setingsMouseEntered
 
     private void productMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productMouseExited
-        product.setBackground(new Color(0,119,176));
+        product.setBackground(new Color(0, 119, 176));
     }//GEN-LAST:event_productMouseExited
 
     private void salesreportMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreportMouseExited
-        salesreport.setBackground(new Color(0,119,176));
+        salesreport.setBackground(new Color(0, 119, 176));
     }//GEN-LAST:event_salesreportMouseExited
 
     private void setingsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_setingsMouseExited
-        setings.setBackground(new Color(0,119,176));
+        setings.setBackground(new Color(0, 119, 176));
     }//GEN-LAST:event_setingsMouseExited
 
     private void productMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productMouseClicked
-        
+
         ComputerSets sale = new ComputerSets();
         sale.setVisible(true);
         this.dispose();
@@ -485,10 +558,17 @@ public class Staff extends javax.swing.JFrame {
     }//GEN-LAST:event_setingsMouseClicked
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        getdata();        
+        getdata();
     }//GEN-LAST:event_formWindowActivated
 
-    
+    private void salesreportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreportMouseClicked
+        
+        MySales sale = new MySales();
+        sale.setVisible(true);
+        this.dispose();
+        
+    }//GEN-LAST:event_salesreportMouseClicked
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -547,10 +627,13 @@ public class Staff extends javax.swing.JFrame {
     private javax.swing.JLabel edit;
     private javax.swing.JLabel email;
     private javax.swing.JPanel header1;
+    private javax.swing.JLabel id;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -560,8 +643,10 @@ public class Staff extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButton5;
     private javax.swing.JLabel name;
     private javax.swing.JPanel product;
+    private javax.swing.JLabel sales;
     private javax.swing.JPanel salesreport;
     private javax.swing.JPanel setings;
     private javax.swing.JPanel setings1;
+    private javax.swing.JLabel tran;
     // End of variables declaration//GEN-END:variables
 }
