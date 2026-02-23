@@ -7,7 +7,6 @@ import Main.login;
 import config.Session;
 import config.config;
 import java.awt.Color;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 
@@ -22,6 +21,8 @@ public class dashboardAdmin extends javax.swing.JFrame {
   
         name.setText(s.getFullname());
         email.setText(s.getEmail());
+        count.setText(String.valueOf(con.getUserCount()));
+        sum.setText(String.valueOf("₱ " + con.getTotalSalesAmount()));
        
         
         con.setProfileIcon(Profile, s.getImagePath());
@@ -54,8 +55,6 @@ public class dashboardAdmin extends javax.swing.JFrame {
         edit = new javax.swing.JLabel();
         Profile = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        setings = new javax.swing.JPanel();
-        Setings = new javax.swing.JLabel();
         user = new javax.swing.JPanel();
         Users = new javax.swing.JLabel();
         product = new javax.swing.JPanel();
@@ -66,13 +65,13 @@ public class dashboardAdmin extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        count = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        sum = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         header1 = new javax.swing.JPanel();
@@ -133,39 +132,6 @@ public class dashboardAdmin extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Admin");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 150, 30));
-
-        setings.setBackground(new java.awt.Color(0, 119, 176));
-        setings.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                setingsMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                setingsMouseExited(evt);
-            }
-        });
-
-        Setings.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        Setings.setForeground(new java.awt.Color(255, 255, 255));
-        Setings.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Setings.setText("Edit Profile");
-
-        javax.swing.GroupLayout setingsLayout = new javax.swing.GroupLayout(setings);
-        setings.setLayout(setingsLayout);
-        setingsLayout.setHorizontalGroup(
-            setingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(setingsLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(Setings)
-                .addContainerGap(93, Short.MAX_VALUE))
-        );
-        setingsLayout.setVerticalGroup(
-            setingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, setingsLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(Setings, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel2.add(setings, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 470, 220, 50));
 
         user.setBackground(new java.awt.Color(0, 119, 176));
         user.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -298,9 +264,9 @@ public class dashboardAdmin extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel9.setText("Total Users :");
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("64");
+        count.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        count.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        count.setText("64");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -312,7 +278,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE))
+                    .addComponent(count, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -321,7 +287,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel9)
                 .addGap(35, 35, 35)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(count, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(50, Short.MAX_VALUE))
         );
 
@@ -378,9 +344,9 @@ public class dashboardAdmin extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setText("Total Sales : ");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("1,543,135.12 ");
+        sum.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        sum.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        sum.setText("1,543,135.12 ");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -392,7 +358,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE))
+                    .addComponent(sum, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -401,7 +367,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel6)
                 .addGap(35, 35, 35)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sum, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(50, Short.MAX_VALUE))
         );
 
@@ -543,10 +509,6 @@ public class dashboardAdmin extends javax.swing.JFrame {
         salesreport.setBackground(new Color(13,59,102));
     }//GEN-LAST:event_salesreportMouseEntered
 
-    private void setingsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_setingsMouseEntered
-        setings.setBackground(new Color(13,59,102));
-    }//GEN-LAST:event_setingsMouseEntered
-
     private void userMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userMouseExited
         user.setBackground(new Color(0,119,176));
     }//GEN-LAST:event_userMouseExited
@@ -558,10 +520,6 @@ public class dashboardAdmin extends javax.swing.JFrame {
     private void salesreportMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreportMouseExited
         salesreport.setBackground(new Color(0,119,176));
     }//GEN-LAST:event_salesreportMouseExited
-
-    private void setingsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_setingsMouseExited
-        setings.setBackground(new Color(0,119,176));
-    }//GEN-LAST:event_setingsMouseExited
 
     private void UsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsersMouseClicked
         
@@ -640,19 +598,17 @@ public class dashboardAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel Products;
     private javax.swing.JLabel Profile;
     private javax.swing.JLabel SalesReport;
-    private javax.swing.JLabel Setings;
     private javax.swing.JLabel Users;
     private javax.swing.JPanel body;
+    private javax.swing.JLabel count;
     private javax.swing.JLabel edit;
     private javax.swing.JLabel email;
     private javax.swing.JPanel header1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -667,7 +623,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel name;
     private javax.swing.JPanel product;
     private javax.swing.JPanel salesreport;
-    private javax.swing.JPanel setings;
+    private javax.swing.JLabel sum;
     private javax.swing.JPanel user;
     // End of variables declaration//GEN-END:variables
 }

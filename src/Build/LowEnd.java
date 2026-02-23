@@ -1,4 +1,3 @@
-
 package Build;
 
 import config.Session;
@@ -9,41 +8,42 @@ import StaffFuction.ComputerSets;
 import Main.landing;
 import Main.login;
 
-
-
-
 public class LowEnd extends javax.swing.JFrame {
-    
-   
-    
-     public LowEnd() {
+
+    public LowEnd() {
         initComponents();
-        
+
         config con = new config();
-      
+
         Session s = Session.getInstance();
-        
 
-        
-            if (s.getEmail() == null ){
-                
-                JOptionPane.showMessageDialog(this, "Please Log in First to proceed!");
-                
-                login log = new login();
-                log.setVisible(true);
-                this.dispose();
-                
-                return;
-            }
-        
-        
- 
-      
+        if (s.getEmail() == null) {
+
+            JOptionPane.showMessageDialog(this, "Please Log in First to proceed!");
+
+            login log = new login();
+            log.setVisible(true);
+            this.dispose();
+
+            return;
+        }
+
     }
-     
-    
 
-  
+    public void getdata() {
+
+        Session s = Session.getInstance();
+
+        if (s.getId() == 0) {
+
+            login log = new login();
+            log.setVisible(true);
+            this.dispose();
+            JOptionPane.showMessageDialog(null, "Please Log in First to proceed!");
+
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -146,6 +146,11 @@ public class LowEnd extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         footer.setBackground(new java.awt.Color(127, 157, 177));
@@ -973,7 +978,7 @@ public class LowEnd extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton4ActionPerformed
 
     private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
-        
+
         login log = new login();
         log.setLocationRelativeTo(null);
         log.setVisible(true);
@@ -996,43 +1001,43 @@ public class LowEnd extends javax.swing.JFrame {
     }//GEN-LAST:event_purchaseMouseExited
 
     private void bunMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bunMouseEntered
-        bun.setBackground(new Color(13,59,102));
+        bun.setBackground(new Color(13, 59, 102));
     }//GEN-LAST:event_bunMouseEntered
 
     private void bunMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bunMouseExited
-        bun.setBackground(new Color(0,119,176));
+        bun.setBackground(new Color(0, 119, 176));
     }//GEN-LAST:event_bunMouseExited
 
     private void bun1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bun1MouseEntered
-        bun1.setBackground(new Color(13,59,102));
+        bun1.setBackground(new Color(13, 59, 102));
     }//GEN-LAST:event_bun1MouseEntered
 
     private void bun1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bun1MouseExited
-        bun1.setBackground(new Color(0,119,176));
+        bun1.setBackground(new Color(0, 119, 176));
     }//GEN-LAST:event_bun1MouseExited
 
     private void bun2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bun2MouseEntered
-        bun2.setBackground(new Color(13,59,102));
+        bun2.setBackground(new Color(13, 59, 102));
     }//GEN-LAST:event_bun2MouseEntered
 
     private void bun2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bun2MouseExited
-       bun2.setBackground(new Color(0,119,176));
+        bun2.setBackground(new Color(0, 119, 176));
     }//GEN-LAST:event_bun2MouseExited
 
     private void BackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BackMouseEntered
-        Back.setBackground(new Color(13,59,102));
+        Back.setBackground(new Color(13, 59, 102));
     }//GEN-LAST:event_BackMouseEntered
 
     private void BackMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BackMouseExited
-        Back.setBackground(new Color(0,119,176));
+        Back.setBackground(new Color(0, 119, 176));
     }//GEN-LAST:event_BackMouseExited
 
     private void bun3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bun3MouseEntered
-        bun3.setBackground(new Color(13,59,102));
+        bun3.setBackground(new Color(13, 59, 102));
     }//GEN-LAST:event_bun3MouseEntered
 
     private void bun3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bun3MouseExited
-        bun3.setBackground(new Color(0,119,176));
+        bun3.setBackground(new Color(0, 119, 176));
     }//GEN-LAST:event_bun3MouseExited
 
     private void bun5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bun5MouseEntered
@@ -1082,10 +1087,13 @@ public class LowEnd extends javax.swing.JFrame {
     private void BackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BackMouseClicked
         ComputerSets set = new ComputerSets();
         set.setVisible(true);
-        this.dispose();        
+        this.dispose();
     }//GEN-LAST:event_BackMouseClicked
 
-    
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        getdata();        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowActivated
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

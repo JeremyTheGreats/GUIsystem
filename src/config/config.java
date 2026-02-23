@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.ImageIcon;
 import net.proteanit.sql.DbUtils;
 
@@ -194,7 +195,7 @@ public class config {
             }
 
             try (ResultSet rs = pstmt.executeQuery()) {
-                // Automatically maps the filtered ResultSet to your JTable
+                
                 table.setModel(DbUtils.resultSetToTableModel(rs));
             }
 
@@ -212,13 +213,13 @@ public class config {
 
             java.io.File f = new java.io.File(path);
             if (f.exists()) {
-                label.setIcon(new ImageIcon(path)); // file path
+                label.setIcon(new ImageIcon(path)); 
                 return;
             }
 
             java.net.URL url = getClass().getResource(path.startsWith("/") ? path : "/" + path);
             if (url != null) {
-                label.setIcon(new ImageIcon(url)); // resource path
+                label.setIcon(new ImageIcon(url)); 
             } else {
                 label.setIcon(new ImageIcon(getClass().getResource("/image/profile.png")));
             }
@@ -229,7 +230,7 @@ public class config {
 
     public int getLastSaleID() {
         int id = -1;
-        // We select the Maximum ID from the sales table
+        
         String sql = "SELECT MAX(sale_id) FROM sales";
 
         try (Connection conn = connectDB();
@@ -247,7 +248,7 @@ public class config {
 
     public double getTotalUserSales(int userId) {
         double total = 0;
-        // Query sums the total_amount for the specific user
+        
         String sql = "SELECT SUM(total_amount) FROM sales WHERE u_id = ?";
 
         try (Connection conn = this.connectDB();
@@ -264,25 +265,62 @@ public class config {
         }
         return total;
     }
-    
+
     public int getTransactionCount(int userId) {
-    int count = 0;
-    // COUNT(sale_id) counts how many rows exist for this user ID
-    String sql = "SELECT COUNT(sale_id) FROM sales WHERE u_id = ?";
-    
-    try (Connection conn = this.connectDB();
-         PreparedStatement pstmt = conn.prepareStatement(sql)) {
-        
-        pstmt.setInt(1, userId);
-        try (ResultSet rs = pstmt.executeQuery()) {
-            if (rs.next()) {
-                count = rs.getInt(1);
+        int count = 0;
+
+        String sql = "SELECT COUNT(sale_id) FROM sales WHERE u_id = ?";
+
+        try (Connection conn = this.connectDB();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, userId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    count = rs.getInt(1);
+                }
             }
+        } catch (SQLException e) {
+            System.out.println("Error fetching transaction count: " + e.getMessage());
         }
-    } catch (SQLException e) {
-        System.out.println("Error fetching transaction count: " + e.getMessage());
+        return count;
     }
-    return count;
-}
+
+    public int getUserCount() {
+        int totalUsers = 0;
+        
+        String sql = "SELECT COUNT(*) FROM user_account";
+
+        try (Connection conn = connectDB();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql)) {
+
+            if (rs.next()) {
+                totalUsers = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error counting users: " + e.getMessage());
+        }
+        return totalUsers;
+    }
+
+    
+    public double getTotalSalesAmount() {
+        double totalSum = 0;
+        
+        String sql = "SELECT SUM(p_total) FROM sales_details";
+
+        try (Connection conn = connectDB();
+                PreparedStatement pst = conn.prepareStatement(sql);
+                ResultSet rs = pst.executeQuery()) {
+
+            if (rs.next()) {
+                totalSum = rs.getDouble(1);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error calculating total sales: " + e.getMessage());
+        }
+        return totalSum;
+    }
 
 }

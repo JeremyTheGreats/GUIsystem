@@ -29,9 +29,8 @@ public class DisplayProducts extends javax.swing.JFrame {
 
     }
 
-    
     public void updateCartUI() {
-        
+
         cartno.setText(String.valueOf(cartItems.size()));
     }
 
@@ -64,6 +63,20 @@ public class DisplayProducts extends javax.swing.JFrame {
         // Refresh UI
         containerPanel.revalidate();
         containerPanel.repaint();
+    }
+
+    public void getdata() {
+
+        Session s = Session.getInstance();
+
+        if (s.getId() == 0) {
+
+            login log = new login();
+            log.setVisible(true);
+            this.dispose();
+            JOptionPane.showMessageDialog(null, "Please Log in First to proceed!");
+
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -104,6 +117,11 @@ public class DisplayProducts extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         header1.setBackground(new java.awt.Color(255, 255, 255));
@@ -705,8 +723,12 @@ public class DisplayProducts extends javax.swing.JFrame {
         Payment payment = new Payment(cartItems);
         payment.setVisible(true);
         this.dispose();
-        
+
     }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        getdata();        
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

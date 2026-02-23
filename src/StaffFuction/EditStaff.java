@@ -1,8 +1,6 @@
-
 package StaffFuction;
 
 import Main.*;
-import AdminFunction.Users;
 import config.Session;
 import config.config;
 import java.awt.Color;
@@ -10,63 +8,52 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import static java.lang.System.in;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import org.omg.CORBA.portable.InputStream;
-
-
 
 public class EditStaff extends javax.swing.JFrame {
-    
-    private String selectedImagePath = null;
+
     private String path;
-    
-     public EditStaff() {
+
+    public EditStaff() {
         initComponents();
-        
+
         config con = new config();
         Session s = Session.getInstance();
-        
-           
+
         name.setText(s.getFullname());
         email.setText(s.getEmail());
 
         emailField.setEditable(false);
-        emailField.setBackground(new Color(230,230,230));
-        
+        emailField.setBackground(new Color(230, 230, 230));
+
         fullname.setText(s.getFullname());
         emailField.setText(s.getEmail());
-        
+
         con.setProfileIcon(Pic, s.getImagePath());
         con.setProfileIcon(Profile, s.getImagePath());
-      
+
     }
-     
-     public void getdata(){
-    
+
+    public void getdata() {
+
         Session s = Session.getInstance();
 
-            if (s.getId() == 0 ){
+        if (s.getId() == 0) {
 
-                login log = new login();
-                log.setVisible(true);
-                this.dispose();
-                JOptionPane.showMessageDialog(null, "Please Log in First to proceed!");
-                
-            }
+            login log = new login();
+            log.setVisible(true);
+            this.dispose();
+            JOptionPane.showMessageDialog(null, "Please Log in First to proceed!");
+
+        }
     }
-     
-    
 
-  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -320,16 +307,16 @@ public class EditStaff extends javax.swing.JFrame {
                 fullnameActionPerformed(evt);
             }
         });
-        body.add(fullname, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 210, 260, 40));
-        body.add(emailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 300, 260, 40));
+        body.add(fullname, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 260, 40));
+        body.add(emailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 200, 260, 40));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Full name");
-        body.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 190, 80, 20));
+        body.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, 80, 20));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Email");
-        body.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 280, 80, 20));
+        body.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 180, 80, 20));
 
         update.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         update.setText("Update");
@@ -464,7 +451,7 @@ public class EditStaff extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton4ActionPerformed
 
     private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
-        
+
         login log = new login();
         log.setLocationRelativeTo(null);
         log.setVisible(true);
@@ -473,10 +460,14 @@ public class EditStaff extends javax.swing.JFrame {
     }//GEN-LAST:event_LogoutActionPerformed
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
-        
+
         config con = new config();
-        
+
         Session ses = Session.getInstance();
+
+            if (path == null || path.isEmpty()) {
+                path = ses.getImagePath();
+            }
 
         String sql = "UPDATE user_account SET fullname = ?, email = ?, ImagePath = ? WHERE id = ?";
 
@@ -489,15 +480,18 @@ public class EditStaff extends javax.swing.JFrame {
 
         JOptionPane.showMessageDialog(this, "Profile updated!");
         
-        
+        Staff sta = new Staff();
+        sta.setVisible(true);
+        this.dispose();
+
     }//GEN-LAST:event_updateActionPerformed
 
     private void fullnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fullnameActionPerformed
-        
+
     }//GEN-LAST:event_fullnameActionPerformed
 
     private void changepicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changepicActionPerformed
-       
+
         JFileChooser chooser = new JFileChooser();
         int result = chooser.showOpenDialog(this);
 
@@ -509,7 +503,6 @@ public class EditStaff extends javax.swing.JFrame {
 
                 BufferedImage original = ImageIO.read(f);
 
-                
                 Image img = original.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
                 BufferedImage resized = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
 
@@ -517,12 +510,10 @@ public class EditStaff extends javax.swing.JFrame {
                 g2d.drawImage(img, 0, 0, 100, 100, null);
                 g2d.dispose();
 
-
                 File dir = new File("src/image");
                 if (!dir.exists()) {
                     dir.mkdirs();
                 }
-
 
                 String fileName = "profile_" + System.currentTimeMillis() + ".png";
                 File savedFile = new File(dir, fileName);
@@ -536,14 +527,13 @@ public class EditStaff extends javax.swing.JFrame {
                 Logger.getLogger(EditStaff.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
-        
-        
+
+
     }//GEN-LAST:event_changepicActionPerformed
 
     private void UsersMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsersMouseEntered
 
-        Users.setBackground(new Color(13,59,102));
+        Users.setBackground(new Color(13, 59, 102));
     }//GEN-LAST:event_UsersMouseEntered
 
     private void userMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userMouseClicked
@@ -555,23 +545,23 @@ public class EditStaff extends javax.swing.JFrame {
     }//GEN-LAST:event_userMouseClicked
 
     private void userMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userMouseEntered
-        user.setBackground(new Color(13,59,102));
+        user.setBackground(new Color(13, 59, 102));
     }//GEN-LAST:event_userMouseEntered
 
     private void userMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userMouseExited
-        user.setBackground(new Color(0,119,176));
+        user.setBackground(new Color(0, 119, 176));
     }//GEN-LAST:event_userMouseExited
 
     private void productMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productMouseEntered
-        product.setBackground(new Color(13,59,102));
+        product.setBackground(new Color(13, 59, 102));
     }//GEN-LAST:event_productMouseEntered
 
     private void productMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productMouseExited
-        product.setBackground(new Color(0,119,176));
+        product.setBackground(new Color(0, 119, 176));
     }//GEN-LAST:event_productMouseExited
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        
+
         getdata();        // TODO add your handling code here:
     }//GEN-LAST:event_formWindowActivated
 
@@ -582,11 +572,11 @@ public class EditStaff extends javax.swing.JFrame {
     }//GEN-LAST:event_salesreport1MouseClicked
 
     private void salesreport1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport1MouseEntered
-        salesreport.setBackground(new Color(13,59,102));
+        salesreport.setBackground(new Color(13, 59, 102));
     }//GEN-LAST:event_salesreport1MouseEntered
 
     private void salesreport1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport1MouseExited
-        salesreport.setBackground(new Color(0,119,176));
+        salesreport.setBackground(new Color(0, 119, 176));
     }//GEN-LAST:event_salesreport1MouseExited
 
     private void salesreportMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreportMouseEntered
@@ -612,7 +602,6 @@ public class EditStaff extends javax.swing.JFrame {
         edit.setText("");
     }//GEN-LAST:event_editMouseExited
 
-    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
