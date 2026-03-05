@@ -66,9 +66,6 @@ public class dashboardAdmin extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         count = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         sum = new javax.swing.JLabel();
@@ -77,8 +74,6 @@ public class dashboardAdmin extends javax.swing.JFrame {
         header1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jToggleButton4 = new javax.swing.JToggleButton();
-        jToggleButton5 = new javax.swing.JToggleButton();
         Logout = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -215,6 +210,9 @@ public class dashboardAdmin extends javax.swing.JFrame {
 
         salesreport.setBackground(new java.awt.Color(0, 119, 176));
         salesreport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                salesreportMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 salesreportMouseEntered(evt);
             }
@@ -293,51 +291,6 @@ public class dashboardAdmin extends javax.swing.JFrame {
 
         body.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, 350, 180));
 
-        jPanel4.setBackground(new java.awt.Color(13, 59, 102));
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 140, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 130, Short.MAX_VALUE)
-        );
-
-        body.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 330, 140, 130));
-
-        jPanel5.setBackground(new java.awt.Color(13, 59, 102));
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 140, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 130, Short.MAX_VALUE)
-        );
-
-        body.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 330, 140, 130));
-
-        jPanel6.setBackground(new java.awt.Color(13, 59, 102));
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 140, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 130, Short.MAX_VALUE)
-        );
-
-        body.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 330, 140, 130));
-
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
         jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -409,21 +362,6 @@ public class dashboardAdmin extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("TECHNOLOGY");
 
-        jToggleButton4.setBackground(new java.awt.Color(255, 255, 255));
-        jToggleButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jToggleButton4.setForeground(new java.awt.Color(13, 59, 102));
-        jToggleButton4.setText("Home");
-        jToggleButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton4ActionPerformed(evt);
-            }
-        });
-
-        jToggleButton5.setBackground(new java.awt.Color(255, 255, 255));
-        jToggleButton5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jToggleButton5.setForeground(new java.awt.Color(13, 59, 102));
-        jToggleButton5.setText("About Us");
-
         Logout.setBackground(new java.awt.Color(255, 255, 255));
         Logout.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Logout.setForeground(new java.awt.Color(13, 59, 102));
@@ -443,11 +381,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 420, Short.MAX_VALUE)
-                .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToggleButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 676, Short.MAX_VALUE)
                 .addComponent(Logout, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
         );
@@ -457,10 +391,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
                 .addGroup(header1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(header1Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addGroup(header1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jToggleButton4)
-                            .addComponent(jToggleButton5)
-                            .addComponent(Logout)))
+                        .addComponent(Logout))
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(header1Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
@@ -473,14 +404,6 @@ public class dashboardAdmin extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
-
-        landing land = new landing();
-        land.setLocationRelativeTo(null);
-        land.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jToggleButton4ActionPerformed
 
     private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
         
@@ -557,6 +480,12 @@ public class dashboardAdmin extends javax.swing.JFrame {
         getdata();        // TODO add your handling code here:
     }//GEN-LAST:event_formWindowActivated
 
+    private void salesreportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreportMouseClicked
+        Sales sa = new  Sales();
+        sa.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_salesreportMouseClicked
+
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -614,12 +543,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JToggleButton jToggleButton4;
-    private javax.swing.JToggleButton jToggleButton5;
     private javax.swing.JLabel name;
     private javax.swing.JPanel product;
     private javax.swing.JPanel salesreport;

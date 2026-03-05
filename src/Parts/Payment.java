@@ -1,7 +1,7 @@
 package Parts;
 
 import Main.login;
-import StaffFuction.ComputerSets;
+import StaffFuction.Staff;
 import config.Session;
 import config.config;
 import java.awt.Color;
@@ -56,8 +56,8 @@ public class Payment extends javax.swing.JFrame {
         receipt.append("             J-TECHNOLOGY               \n");
         receipt.append("           OFFICIAL RECEIPT             \n");
         receipt.append("========================================\n");
-        receipt.append(" Customer: " + customerName + "\n");
-        receipt.append(" Date: " + new java.util.Date() + "\n");
+        receipt.append(" Cashier  : " + customerName + "\n");
+        receipt.append(" Date     : " + new java.util.Date() + "\n");
         receipt.append("----------------------------------------\n");
         receipt.append(String.format("%-20s %-5s %-10s\n", "Item", "Qty", "Total"));
         receipt.append("---------------------------------------------------------------------\n");
@@ -111,31 +111,36 @@ public class Payment extends javax.swing.JFrame {
         Session session = Session.getInstance();
         int userId = session.getId();
 
+        
         String salesSql = "INSERT INTO sales (u_id, total_amount, cash_received, cash_change, sale_date) "
                 + "VALUES (?, ?, ?, ?, DATETIME('now', 'localtime'))";
-
         db.addRecord(salesSql, userId, grandTotal, cash, change);
 
+    
         int salesId = db.getLastSaleID();
 
         if (salesId != -1) {
-
             for (Map<String, Object> item : checkoutList) {
                 String name = item.get("name").toString();
                 int qty = Integer.parseInt(item.get("quantity").toString());
                 double total = Double.parseDouble(item.get("total").toString());
 
+             
                 String detailsSql = "INSERT INTO sales_details (sales_id, p_name, p_qty, p_total) VALUES (?, ?, ?, ?)";
                 db.addRecord(detailsSql, salesId, name, qty, total);
+
+           
+                String updateStockSql = "UPDATE parts_inventory SET stock = stock - ? WHERE part_name = ?";
+                db.updateRecord(updateStockSql, qty, name);
             }
 
-            JOptionPane.showMessageDialog(this, "Transaction saved successfully!");
+            JOptionPane.showMessageDialog(this, "Transaction successful! Stock updated.");
             btnProceed.setEnabled(false);
         } else {
             JOptionPane.showMessageDialog(this, "Error: Could not retrieve Sales ID.");
         }
     }
-    
+
     public void getdata() {
 
         Session s = Session.getInstance();
@@ -372,7 +377,7 @@ public class Payment extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseClicked
-        ComputerSets sale = new ComputerSets();
+        Staff sale = new Staff();
         sale.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel7MouseClicked

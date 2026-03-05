@@ -1,7 +1,7 @@
 package Parts;
 
 import Main.login;
-import StaffFuction.ComputerSets;
+import StaffFuction.Staff;
 import config.Session;
 import config.config;
 import java.awt.Color;
@@ -573,7 +573,7 @@ public class DisplayProducts extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
-        query = "SELECT * FROM parts_inventory WHERE category = 'Motherboard' ";
+        query = "SELECT * FROM parts_inventory WHERE category = 'Mother Board' ";
 
         displayProducts();
     }//GEN-LAST:event_jPanel2MouseClicked
@@ -587,7 +587,7 @@ public class DisplayProducts extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel2MouseExited
 
     private void jPanel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseClicked
-        ComputerSets sale = new ComputerSets();
+        Staff sale = new Staff();
         sale.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel7MouseClicked
@@ -601,7 +601,7 @@ public class DisplayProducts extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel7MouseExited
 
     private void jPanel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseClicked
-        query = "SELECT * FROM parts_inventory WHERE category = 'PSU' ";
+        query = "SELECT * FROM parts_inventory WHERE category = 'Power Supply' ";
 
         displayProducts();
     }//GEN-LAST:event_jPanel8MouseClicked
@@ -616,7 +616,7 @@ public class DisplayProducts extends javax.swing.JFrame {
 
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
 
-        query = "SELECT * FROM parts_inventory WHERE category = 'CPU' ";
+        query = "SELECT * FROM parts_inventory WHERE category = 'Processor' ";
 
         displayProducts();
     }//GEN-LAST:event_jPanel5MouseClicked
@@ -630,7 +630,7 @@ public class DisplayProducts extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel5MouseExited
 
     private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
-        query = "SELECT * FROM parts_inventory WHERE category = 'GPU' ";
+        query = "SELECT * FROM parts_inventory WHERE category = 'Graphics Card' ";
 
         displayProducts();
     }//GEN-LAST:event_jPanel6MouseClicked
@@ -644,7 +644,7 @@ public class DisplayProducts extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel6MouseExited
 
     private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
-        query = "SELECT * FROM parts_inventory WHERE category = 'RAM' ";
+        query = "SELECT * FROM parts_inventory WHERE category = 'Memory' ";
 
         displayProducts();
     }//GEN-LAST:event_jPanel4MouseClicked

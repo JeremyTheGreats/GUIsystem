@@ -95,8 +95,6 @@ public final class MySales extends javax.swing.JFrame {
         header1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jToggleButton4 = new javax.swing.JToggleButton();
-        jToggleButton5 = new javax.swing.JToggleButton();
         jToggleButton6 = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -394,21 +392,6 @@ public final class MySales extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("TECHNOLOGY");
 
-        jToggleButton4.setBackground(new java.awt.Color(255, 255, 255));
-        jToggleButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jToggleButton4.setForeground(new java.awt.Color(13, 59, 102));
-        jToggleButton4.setText("Home");
-        jToggleButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton4ActionPerformed(evt);
-            }
-        });
-
-        jToggleButton5.setBackground(new java.awt.Color(255, 255, 255));
-        jToggleButton5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jToggleButton5.setForeground(new java.awt.Color(13, 59, 102));
-        jToggleButton5.setText("About Us");
-
         jToggleButton6.setBackground(new java.awt.Color(255, 255, 255));
         jToggleButton6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jToggleButton6.setForeground(new java.awt.Color(13, 59, 102));
@@ -428,11 +411,7 @@ public final class MySales extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 420, Short.MAX_VALUE)
-                .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToggleButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 676, Short.MAX_VALUE)
                 .addComponent(jToggleButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
         );
@@ -442,10 +421,7 @@ public final class MySales extends javax.swing.JFrame {
                 .addGroup(header1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(header1Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addGroup(header1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jToggleButton4)
-                            .addComponent(jToggleButton5)
-                            .addComponent(jToggleButton6)))
+                        .addComponent(jToggleButton6))
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(header1Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
@@ -458,14 +434,6 @@ public final class MySales extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
-
-        landing land = new landing();
-        land.setLocationRelativeTo(null);
-        land.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jToggleButton4ActionPerformed
 
     private void jToggleButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton6ActionPerformed
 
@@ -579,11 +547,11 @@ public final class MySales extends javax.swing.JFrame {
     }//GEN-LAST:event_salesreportMouseClicked
 
     private void salesreport2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport2MouseEntered
-        salesreport.setBackground(new Color(13, 59, 102));
+        salesreport2.setBackground(new Color(13, 59, 102));
     }//GEN-LAST:event_salesreport2MouseEntered
 
     private void salesreport2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport2MouseExited
-        salesreport.setBackground(new Color(0, 119, 176));
+        salesreport2.setBackground(new Color(0, 119, 176));
     }//GEN-LAST:event_salesreport2MouseExited
 
     private void editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseClicked
@@ -910,8 +878,6 @@ public final class MySales extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JToggleButton jToggleButton4;
-    private javax.swing.JToggleButton jToggleButton5;
     private javax.swing.JToggleButton jToggleButton6;
     private javax.swing.JLabel name;
     private javax.swing.JPanel product;

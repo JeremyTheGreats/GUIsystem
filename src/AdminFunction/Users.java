@@ -1,4 +1,3 @@
-
 package AdminFunction;
 
 import Main.EditProfile;
@@ -9,57 +8,52 @@ import config.config;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
-
 public final class Users extends javax.swing.JFrame {
-    
-    
+
     public Users() {
         initComponents();
-        
+
         config con = new config();
-        
+
         Session s = Session.getInstance();
-            
-          
+
         name.setText(s.getFullname());
         email.setText(s.getEmail());
-        
+
         con.setProfileIcon(Profile, s.getImagePath());
-        
-        
+
         display();
     }
 
-    void display(){
-        
+    void display() {
+
         config con = new config();
         String sql = "SELECT id, fullname, email, role, Status FROM user_account";
         con.displayData(sql, table);
-        
+
     }
-    
+
     private void refreshTable() {
-        
+
         config con = new config();
         String sql = "SELECT id, fullname, email, role, Status FROM user_account";
         con.displayData(sql, table);
-}
-    public void getdata(){
-    
+    }
+
+    public void getdata() {
+
         Session s = Session.getInstance();
 
-            if (s.getId() == 0 ){
+        if (s.getId() == 0) {
 
-                login log = new login();
-                log.setVisible(true);
-                this.dispose();
-                JOptionPane.showMessageDialog(null, "Please Log in First to proceed!");
-                
-            }
+            login log = new login();
+            log.setVisible(true);
+            this.dispose();
+            JOptionPane.showMessageDialog(null, "Please Log in First to proceed!");
+
+        }
     }
 
-
-  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -88,13 +82,12 @@ public final class Users extends javax.swing.JFrame {
         find = new javax.swing.JTextField();
         search = new javax.swing.JToggleButton();
         Edit = new javax.swing.JToggleButton();
+        update1 = new javax.swing.JToggleButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         header1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jToggleButton4 = new javax.swing.JToggleButton();
-        jToggleButton5 = new javax.swing.JToggleButton();
         jToggleButton6 = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -226,6 +219,9 @@ public final class Users extends javax.swing.JFrame {
 
         salesreport.setBackground(new java.awt.Color(0, 119, 176));
         salesreport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                salesreportMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 salesreportMouseEntered(evt);
             }
@@ -366,7 +362,16 @@ public final class Users extends javax.swing.JFrame {
                 EditActionPerformed(evt);
             }
         });
-        jPanel3.add(Edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 120, -1));
+        jPanel3.add(Edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 120, -1));
+
+        update1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        update1.setText("Disapproved");
+        update1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                update1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(update1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 120, -1));
 
         body.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, 730, 530));
 
@@ -406,21 +411,6 @@ public final class Users extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("TECHNOLOGY");
 
-        jToggleButton4.setBackground(new java.awt.Color(255, 255, 255));
-        jToggleButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jToggleButton4.setForeground(new java.awt.Color(13, 59, 102));
-        jToggleButton4.setText("Home");
-        jToggleButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton4ActionPerformed(evt);
-            }
-        });
-
-        jToggleButton5.setBackground(new java.awt.Color(255, 255, 255));
-        jToggleButton5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jToggleButton5.setForeground(new java.awt.Color(13, 59, 102));
-        jToggleButton5.setText("About Us");
-
         jToggleButton6.setBackground(new java.awt.Color(255, 255, 255));
         jToggleButton6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jToggleButton6.setForeground(new java.awt.Color(13, 59, 102));
@@ -440,11 +430,7 @@ public final class Users extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 420, Short.MAX_VALUE)
-                .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToggleButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 676, Short.MAX_VALUE)
                 .addComponent(jToggleButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
         );
@@ -454,10 +440,7 @@ public final class Users extends javax.swing.JFrame {
                 .addGroup(header1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(header1Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addGroup(header1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jToggleButton4)
-                            .addComponent(jToggleButton5)
-                            .addComponent(jToggleButton6)))
+                        .addComponent(jToggleButton6))
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(header1Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
@@ -471,14 +454,6 @@ public final class Users extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
-
-        landing land = new landing();
-        land.setLocationRelativeTo(null);
-        land.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jToggleButton4ActionPerformed
-
     private void jToggleButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton6ActionPerformed
 
         login log = new login();
@@ -489,42 +464,42 @@ public final class Users extends javax.swing.JFrame {
 
     private void UsersMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsersMouseEntered
 
-        Users.setBackground(new Color(13,59,102));
+        Users.setBackground(new Color(13, 59, 102));
 
     }//GEN-LAST:event_UsersMouseEntered
 
     private void userMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userMouseEntered
-        user.setBackground(new Color(13,59,102));
+        user.setBackground(new Color(13, 59, 102));
     }//GEN-LAST:event_userMouseEntered
 
     private void userMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userMouseExited
-        user.setBackground(new Color(0,119,176));
+        user.setBackground(new Color(0, 119, 176));
     }//GEN-LAST:event_userMouseExited
 
     private void productMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productMouseEntered
-        product.setBackground(new Color(13,59,102));
+        product.setBackground(new Color(13, 59, 102));
     }//GEN-LAST:event_productMouseEntered
 
     private void productMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productMouseExited
-        product.setBackground(new Color(0,119,176));
+        product.setBackground(new Color(0, 119, 176));
     }//GEN-LAST:event_productMouseExited
 
     private void salesreportMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreportMouseEntered
-        salesreport.setBackground(new Color(13,59,102));
+        salesreport.setBackground(new Color(13, 59, 102));
     }//GEN-LAST:event_salesreportMouseEntered
 
     private void salesreportMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreportMouseExited
-        salesreport.setBackground(new Color(0,119,176));
+        salesreport.setBackground(new Color(0, 119, 176));
     }//GEN-LAST:event_salesreportMouseExited
 
     private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
-        
+
         String findings = find.getText();
-        
+
         config con = new config();
         String sql = "SELECT id, fullname, email, role, Status FROM user_account WHERE fullname = '" + findings + "' OR email = '" + findings + "' OR id = '" + findings + "' ";
         con.displayData(sql, table);
-        
+
     }//GEN-LAST:event_searchActionPerformed
 
     private void findActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findActionPerformed
@@ -532,26 +507,26 @@ public final class Users extends javax.swing.JFrame {
     }//GEN-LAST:event_findActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
-        
-        config con = new config(); 
+
+        config con = new config();
         Session s = Session.getInstance();
-        
+
         int row = table.getSelectedRow();
 
-            if (row < 0) {
-                JOptionPane.showMessageDialog(this, "Please select a user to delete.");
-                return;
-            }
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a user to delete.");
+            return;
+        }
 
         int userId = Integer.parseInt(table.getValueAt(row, 0).toString());
         String selectedEmail = table.getValueAt(row, 2).toString();
-        
-            if ( selectedEmail.equals(s.getEmail())){
 
-                JOptionPane.showMessageDialog(this, "You cannot delete your own ACCOUNT!");
-                return;
-            }
-            
+        if (selectedEmail.equals(s.getEmail())) {
+
+            JOptionPane.showMessageDialog(this, "You cannot delete your own ACCOUNT!");
+            return;
+        }
+
         int confirm = JOptionPane.showConfirmDialog(
                 this,
                 "Are you sure you want to delete this user?",
@@ -559,7 +534,9 @@ public final class Users extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION
         );
 
-            if (confirm != JOptionPane.YES_OPTION) return;
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
 
         try {
             String del = "DELETE FROM user_account WHERE id = ?";
@@ -574,42 +551,42 @@ public final class Users extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteActionPerformed
 
     private void userMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userMouseClicked
-        
+
         dashboardAdmin ad = new dashboardAdmin();
         ad.setVisible(true);
         this.dispose();
-        
+
     }//GEN-LAST:event_userMouseClicked
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
-        
+
         Session s = Session.getInstance();
-        
+
         int row = table.getSelectedRow();
 
-            if (row == -1) {
-                JOptionPane.showMessageDialog(this, "Please select a user.");
-                return;
-            }
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a user.");
+            return;
+        }
 
         int userId = Integer.parseInt(table.getValueAt(row, 0).toString());
-        
+
         String selectedEmail = table.getValueAt(row, 2).toString();
-           
-            if (selectedEmail.equals(s.getEmail())) {
-                JOptionPane.showMessageDialog(this, 
+
+        if (selectedEmail.equals(s.getEmail())) {
+            JOptionPane.showMessageDialog(this,
                     "You cannot change your own account status.");
-                return;
-            }
-            
+            return;
+        }
+
         String selectedStatus = table.getValueAt(row, 4).toString();
 
-            if ( selectedStatus.equals("Approved")){
-                JOptionPane.showMessageDialog(this, 
+        if (selectedStatus.equals("Approved")) {
+            JOptionPane.showMessageDialog(this,
                     "The user you selected is already Approved!");
-                return;
-                
-            }
+            return;
+
+        }
 
         int confirm = JOptionPane.showConfirmDialog(
                 this,
@@ -618,31 +595,33 @@ public final class Users extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION
         );
 
-            if (confirm != JOptionPane.YES_OPTION) return;
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
 
         config con = new config();
         String sql = "UPDATE user_account SET Status = ? WHERE id = ?";
         con.updateRecord(sql, "Approved", userId);
 
         JOptionPane.showMessageDialog(this, "Account Approved successfully.");
-        
+
         refreshTable();
     }//GEN-LAST:event_updateActionPerformed
 
     private void EditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditActionPerformed
-        
+
         refreshTable();
     }//GEN-LAST:event_EditActionPerformed
 
     private void findKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_findKeyTyped
-        
+
         String findings = find.getText();
-        
+
         config con = new config();
         String sql = "SELECT id, fullname, email, role, Status FROM user_account WHERE fullname LIKE ? OR email LIKE ? OR id LIKE ? ";
-        
-        con.displayData(sql, table, "%" +findings + "%", "%" +findings + "%" , "%" +findings + "%");
-        
+
+        con.displayData(sql, table, "%" + findings + "%", "%" + findings + "%", "%" + findings + "%");
+
     }//GEN-LAST:event_findKeyTyped
 
     private void editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseClicked
@@ -661,7 +640,7 @@ public final class Users extends javax.swing.JFrame {
     }//GEN-LAST:event_editMouseExited
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        getdata();        
+        getdata();
     }//GEN-LAST:event_formWindowActivated
 
     private void productMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productMouseClicked
@@ -678,14 +657,68 @@ public final class Users extends javax.swing.JFrame {
     }//GEN-LAST:event_salesreport1MouseClicked
 
     private void salesreport1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport1MouseEntered
-        salesreport.setBackground(new Color(13,59,102));
+        salesreport.setBackground(new Color(13, 59, 102));
     }//GEN-LAST:event_salesreport1MouseEntered
 
     private void salesreport1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport1MouseExited
-        salesreport.setBackground(new Color(0,119,176));
+        salesreport.setBackground(new Color(0, 119, 176));
     }//GEN-LAST:event_salesreport1MouseExited
 
-    
+    private void update1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update1ActionPerformed
+        Session s = Session.getInstance();
+
+        int row = table.getSelectedRow();
+
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a user.");
+            return;
+        }
+
+        int userId = Integer.parseInt(table.getValueAt(row, 0).toString());
+
+        String selectedEmail = table.getValueAt(row, 2).toString();
+
+        if (selectedEmail.equals(s.getEmail())) {
+            JOptionPane.showMessageDialog(this,
+                    "You cannot change your own account status.");
+            return;
+        }
+
+        String selectedStatus = table.getValueAt(row, 4).toString();
+
+        if (selectedStatus.equals("Disapproved")) {
+            JOptionPane.showMessageDialog(this,
+                    "The user you selected is already Disapproved!");
+            return;
+
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Are you sure you want to Disapproved this account?",
+                "Confirm",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        config con = new config();
+        String sql = "UPDATE user_account SET Status = ? WHERE id = ?";
+        con.updateRecord(sql, "Disapproved", userId);
+
+        JOptionPane.showMessageDialog(this, "Account Disapproved successfully.");
+
+        refreshTable();
+    }//GEN-LAST:event_update1ActionPerformed
+
+    private void salesreportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreportMouseClicked
+        Sales sa = new Sales();
+        sa.setVisible(true);
+        this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_salesreportMouseClicked
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -771,8 +804,6 @@ public final class Users extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JToggleButton jToggleButton4;
-    private javax.swing.JToggleButton jToggleButton5;
     private javax.swing.JToggleButton jToggleButton6;
     private javax.swing.JLabel name;
     private javax.swing.JPanel product;
@@ -781,6 +812,7 @@ public final class Users extends javax.swing.JFrame {
     private javax.swing.JToggleButton search;
     private javax.swing.JTable table;
     private javax.swing.JToggleButton update;
+    private javax.swing.JToggleButton update1;
     private javax.swing.JPanel user;
     // End of variables declaration//GEN-END:variables
 }

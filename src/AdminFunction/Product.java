@@ -84,7 +84,7 @@ public final class Product extends javax.swing.JFrame {
 
             // Get the quantity the user typed in your Stock text field
             String input = JOptionPane.showInputDialog(null, "Enter the Quantity : ");
-            
+
             if (input.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please enter a quantity in the Stock field.");
                 return;
@@ -160,8 +160,6 @@ public final class Product extends javax.swing.JFrame {
         header1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jToggleButton4 = new javax.swing.JToggleButton();
-        jToggleButton5 = new javax.swing.JToggleButton();
         jToggleButton6 = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -329,6 +327,9 @@ public final class Product extends javax.swing.JFrame {
 
         salesreport1.setBackground(new java.awt.Color(0, 119, 176));
         salesreport1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                salesreport1MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 salesreport1MouseEntered(evt);
             }
@@ -637,21 +638,6 @@ public final class Product extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("TECHNOLOGY");
 
-        jToggleButton4.setBackground(new java.awt.Color(255, 255, 255));
-        jToggleButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jToggleButton4.setForeground(new java.awt.Color(13, 59, 102));
-        jToggleButton4.setText("Home");
-        jToggleButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton4ActionPerformed(evt);
-            }
-        });
-
-        jToggleButton5.setBackground(new java.awt.Color(255, 255, 255));
-        jToggleButton5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jToggleButton5.setForeground(new java.awt.Color(13, 59, 102));
-        jToggleButton5.setText("About Us");
-
         jToggleButton6.setBackground(new java.awt.Color(255, 255, 255));
         jToggleButton6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jToggleButton6.setForeground(new java.awt.Color(13, 59, 102));
@@ -671,11 +657,7 @@ public final class Product extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 420, Short.MAX_VALUE)
-                .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToggleButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 676, Short.MAX_VALUE)
                 .addComponent(jToggleButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
         );
@@ -685,10 +667,7 @@ public final class Product extends javax.swing.JFrame {
                 .addGroup(header1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(header1Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addGroup(header1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jToggleButton4)
-                            .addComponent(jToggleButton5)
-                            .addComponent(jToggleButton6)))
+                        .addComponent(jToggleButton6))
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(header1Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
@@ -701,14 +680,6 @@ public final class Product extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
-
-        landing land = new landing();
-        land.setLocationRelativeTo(null);
-        land.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jToggleButton4ActionPerformed
 
     private void jToggleButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton6ActionPerformed
 
@@ -898,7 +869,7 @@ public final class Product extends javax.swing.JFrame {
     }//GEN-LAST:event_productMouseClicked
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
- 
+
         int row = Product.getSelectedRow();
 
         // 1. Check if a row is selected
@@ -977,6 +948,12 @@ public final class Product extends javax.swing.JFrame {
     private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_searchActionPerformed
+
+    private void salesreport1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport1MouseClicked
+        Sales sa = new Sales();
+        sa.setVisible(true);
+        this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_salesreport1MouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1106,8 +1083,6 @@ public final class Product extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JToggleButton jToggleButton4;
-    private javax.swing.JToggleButton jToggleButton5;
     private javax.swing.JToggleButton jToggleButton6;
     private javax.swing.JTextField naaaaa;
     private javax.swing.JLabel name;

@@ -3,6 +3,7 @@ package StaffFuction;
 import Main.EditProfile;
 import Main.landing;
 import Main.login;
+import Parts.DisplayProducts;
 
 import config.Session;
 import config.config;
@@ -78,8 +79,6 @@ public class Staff extends javax.swing.JFrame {
         Products = new javax.swing.JLabel();
         salesreport = new javax.swing.JPanel();
         SalesReport = new javax.swing.JLabel();
-        setings1 = new javax.swing.JPanel();
-        Setings1 = new javax.swing.JLabel();
         body = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -93,8 +92,6 @@ public class Staff extends javax.swing.JFrame {
         header1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jToggleButton4 = new javax.swing.JToggleButton();
-        jToggleButton5 = new javax.swing.JToggleButton();
         Logout = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -263,39 +260,6 @@ public class Staff extends javax.swing.JFrame {
 
         jPanel2.add(salesreport, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 220, 50));
 
-        setings1.setBackground(new java.awt.Color(0, 119, 176));
-        setings1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                setings1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                setings1MouseExited(evt);
-            }
-        });
-
-        Setings1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        Setings1.setForeground(new java.awt.Color(255, 255, 255));
-        Setings1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Setings1.setText("Setings");
-
-        javax.swing.GroupLayout setings1Layout = new javax.swing.GroupLayout(setings1);
-        setings1.setLayout(setings1Layout);
-        setings1Layout.setHorizontalGroup(
-            setings1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(setings1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(Setings1)
-                .addContainerGap(125, Short.MAX_VALUE))
-        );
-        setings1Layout.setVerticalGroup(
-            setings1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, setings1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(Setings1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel2.add(setings1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 470, 220, 50));
-
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 230, 600));
 
         body.setBackground(new java.awt.Color(255, 255, 255));
@@ -415,21 +379,6 @@ public class Staff extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("TECHNOLOGY");
 
-        jToggleButton4.setBackground(new java.awt.Color(255, 255, 255));
-        jToggleButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jToggleButton4.setForeground(new java.awt.Color(13, 59, 102));
-        jToggleButton4.setText("Home");
-        jToggleButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton4ActionPerformed(evt);
-            }
-        });
-
-        jToggleButton5.setBackground(new java.awt.Color(255, 255, 255));
-        jToggleButton5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jToggleButton5.setForeground(new java.awt.Color(13, 59, 102));
-        jToggleButton5.setText("About Us");
-
         Logout.setBackground(new java.awt.Color(255, 255, 255));
         Logout.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Logout.setForeground(new java.awt.Color(13, 59, 102));
@@ -449,11 +398,7 @@ public class Staff extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 420, Short.MAX_VALUE)
-                .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToggleButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 676, Short.MAX_VALUE)
                 .addComponent(Logout, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
         );
@@ -463,10 +408,7 @@ public class Staff extends javax.swing.JFrame {
                 .addGroup(header1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(header1Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addGroup(header1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jToggleButton4)
-                            .addComponent(jToggleButton5)
-                            .addComponent(Logout)))
+                        .addComponent(Logout))
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(header1Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
@@ -479,14 +421,6 @@ public class Staff extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
-
-        landing land = new landing();
-        land.setLocationRelativeTo(null);
-        land.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jToggleButton4ActionPerformed
 
     private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
 
@@ -523,7 +457,7 @@ public class Staff extends javax.swing.JFrame {
 
     private void productMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productMouseClicked
 
-        ComputerSets sale = new ComputerSets();
+        DisplayProducts sale = new DisplayProducts();
         sale.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_productMouseClicked
@@ -542,14 +476,6 @@ public class Staff extends javax.swing.JFrame {
     private void editMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseExited
         edit.setText("");
     }//GEN-LAST:event_editMouseExited
-
-    private void setings1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_setings1MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_setings1MouseEntered
-
-    private void setings1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_setings1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_setings1MouseExited
 
     private void setingsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_setingsMouseClicked
         SearchProduct search = new SearchProduct();
@@ -622,7 +548,6 @@ public class Staff extends javax.swing.JFrame {
     private javax.swing.JLabel Profile;
     private javax.swing.JLabel SalesReport;
     private javax.swing.JLabel Setings;
-    private javax.swing.JLabel Setings1;
     private javax.swing.JPanel body;
     private javax.swing.JLabel edit;
     private javax.swing.JLabel email;
@@ -639,14 +564,11 @@ public class Staff extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JToggleButton jToggleButton4;
-    private javax.swing.JToggleButton jToggleButton5;
     private javax.swing.JLabel name;
     private javax.swing.JPanel product;
     private javax.swing.JLabel sales;
     private javax.swing.JPanel salesreport;
     private javax.swing.JPanel setings;
-    private javax.swing.JPanel setings1;
     private javax.swing.JLabel tran;
     // End of variables declaration//GEN-END:variables
 }

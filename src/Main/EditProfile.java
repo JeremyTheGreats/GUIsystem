@@ -1,5 +1,6 @@
 package Main;
 
+import AdminFunction.Sales;
 import AdminFunction.Users;
 import AdminFunction.dashboardAdmin;
 import config.Session;
@@ -66,14 +67,14 @@ public class EditProfile extends javax.swing.JFrame {
         edit = new javax.swing.JLabel();
         Profile = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        setings = new javax.swing.JPanel();
-        Setings = new javax.swing.JLabel();
         user = new javax.swing.JPanel();
         Users = new javax.swing.JLabel();
         product = new javax.swing.JPanel();
         Products = new javax.swing.JLabel();
         salesreport = new javax.swing.JPanel();
         SalesReport = new javax.swing.JLabel();
+        salesreport1 = new javax.swing.JPanel();
+        SalesReport1 = new javax.swing.JLabel();
         body = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         fullname = new javax.swing.JTextField();
@@ -88,8 +89,6 @@ public class EditProfile extends javax.swing.JFrame {
         header1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jToggleButton4 = new javax.swing.JToggleButton();
-        jToggleButton5 = new javax.swing.JToggleButton();
         Logout = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -140,39 +139,6 @@ public class EditProfile extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Admin");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 150, 30));
-
-        setings.setBackground(new java.awt.Color(0, 119, 176));
-        setings.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                setingsMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                setingsMouseExited(evt);
-            }
-        });
-
-        Setings.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        Setings.setForeground(new java.awt.Color(255, 255, 255));
-        Setings.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Setings.setText("Edit Profile");
-
-        javax.swing.GroupLayout setingsLayout = new javax.swing.GroupLayout(setings);
-        setings.setLayout(setingsLayout);
-        setingsLayout.setHorizontalGroup(
-            setingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(setingsLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(Setings)
-                .addContainerGap(93, Short.MAX_VALUE))
-        );
-        setingsLayout.setVerticalGroup(
-            setingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, setingsLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(Setings, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel2.add(setings, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 470, 220, 50));
 
         user.setBackground(new java.awt.Color(0, 119, 176));
         user.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -253,6 +219,9 @@ public class EditProfile extends javax.swing.JFrame {
 
         salesreport.setBackground(new java.awt.Color(0, 119, 176));
         salesreport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                salesreportMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 salesreportMouseEntered(evt);
             }
@@ -283,6 +252,42 @@ public class EditProfile extends javax.swing.JFrame {
         );
 
         jPanel2.add(salesreport, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 220, 50));
+
+        salesreport1.setBackground(new java.awt.Color(0, 119, 176));
+        salesreport1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                salesreport1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                salesreport1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                salesreport1MouseExited(evt);
+            }
+        });
+
+        SalesReport1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        SalesReport1.setForeground(new java.awt.Color(255, 255, 255));
+        SalesReport1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        SalesReport1.setText("Back");
+
+        javax.swing.GroupLayout salesreport1Layout = new javax.swing.GroupLayout(salesreport1);
+        salesreport1.setLayout(salesreport1Layout);
+        salesreport1Layout.setHorizontalGroup(
+            salesreport1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(salesreport1Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(SalesReport1)
+                .addContainerGap(147, Short.MAX_VALUE))
+        );
+        salesreport1Layout.setVerticalGroup(
+            salesreport1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, salesreport1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(SalesReport1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel2.add(salesreport1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 530, 220, 50));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 230, 600));
 
@@ -371,21 +376,6 @@ public class EditProfile extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("TECHNOLOGY");
 
-        jToggleButton4.setBackground(new java.awt.Color(255, 255, 255));
-        jToggleButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jToggleButton4.setForeground(new java.awt.Color(13, 59, 102));
-        jToggleButton4.setText("Home");
-        jToggleButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton4ActionPerformed(evt);
-            }
-        });
-
-        jToggleButton5.setBackground(new java.awt.Color(255, 255, 255));
-        jToggleButton5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jToggleButton5.setForeground(new java.awt.Color(13, 59, 102));
-        jToggleButton5.setText("About Us");
-
         Logout.setBackground(new java.awt.Color(255, 255, 255));
         Logout.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Logout.setForeground(new java.awt.Color(13, 59, 102));
@@ -405,11 +395,7 @@ public class EditProfile extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 420, Short.MAX_VALUE)
-                .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToggleButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 676, Short.MAX_VALUE)
                 .addComponent(Logout, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
         );
@@ -419,10 +405,7 @@ public class EditProfile extends javax.swing.JFrame {
                 .addGroup(header1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(header1Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addGroup(header1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jToggleButton4)
-                            .addComponent(jToggleButton5)
-                            .addComponent(Logout)))
+                        .addComponent(Logout))
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(header1Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
@@ -435,14 +418,6 @@ public class EditProfile extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
-
-        landing land = new landing();
-        land.setLocationRelativeTo(null);
-        land.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jToggleButton4ActionPerformed
 
     private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
 
@@ -462,7 +437,9 @@ public class EditProfile extends javax.swing.JFrame {
             if (path == null || path.isEmpty()) {
                 path = ses.getImagePath();
             }
-
+        
+        ses.setFullname(fullname.getText());
+        ses.setImagePath(path);
         String sql = "UPDATE user_account SET fullname = ?, email = ?, ImagePath = ? WHERE id = ?";
 
         con.updateRecord(sql,
@@ -519,14 +496,6 @@ public class EditProfile extends javax.swing.JFrame {
     private void UsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsersMouseClicked
 
     }//GEN-LAST:event_UsersMouseClicked
-
-    private void setingsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_setingsMouseExited
-        setings.setBackground(new Color(0, 119, 176));
-    }//GEN-LAST:event_setingsMouseExited
-
-    private void setingsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_setingsMouseEntered
-        setings.setBackground(new Color(13, 59, 102));
-    }//GEN-LAST:event_setingsMouseEntered
 
     private void editMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseExited
         edit.setText("");
@@ -585,6 +554,27 @@ public class EditProfile extends javax.swing.JFrame {
         getdata();// TODO add your handling code here:
     }//GEN-LAST:event_formWindowActivated
 
+    private void salesreportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreportMouseClicked
+        Sales sa = new Sales();
+        sa.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_salesreportMouseClicked
+
+    private void salesreport1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport1MouseClicked
+        
+        dashboardAdmin sta = new dashboardAdmin();
+        sta.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_salesreport1MouseClicked
+
+    private void salesreport1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport1MouseEntered
+        salesreport.setBackground(new Color(13, 59, 102));
+    }//GEN-LAST:event_salesreport1MouseEntered
+
+    private void salesreport1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport1MouseExited
+        salesreport.setBackground(new Color(0, 119, 176));
+    }//GEN-LAST:event_salesreport1MouseExited
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -630,7 +620,7 @@ public class EditProfile extends javax.swing.JFrame {
     private javax.swing.JLabel Products;
     private javax.swing.JLabel Profile;
     private javax.swing.JLabel SalesReport;
-    private javax.swing.JLabel Setings;
+    private javax.swing.JLabel SalesReport1;
     private javax.swing.JLabel Users;
     private javax.swing.JPanel body;
     private javax.swing.JToggleButton changepic;
@@ -648,12 +638,10 @@ public class EditProfile extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JToggleButton jToggleButton4;
-    private javax.swing.JToggleButton jToggleButton5;
     private javax.swing.JLabel name;
     private javax.swing.JPanel product;
     private javax.swing.JPanel salesreport;
-    private javax.swing.JPanel setings;
+    private javax.swing.JPanel salesreport1;
     private javax.swing.JToggleButton update;
     private javax.swing.JPanel user;
     // End of variables declaration//GEN-END:variables
