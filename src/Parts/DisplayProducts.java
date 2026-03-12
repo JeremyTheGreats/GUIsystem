@@ -26,41 +26,32 @@ public class DisplayProducts extends javax.swing.JFrame {
 
         updateCartUI();
         displayProducts();
-
     }
 
     public void updateCartUI() {
-
         cartno.setText(String.valueOf(cartItems.size()));
     }
 
-    /**
-     * Fetches products from inventory and populates the containerPanel.
-     */
     public void displayProducts() {
-        // Use GridLayout: 0 rows (dynamic), 3 columns, 15px gaps
         containerPanel.setLayout(new java.awt.GridLayout(0, 3, 15, 15));
         containerPanel.setBackground(Color.WHITE);
         containerPanel.removeAll();
 
         config db = new config();
-
         List<Map<String, Object>> records = db.fetchRecords(query);
 
         if (records != null) {
             for (Map<String, Object> row : records) {
-                // Adjust keys to match your exact Database Column Names
                 String name = row.get("part_name").toString();
                 String price = row.get("price").toString();
+                // Ensure this column contains "filename.png"
                 String imgPath = row.get("image_path").toString();
 
-                // IMPORTANT: Pass 'this' so the card can call parent.updateCartUI()
                 ItemCard card = new ItemCard(name, price, imgPath, this);
                 containerPanel.add(card);
             }
         }
 
-        // Refresh UI
         containerPanel.revalidate();
         containerPanel.repaint();
     }
@@ -727,7 +718,7 @@ public class DisplayProducts extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        getdata();        
+        getdata();
     }//GEN-LAST:event_formWindowActivated
 
     /**

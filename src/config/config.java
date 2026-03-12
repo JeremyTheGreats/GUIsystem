@@ -195,7 +195,7 @@ public class config {
             }
 
             try (ResultSet rs = pstmt.executeQuery()) {
-                
+
                 table.setModel(DbUtils.resultSetToTableModel(rs));
             }
 
@@ -206,31 +206,53 @@ public class config {
 
     public void setProfileIcon(javax.swing.JLabel label, String path) {
         try {
+            // 1. Handle Null or Empty Path (Default Picture)
             if (path == null || path.trim().isEmpty()) {
-                label.setIcon(new ImageIcon(getClass().getResource("/image/profile.png")));
+                label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/profile.png")));
                 return;
             }
 
-            java.io.File f = new java.io.File(path);
-            if (f.exists()) {
-                label.setIcon(new ImageIcon(path)); 
-                return;
-            }
-
+            // 2. Try loading from Build/JAR Resources (Standard)
             java.net.URL url = getClass().getResource(path.startsWith("/") ? path : "/" + path);
+
             if (url != null) {
-                label.setIcon(new ImageIcon(url)); 
-            } else {
-                label.setIcon(new ImageIcon(getClass().getResource("/image/profile.png")));
+                label.setIcon(new javax.swing.ImageIcon(url));
+                return;
             }
+
+            // 3. Fallback: Try loading from Physical File (For NEWLY changed pics)
+            // This looks in your src/image folder directly
+            String projectPath = System.getProperty("user.dir");
+
+            // If path is "image/pic.png", this creates ".../src/image/pic.png"
+            java.io.File f = new java.io.File(projectPath + "/src/" + path);
+
+            // Also check the build folder directly as a secondary fallback
+            java.io.File fBuild = new java.io.File(projectPath + "/build/classes/" + path);
+
+            if (f.exists()) {
+                label.setIcon(new javax.swing.ImageIcon(f.getAbsolutePath()));
+            } else if (fBuild.exists()) {
+                label.setIcon(new javax.swing.ImageIcon(fBuild.getAbsolutePath()));
+            } else {
+                // 4. Final Fallback: If everything fails, show the default profile
+                System.out.println("Profile image not found at: " + path);
+                label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/profile.png")));
+            }
+
         } catch (Exception e) {
-            label.setIcon(new ImageIcon(getClass().getResource("/image/profile.png")));
+            // Safe fallback to prevent app crash if resources are missing
+            try {
+                label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/profile.png")));
+            } catch (Exception ex) {
+                label.setText("No Image");
+            }
         }
     }
 
     public int getLastSaleID() {
         int id = -1;
-        
+
         String sql = "SELECT MAX(sale_id) FROM sales";
 
         try (Connection conn = connectDB();
@@ -248,7 +270,7 @@ public class config {
 
     public double getTotalUserSales(int userId) {
         double total = 0;
-        
+
         String sql = "SELECT SUM(total_amount) FROM sales WHERE u_id = ?";
 
         try (Connection conn = this.connectDB();
@@ -288,7 +310,7 @@ public class config {
 
     public int getUserCount() {
         int totalUsers = 0;
-        
+
         String sql = "SELECT COUNT(*) FROM user_account";
 
         try (Connection conn = connectDB();
@@ -304,10 +326,9 @@ public class config {
         return totalUsers;
     }
 
-    
     public double getTotalSalesAmount() {
         double totalSum = 0;
-        
+
         String sql = "SELECT SUM(p_total) FROM sales_details";
 
         try (Connection conn = connectDB();

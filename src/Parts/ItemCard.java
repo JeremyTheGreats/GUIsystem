@@ -20,15 +20,33 @@ public class ItemCard extends JPanel {
         setBackground(Color.WHITE);
         setBorder(new LineBorder(new Color(230, 230, 230), 1));
 
-        // Image Section
+        // Image Section - UPDATED FOR JAR COMPATIBILITY
         JLabel imgLabel = new JLabel();
         imgLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
         try {
-            ImageIcon icon = new ImageIcon("src/Products/" + imgName);
-            Image img = icon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
-            imgLabel.setIcon(new ImageIcon(img));
+            // 1. Try to load from the Build/JAR (Resources)
+            java.net.URL imgURL = getClass().getResource("/Products/" + imgName);
+
+            if (imgURL != null) {
+                ImageIcon icon = new ImageIcon(imgURL);
+                Image img = icon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+                imgLabel.setIcon(new ImageIcon(img));
+            } else {
+                // 2. If not found in build, look directly in the SRC folder (for new items)
+                String projectPath = System.getProperty("user.dir");
+                java.io.File physicalFile = new java.io.File(projectPath + "/src/Products/" + imgName);
+
+                if (physicalFile.exists()) {
+                    ImageIcon icon = new ImageIcon(physicalFile.getAbsolutePath());
+                    Image img = icon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+                    imgLabel.setIcon(new ImageIcon(img));
+                } else {
+                    imgLabel.setText("No Image Found");
+                }
+            }
         } catch (Exception e) {
-            imgLabel.setText("No Image");
+            imgLabel.setText("Error");
         }
 
         // Bottom Info Section
@@ -46,7 +64,6 @@ public class ItemCard extends JPanel {
         btnCart.setForeground(Color.WHITE);
         btnCart.setFocusPainted(false);
 
-        // ACTION LISTENER: Updated to transfer data to Parent List instead of SQL
         btnCart.addActionListener(e -> {
             Session s = Session.getInstance();
             if (s.getId() == 0) {
@@ -60,17 +77,13 @@ public class ItemCard extends JPanel {
                 try {
                     int qty = Integer.parseInt(input.trim());
                     if (qty > 0) {
-                        // 1. Create a data map for this item
                         Map<String, Object> itemData = new HashMap<>();
                         itemData.put("name", name);
                         itemData.put("price", Double.parseDouble(price));
                         itemData.put("quantity", qty);
                         itemData.put("total", Double.parseDouble(price) * qty);
 
-                        // 2. Add to the parent's temporary cart list
                         parentPage.cartItems.add(itemData);
-
-                        // 3. Update the UI count on the parent frame
                         parentPage.updateCartUI();
 
                         JOptionPane.showMessageDialog(null, name + " added to temporary list!");

@@ -6,6 +6,7 @@ import config.config;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -29,7 +30,7 @@ public class EditStaff extends javax.swing.JFrame {
         name.setText(s.getFullname());
         email.setText(s.getEmail());
         id.setText(String.valueOf(s.getId()));
-        
+
         emailField.setEditable(false);
         emailField.setBackground(new Color(230, 230, 230));
 
@@ -434,13 +435,13 @@ public class EditStaff extends javax.swing.JFrame {
 
         Session ses = Session.getInstance();
 
-            if (path == null || path.isEmpty()) {
-                path = ses.getImagePath();
-            }
-        
+        if (path == null || path.isEmpty()) {
+            path = ses.getImagePath();
+        }
+
         ses.setFullname(fullname.getText());
         ses.setImagePath(path);
-        
+
         String sql = "UPDATE user_account SET fullname = ?, email = ?, ImagePath = ? WHERE id = ?";
 
         con.updateRecord(sql,
@@ -451,7 +452,7 @@ public class EditStaff extends javax.swing.JFrame {
         );
 
         JOptionPane.showMessageDialog(this, "Profile updated!");
-        
+
         Staff sta = new Staff();
         sta.setVisible(true);
         this.dispose();
@@ -468,39 +469,51 @@ public class EditStaff extends javax.swing.JFrame {
         int result = chooser.showOpenDialog(this);
 
         if (result == JFileChooser.APPROVE_OPTION) {
-
             File f = chooser.getSelectedFile();
 
             try {
-
                 BufferedImage original = ImageIO.read(f);
 
-                Image img = original.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-                BufferedImage resized = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
-
+                // Create resized version
+                int size = 100;
+                BufferedImage resized = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
                 Graphics2D g2d = resized.createGraphics();
-                g2d.drawImage(img, 0, 0, 100, 100, null);
+                g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+                g2d.drawImage(original, 0, 0, size, size, null);
                 g2d.dispose();
 
-                File dir = new File("src/image");
-                if (!dir.exists()) {
-                    dir.mkdirs();
+                // 1. Get Project Path
+                String projectPath = System.getProperty("user.dir");
+                String fileName = "profile_" + System.currentTimeMillis() + ".png";
+
+                // 2. TARGET: Source Folder (Permanent)
+                File srcDir = new File(projectPath + "/src/image");
+                if (!srcDir.exists()) {
+                    srcDir.mkdirs();
+                }
+                File srcFile = new File(srcDir, fileName);
+                ImageIO.write(resized, "png", srcFile);
+
+                // 3. TARGET: Build Folder (Immediate Display)
+                // This allows the Dashboard to see the change without a Clean and Build
+                File buildDir = new File(projectPath + "/build/classes/image");
+                if (buildDir.exists()) {
+                    ImageIO.write(resized, "png", new File(buildDir, fileName));
                 }
 
-                String fileName = "profile_" + System.currentTimeMillis() + ".png";
-                File savedFile = new File(dir, fileName);
-                ImageIO.write(resized, "png", savedFile);
-
+                // 4. Update Database Path
+                // Using "image/" + fileName matches your current retrieval logic
                 path = "image/" + fileName;
 
+                // 5. Update Local UI
                 Pic.setIcon(new ImageIcon(resized));
 
+                JOptionPane.showMessageDialog(this, "Profile picture updated! Please refresh the dashboard.");
+
             } catch (IOException ex) {
-                Logger.getLogger(EditStaff.class.getName()).log(Level.SEVERE, null, ex);
+                java.util.logging.Logger.getLogger(EditStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
         }
-
-
     }//GEN-LAST:event_changepicActionPerformed
 
     private void UsersMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsersMouseEntered

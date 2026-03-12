@@ -196,6 +196,9 @@ public final class MySales extends javax.swing.JFrame {
 
         product.setBackground(new java.awt.Color(0, 119, 176));
         product.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                productMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 productMouseEntered(evt);
             }
@@ -265,6 +268,9 @@ public final class MySales extends javax.swing.JFrame {
 
         salesreport2.setBackground(new java.awt.Color(0, 119, 176));
         salesreport2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                salesreport2MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 salesreport2MouseEntered(evt);
             }
@@ -568,6 +574,16 @@ public final class MySales extends javax.swing.JFrame {
     private void editMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseExited
         edit.setText("");
     }//GEN-LAST:event_editMouseExited
+
+    private void productMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productMouseClicked
+        new SearchProduct().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_productMouseClicked
+
+    private void salesreport2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport2MouseClicked
+        new MySales().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_salesreport2MouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

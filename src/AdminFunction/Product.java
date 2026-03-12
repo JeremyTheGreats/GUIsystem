@@ -787,41 +787,54 @@ public final class Product extends javax.swing.JFrame {
         if (result == JFileChooser.APPROVE_OPTION) {
             File f = chooser.getSelectedFile();
             try {
-                // 1. Read the image
+                // 1. Read and Resize the Image
                 BufferedImage original = ImageIO.read(f);
-
-                // 2. Create the target canvas (Match the size of your JLabel)
                 int width = 200;
                 int height = 200;
                 BufferedImage resized = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
-                // 3. Draw original to resized canvas (0,0 to 200,200)
                 Graphics2D g2d = resized.createGraphics();
                 g2d.drawImage(original, 0, 0, width, height, null);
                 g2d.dispose();
 
-                // 4. Handle Directory
-                File dir = new File("src/Products");
-                if (!dir.exists()) {
-                    dir.mkdirs();
-                }
-
-                // 5. Save with unique name
+                // 2. Define Project Paths
+                String projectPath = System.getProperty("user.dir");
                 String fileName = System.currentTimeMillis() + ".png";
-                File savedFile = new File(dir, fileName);
+
+                // TARGET 1: The Source Folder (Permanent Storage)
+                java.io.File srcDir = new java.io.File(projectPath + "/src/Products");
+                if (!srcDir.exists()) {
+                    srcDir.mkdirs();
+                }
+                File savedFile = new File(srcDir, fileName);
                 boolean success = ImageIO.write(resized, "png", savedFile);
 
                 if (success) {
-                    // 6. Set path for Database
-                    path = fileName; // Store only the name; let the display logic handle the folder path
+                    // Store only the filename for the database
+                    path = fileName;
 
-                    // 7. Update UI
+                    // Update the preview Label
                     Pic.setIcon(new ImageIcon(resized));
-                    System.out.println("Saved to: " + savedFile.getAbsolutePath());
+
+                    // TARGET 2: The Build Folder (For Immediate Display without Rebuilding)
+                    // This is what prevents the "No Image Found" error for new items
+                    java.io.File buildDir = new java.io.File(projectPath + "/build/classes/Products");
+                    if (buildDir.exists()) {
+                        ImageIO.write(resized, "png", new File(buildDir, fileName));
+                    } else {
+                        // If build/classes doesn't exist, try just /build/ (depends on NetBeans version)
+                        java.io.File altBuildDir = new java.io.File(projectPath + "/build/Products");
+                        if (altBuildDir.exists()) {
+                            ImageIO.write(resized, "png", new File(altBuildDir, fileName));
+                        }
+                    }
+
+                    JOptionPane.showMessageDialog(this, "Image uploaded and saved to project!");
                 }
 
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this, "Upload failed: " + ex.getMessage());
+                ex.printStackTrace();
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -966,16 +979,24 @@ public final class Product extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Product.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Product.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Product.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Product.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Product.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Product.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Product.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Product.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
