@@ -31,7 +31,7 @@ public class ForgotPassword extends javax.swing.JFrame {
         l = new javax.swing.JToggleButton();
         send = new javax.swing.JToggleButton();
         jLabel1 = new javax.swing.JLabel();
-        otp = new javax.swing.JTextField();
+        otp = new javax.swing.JPasswordField();
         footer = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
 
@@ -169,8 +169,12 @@ public class ForgotPassword extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Forgot-removebg-preview.png"))); // NOI18N
         body.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 480, 450));
 
-        otp.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         otp.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        otp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                otpActionPerformed(evt);
+            }
+        });
         body.add(otp, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 430, 270, 40));
 
         getContentPane().add(body, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 650));
@@ -335,6 +339,10 @@ public class ForgotPassword extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_sendActionPerformed
 
+    private void otpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_otpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_otpActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -396,7 +404,7 @@ public class ForgotPassword extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton7;
     private javax.swing.JToggleButton l;
-    private javax.swing.JTextField otp;
+    private javax.swing.JPasswordField otp;
     private javax.swing.JToggleButton send;
     // End of variables declaration//GEN-END:variables
 }
