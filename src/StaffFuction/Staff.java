@@ -1,14 +1,23 @@
 package StaffFuction;
 
-import Main.EditProfile;
-import Main.landing;
 import Main.login;
 import Parts.DisplayProducts;
 
 import config.Session;
 import config.config;
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.LineAndShapeRenderer;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 public class Staff extends javax.swing.JFrame {
 
@@ -25,6 +34,7 @@ public class Staff extends javax.swing.JFrame {
         con.setProfileIcon(Profile, s.getImagePath());
         updateDashboardStats();
         updateTransactionCount();
+        displayStaffSalesGraph(chart);
     }
 
     public void getdata() {
@@ -62,6 +72,64 @@ public class Staff extends javax.swing.JFrame {
         tran.setText(String.valueOf(totalTransactions));
     }
 
+    public void displayStaffSalesGraph(JPanel container) {
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        config db = new config();
+        Session sess = Session.getInstance();
+        int staffId = sess.getId();
+
+        // 1. Improved Query: Ensures the date is read correctly even if it's a full timestamp
+        String query = "SELECT STRFTIME('%m-%d', sale_date) AS formatted_date, "
+                + "SUM(total_amount) AS daily_total "
+                + "FROM sales WHERE u_id = '" + staffId + "' "
+                + "AND sale_date >= DATE('now', '-7 days') "
+                + "GROUP BY STRFTIME('%m-%d', sale_date) "
+                + "ORDER BY sale_date ASC";
+
+        List<Map<String, Object>> records = db.fetchRecords(query);
+
+        if (records != null && !records.isEmpty()) {
+            for (Map<String, Object> row : records) {
+                // Check for uppercase column names (common in some SQLite wrappers)
+                Object dateObj = row.get("formatted_date") != null ? row.get("formatted_date") : row.get("FORMATTED_DATE");
+                Object totalObj = row.get("daily_total") != null ? row.get("daily_total") : row.get("DAILY_TOTAL");
+
+                if (dateObj != null && totalObj != null) {
+                    dataset.addValue(Double.parseDouble(totalObj.toString()), "Sales", dateObj.toString());
+                }
+            }
+        } else {
+            // This makes sure the graph isn't totally blank if there's no data
+            dataset.addValue(0, "Sales", "No Data");
+        }
+
+        JFreeChart lineChart = ChartFactory.createLineChart("My Sales Performance (Last 7 Days)", "Date", "Amount (₱)", dataset, PlotOrientation.VERTICAL, false, true, false);
+
+        CategoryPlot plot = lineChart.getCategoryPlot();
+
+        // 2. CRITICAL FIX: Tell the Y-Axis to calculate its own size based on your data
+        org.jfree.chart.axis.NumberAxis rangeAxis = (org.jfree.chart.axis.NumberAxis) plot.getRangeAxis();
+        rangeAxis.setAutoRange(true);
+        rangeAxis.setAutoRangeIncludesZero(true); // Ensures 0 is always the baseline
+
+        // Set format to Philippines Peso
+        rangeAxis.setNumberFormatOverride(java.text.NumberFormat.getCurrencyInstance(new java.util.Locale("en", "PH")));
+
+        // 3. Line Styling
+        LineAndShapeRenderer renderer = new LineAndShapeRenderer();
+        renderer.setSeriesPaint(0, new Color(0, 81, 135));
+        renderer.setSeriesStroke(0, new BasicStroke(3.0f));
+        renderer.setSeriesShapesVisible(0, true); // Adds the dots so you can see individual days
+        plot.setRenderer(renderer);
+
+        ChartPanel chartPanel = new ChartPanel(lineChart);
+        container.setLayout(new java.awt.BorderLayout());
+        container.removeAll();
+        container.add(chartPanel, java.awt.BorderLayout.CENTER);
+        container.revalidate();
+        container.repaint();
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -75,10 +143,13 @@ public class Staff extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         setings = new javax.swing.JPanel();
         Setings = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         product = new javax.swing.JPanel();
         Products = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         salesreport = new javax.swing.JPanel();
         SalesReport = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         body = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -87,6 +158,7 @@ public class Staff extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         sales = new javax.swing.JLabel();
+        chart = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         header1 = new javax.swing.JPanel();
@@ -164,27 +236,16 @@ public class Staff extends javax.swing.JFrame {
                 setingsMouseExited(evt);
             }
         });
+        setings.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Setings.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         Setings.setForeground(new java.awt.Color(255, 255, 255));
-        Setings.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Setings.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         Setings.setText("Search Product");
+        setings.add(Setings, new org.netbeans.lib.awtextra.AbsoluteConstraints(71, 0, -1, 50));
 
-        javax.swing.GroupLayout setingsLayout = new javax.swing.GroupLayout(setings);
-        setings.setLayout(setingsLayout);
-        setingsLayout.setHorizontalGroup(
-            setingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(setingsLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(Setings)
-                .addContainerGap(52, Short.MAX_VALUE))
-        );
-        setingsLayout.setVerticalGroup(
-            setingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, setingsLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(Setings, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Logo/search-removebg-preview.png"))); // NOI18N
+        setings.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 0, -1, -1));
 
         jPanel2.add(setings, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 220, 50));
 
@@ -200,27 +261,16 @@ public class Staff extends javax.swing.JFrame {
                 productMouseExited(evt);
             }
         });
+        product.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Products.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         Products.setForeground(new java.awt.Color(255, 255, 255));
-        Products.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Products.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         Products.setText("Sale a Product");
+        product.add(Products, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 0, 138, 50));
 
-        javax.swing.GroupLayout productLayout = new javax.swing.GroupLayout(product);
-        product.setLayout(productLayout);
-        productLayout.setHorizontalGroup(
-            productLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(productLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(Products)
-                .addContainerGap(61, Short.MAX_VALUE))
-        );
-        productLayout.setVerticalGroup(
-            productLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, productLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(Products, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Logo/product-removebg-preview.png"))); // NOI18N
+        product.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 42, -1));
 
         jPanel2.add(product, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 220, 50));
 
@@ -236,27 +286,16 @@ public class Staff extends javax.swing.JFrame {
                 salesreportMouseExited(evt);
             }
         });
+        salesreport.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         SalesReport.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         SalesReport.setForeground(new java.awt.Color(255, 255, 255));
-        SalesReport.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        SalesReport.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         SalesReport.setText("My Sales");
+        salesreport.add(SalesReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 139, 50));
 
-        javax.swing.GroupLayout salesreportLayout = new javax.swing.GroupLayout(salesreport);
-        salesreport.setLayout(salesreportLayout);
-        salesreportLayout.setHorizontalGroup(
-            salesreportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(salesreportLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(SalesReport)
-                .addContainerGap(113, Short.MAX_VALUE))
-        );
-        salesreportLayout.setVerticalGroup(
-            salesreportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, salesreportLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(SalesReport, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Logo/sales-removebg-preview.png"))); // NOI18N
+        salesreport.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 43, -1));
 
         jPanel2.add(salesreport, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 220, 50));
 
@@ -306,7 +345,7 @@ public class Staff extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        body.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, 350, 180));
+        body.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 370, 350, 180));
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
         jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -341,7 +380,10 @@ public class Staff extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        body.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 60, 340, 180));
+        body.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 370, 340, 180));
+
+        chart.setLayout(new javax.swing.BoxLayout(chart, javax.swing.BoxLayout.LINE_AXIS));
+        body.add(chart, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, 720, 280));
 
         getContentPane().add(body, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 1000, 600));
 
@@ -432,27 +474,33 @@ public class Staff extends javax.swing.JFrame {
     }//GEN-LAST:event_LogoutActionPerformed
 
     private void productMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productMouseEntered
-        product.setBackground(new Color(13, 59, 102));
+        product.setBackground(new Color (255,255,255));
+        Products.setForeground( new Color (13, 59, 102));
     }//GEN-LAST:event_productMouseEntered
 
     private void salesreportMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreportMouseEntered
-        salesreport.setBackground(new Color(13, 59, 102));
+        salesreport.setBackground(new Color (255,255,255));
+        SalesReport.setForeground( new Color (13, 59, 102));
     }//GEN-LAST:event_salesreportMouseEntered
 
     private void setingsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_setingsMouseEntered
-        setings.setBackground(new Color(13, 59, 102));
+        setings.setBackground(new Color (255,255,255));
+        Setings.setForeground( new Color (13, 59, 102));
     }//GEN-LAST:event_setingsMouseEntered
 
     private void productMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productMouseExited
         product.setBackground(new Color(0, 119, 176));
+        Products.setForeground( new Color (255,255,255));
     }//GEN-LAST:event_productMouseExited
 
     private void salesreportMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreportMouseExited
         salesreport.setBackground(new Color(0, 119, 176));
+        SalesReport.setForeground( new Color (255,255,255));
     }//GEN-LAST:event_salesreportMouseExited
 
     private void setingsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_setingsMouseExited
         setings.setBackground(new Color(0, 119, 176));
+        Setings.setForeground( new Color (255,255,255));
     }//GEN-LAST:event_setingsMouseExited
 
     private void productMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productMouseClicked
@@ -488,11 +536,11 @@ public class Staff extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void salesreportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreportMouseClicked
-        
+
         MySales sale = new MySales();
         sale.setVisible(true);
         this.dispose();
-        
+
     }//GEN-LAST:event_salesreportMouseClicked
 
     public static void main(String args[]) {
@@ -549,17 +597,21 @@ public class Staff extends javax.swing.JFrame {
     private javax.swing.JLabel SalesReport;
     private javax.swing.JLabel Setings;
     private javax.swing.JPanel body;
+    private javax.swing.JPanel chart;
     private javax.swing.JLabel edit;
     private javax.swing.JLabel email;
     private javax.swing.JPanel header1;
     private javax.swing.JLabel id;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

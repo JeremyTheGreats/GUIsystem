@@ -49,7 +49,7 @@ public final class Product extends javax.swing.JFrame {
     void display() {
 
         config con = new config();
-        String sql = "SELECT id, part_name, category, price, stock FROM parts_inventory";
+        String sql = "SELECT id AS ID, part_name AS Product, category AS Category, price AS Price, stock As Stock FROM parts_inventory";
         con.displayData(sql, Product);
 
     }
@@ -115,20 +115,6 @@ public final class Product extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
-        name = new javax.swing.JLabel();
-        email = new javax.swing.JLabel();
-        edit = new javax.swing.JLabel();
-        Profile = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        user = new javax.swing.JPanel();
-        Users = new javax.swing.JLabel();
-        product = new javax.swing.JPanel();
-        Products = new javax.swing.JLabel();
-        salesreport = new javax.swing.JPanel();
-        SalesReport = new javax.swing.JLabel();
-        salesreport1 = new javax.swing.JPanel();
-        SalesReport1 = new javax.swing.JLabel();
         body = new javax.swing.JPanel();
         tab = new javax.swing.JTabbedPane();
         table1 = new javax.swing.JPanel();
@@ -155,6 +141,23 @@ public final class Product extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         Pic = new javax.swing.JLabel();
         save = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        name = new javax.swing.JLabel();
+        email = new javax.swing.JLabel();
+        edit = new javax.swing.JLabel();
+        Profile = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        user = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        Products1 = new javax.swing.JLabel();
+        product = new javax.swing.JPanel();
+        Products = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        salesreport = new javax.swing.JPanel();
+        SalesReport = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        salesreport1 = new javax.swing.JPanel();
+        SalesReport1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         header1 = new javax.swing.JPanel();
@@ -170,199 +173,6 @@ public final class Product extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(13, 59, 102));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        name.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        name.setForeground(new java.awt.Color(255, 255, 255));
-        name.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        name.setText("User");
-        name.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        name.setName("name"); // NOI18N
-        jPanel2.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 190, 37));
-
-        email.setForeground(new java.awt.Color(255, 255, 255));
-        email.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        email.setText("email");
-        jPanel2.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 230, 23));
-
-        edit.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        edit.setForeground(new java.awt.Color(255, 255, 255));
-        edit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        edit.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        edit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                editMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                editMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                editMouseExited(evt);
-            }
-        });
-        jPanel2.add(edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 100, 100));
-
-        Profile.setPreferredSize(new java.awt.Dimension(100, 100));
-        jPanel2.add(Profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, -1, 100));
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Admin");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 150, 30));
-
-        user.setBackground(new java.awt.Color(0, 119, 176));
-        user.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                userMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                userMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                userMouseExited(evt);
-            }
-        });
-
-        Users.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        Users.setForeground(new java.awt.Color(255, 255, 255));
-        Users.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Users.setText("Dashboard");
-        Users.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                UsersMouseEntered(evt);
-            }
-        });
-
-        javax.swing.GroupLayout userLayout = new javax.swing.GroupLayout(user);
-        user.setLayout(userLayout);
-        userLayout.setHorizontalGroup(
-            userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(userLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(Users)
-                .addContainerGap(93, Short.MAX_VALUE))
-        );
-        userLayout.setVerticalGroup(
-            userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(Users, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel2.add(user, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 220, 50));
-
-        product.setBackground(new java.awt.Color(0, 119, 176));
-        product.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                productMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                productMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                productMouseExited(evt);
-            }
-        });
-
-        Products.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        Products.setForeground(new java.awt.Color(255, 255, 255));
-        Products.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Products.setText("Products");
-
-        javax.swing.GroupLayout productLayout = new javax.swing.GroupLayout(product);
-        product.setLayout(productLayout);
-        productLayout.setHorizontalGroup(
-            productLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(productLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(Products)
-                .addContainerGap(111, Short.MAX_VALUE))
-        );
-        productLayout.setVerticalGroup(
-            productLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, productLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(Products, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel2.add(product, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 220, 50));
-
-        salesreport.setBackground(new java.awt.Color(0, 119, 176));
-        salesreport.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                salesreportMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                salesreportMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                salesreportMouseExited(evt);
-            }
-        });
-
-        SalesReport.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        SalesReport.setForeground(new java.awt.Color(255, 255, 255));
-        SalesReport.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        SalesReport.setText("Back");
-
-        javax.swing.GroupLayout salesreportLayout = new javax.swing.GroupLayout(salesreport);
-        salesreport.setLayout(salesreportLayout);
-        salesreportLayout.setHorizontalGroup(
-            salesreportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(salesreportLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(SalesReport)
-                .addContainerGap(147, Short.MAX_VALUE))
-        );
-        salesreportLayout.setVerticalGroup(
-            salesreportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, salesreportLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(SalesReport, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel2.add(salesreport, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 520, 220, 50));
-
-        salesreport1.setBackground(new java.awt.Color(0, 119, 176));
-        salesreport1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                salesreport1MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                salesreport1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                salesreport1MouseExited(evt);
-            }
-        });
-
-        SalesReport1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        SalesReport1.setForeground(new java.awt.Color(255, 255, 255));
-        SalesReport1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        SalesReport1.setText("Sales Report");
-
-        javax.swing.GroupLayout salesreport1Layout = new javax.swing.GroupLayout(salesreport1);
-        salesreport1.setLayout(salesreport1Layout);
-        salesreport1Layout.setHorizontalGroup(
-            salesreport1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(salesreport1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(SalesReport1)
-                .addContainerGap(78, Short.MAX_VALUE))
-        );
-        salesreport1Layout.setVerticalGroup(
-            salesreport1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, salesreport1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(SalesReport1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel2.add(salesreport1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 220, 50));
-
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 230, 600));
-
         body.setBackground(new java.awt.Color(255, 255, 255));
         body.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         body.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -376,7 +186,7 @@ public final class Product extends javax.swing.JFrame {
 
             },
             new String [] {
-
+                "ID", "Product Name", "Category", "Price", "Stock"
             }
         ));
         Product.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -385,8 +195,11 @@ public final class Product extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(Product);
+        if (Product.getColumnModel().getColumnCount() > 0) {
+            Product.getColumnModel().getColumn(4).setResizable(false);
+        }
 
-        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 720, 460));
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 730, 460));
 
         update.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         update.setText("Update Product");
@@ -602,6 +415,178 @@ public final class Product extends javax.swing.JFrame {
 
         body.add(tab, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, -30, 770, 630));
 
+        jPanel2.setBackground(new java.awt.Color(13, 59, 102));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        name.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        name.setForeground(new java.awt.Color(255, 255, 255));
+        name.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        name.setText("User");
+        name.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        name.setName("name"); // NOI18N
+        jPanel2.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 190, 37));
+
+        email.setForeground(new java.awt.Color(255, 255, 255));
+        email.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        email.setText("email");
+        jPanel2.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 230, 23));
+
+        edit.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        edit.setForeground(new java.awt.Color(255, 255, 255));
+        edit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        edit.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        edit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                editMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                editMouseExited(evt);
+            }
+        });
+        jPanel2.add(edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 100, 100));
+
+        Profile.setPreferredSize(new java.awt.Dimension(100, 100));
+        jPanel2.add(Profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, -1, 100));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Admin");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 150, 30));
+
+        user.setBackground(new java.awt.Color(0, 119, 176));
+        user.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                userMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                userMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                userMouseExited(evt);
+            }
+        });
+        user.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Logo/dash__1_-removebg-preview.png"))); // NOI18N
+        user.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 0, -1, -1));
+
+        Products1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        Products1.setForeground(new java.awt.Color(255, 255, 255));
+        Products1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Products1.setText("Dashboard");
+        user.add(Products1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 130, 50));
+
+        jPanel2.add(user, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 220, 50));
+
+        product.setBackground(new java.awt.Color(0, 119, 176));
+        product.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                productMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                productMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                productMouseExited(evt);
+            }
+        });
+        product.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Products.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        Products.setForeground(new java.awt.Color(255, 255, 255));
+        Products.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Products.setText("Products");
+        product.add(Products, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 130, 50));
+
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Logo/product-removebg-preview.png"))); // NOI18N
+        product.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, -1));
+
+        jPanel2.add(product, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 220, 50));
+
+        salesreport.setBackground(new java.awt.Color(0, 119, 176));
+        salesreport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                salesreportMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                salesreportMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                salesreportMouseExited(evt);
+            }
+        });
+
+        SalesReport.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        SalesReport.setForeground(new java.awt.Color(255, 255, 255));
+        SalesReport.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        SalesReport.setText("Sales Report");
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Logo/sales-removebg-preview.png"))); // NOI18N
+
+        javax.swing.GroupLayout salesreportLayout = new javax.swing.GroupLayout(salesreport);
+        salesreport.setLayout(salesreportLayout);
+        salesreportLayout.setHorizontalGroup(
+            salesreportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, salesreportLayout.createSequentialGroup()
+                .addContainerGap(19, Short.MAX_VALUE)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(SalesReport, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        salesreportLayout.setVerticalGroup(
+            salesreportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, salesreportLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(salesreportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SalesReport, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        jPanel2.add(salesreport, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 220, 50));
+
+        salesreport1.setBackground(new java.awt.Color(0, 119, 176));
+        salesreport1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                salesreport1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                salesreport1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                salesreport1MouseExited(evt);
+            }
+        });
+
+        SalesReport1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        SalesReport1.setForeground(new java.awt.Color(255, 255, 255));
+        SalesReport1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        SalesReport1.setText("Back");
+
+        javax.swing.GroupLayout salesreport1Layout = new javax.swing.GroupLayout(salesreport1);
+        salesreport1.setLayout(salesreport1Layout);
+        salesreport1Layout.setHorizontalGroup(
+            salesreport1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(salesreport1Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(SalesReport1)
+                .addContainerGap(147, Short.MAX_VALUE))
+        );
+        salesreport1Layout.setVerticalGroup(
+            salesreport1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, salesreport1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(SalesReport1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel2.add(salesreport1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 520, 220, 50));
+
+        body.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 600));
+
         getContentPane().add(body, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 1000, 600));
 
         jPanel1.setBackground(new java.awt.Color(127, 157, 177));
@@ -689,77 +674,9 @@ public final class Product extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jToggleButton6ActionPerformed
 
-    private void UsersMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsersMouseEntered
-
-        Users.setBackground(new Color(13, 59, 102));
-
-    }//GEN-LAST:event_UsersMouseEntered
-
-    private void userMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userMouseEntered
-        user.setBackground(new Color(13, 59, 102));
-    }//GEN-LAST:event_userMouseEntered
-
-    private void userMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userMouseExited
-        user.setBackground(new Color(0, 119, 176));
-    }//GEN-LAST:event_userMouseExited
-
-    private void productMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productMouseEntered
-        product.setBackground(new Color(13, 59, 102));
-    }//GEN-LAST:event_productMouseEntered
-
-    private void productMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productMouseExited
-        product.setBackground(new Color(0, 119, 176));
-    }//GEN-LAST:event_productMouseExited
-
-    private void salesreportMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreportMouseEntered
-        salesreport.setBackground(new Color(13, 59, 102));
-    }//GEN-LAST:event_salesreportMouseEntered
-
-    private void salesreportMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreportMouseExited
-        salesreport.setBackground(new Color(0, 119, 176));
-    }//GEN-LAST:event_salesreportMouseExited
-
-    private void userMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userMouseClicked
-
-        dashboardAdmin ad = new dashboardAdmin();
-        ad.setVisible(true);
-        this.dispose();
-
-    }//GEN-LAST:event_userMouseClicked
-
-    private void editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseClicked
-
-        EditProfile edit = new EditProfile();
-        edit.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_editMouseClicked
-
-    private void editMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseEntered
-        edit.setText("EDIT");
-    }//GEN-LAST:event_editMouseEntered
-
-    private void editMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseExited
-        edit.setText("");
-    }//GEN-LAST:event_editMouseExited
-
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         getdata();        // TODO add your handling code here:
     }//GEN-LAST:event_formWindowActivated
-
-    private void salesreport1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport1MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_salesreport1MouseEntered
-
-    private void salesreport1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_salesreport1MouseExited
-
-    private void salesreportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreportMouseClicked
-        dashboardAdmin dash = new dashboardAdmin();
-        dash.setVisible(true);
-        this.dispose();
-
-    }//GEN-LAST:event_salesreportMouseClicked
 
     private void delete1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delete1ActionPerformed
 
@@ -877,10 +794,6 @@ public final class Product extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cateActionPerformed
 
-    private void productMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productMouseClicked
-        tab.setSelectedIndex(0);
-    }//GEN-LAST:event_productMouseClicked
-
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
 
         int row = Product.getSelectedRow();
@@ -962,11 +875,82 @@ public final class Product extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_searchActionPerformed
 
-    private void salesreport1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport1MouseClicked
+    private void editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseClicked
+
+        EditProfile edit = new EditProfile();
+        edit.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_editMouseClicked
+
+    private void editMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseEntered
+        edit.setText("EDIT");
+    }//GEN-LAST:event_editMouseEntered
+
+    private void editMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseExited
+        edit.setText("");
+    }//GEN-LAST:event_editMouseExited
+
+    private void userMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userMouseClicked
+        dashboardAdmin use = new dashboardAdmin();
+        use.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_userMouseClicked
+
+    private void userMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userMouseEntered
+        user.setBackground(new Color (255,255,255));
+        Products1.setForeground( new Color (13, 59, 102));
+    }//GEN-LAST:event_userMouseEntered
+
+    private void userMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userMouseExited
+        user.setBackground(new Color(0, 119, 176));
+        Products1.setForeground( new Color (255,255,255));
+    }//GEN-LAST:event_userMouseExited
+
+    private void productMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productMouseClicked
+        Product pro = new Product();
+        pro.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_productMouseClicked
+
+    private void productMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productMouseEntered
+        product.setBackground(new Color (255,255,255));
+        Products.setForeground( new Color (13, 59, 102));
+    }//GEN-LAST:event_productMouseEntered
+
+    private void productMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productMouseExited
+        product.setBackground(new Color(0, 119, 176));
+        Products.setForeground( new Color (255,255,255));
+    }//GEN-LAST:event_productMouseExited
+
+    private void salesreportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreportMouseClicked
         Sales sa = new Sales();
         sa.setVisible(true);
-        this.dispose();        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_salesreportMouseClicked
+
+    private void salesreportMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreportMouseEntered
+        salesreport.setBackground(new Color (255,255,255));
+        SalesReport.setForeground( new Color (13, 59, 102));
+    }//GEN-LAST:event_salesreportMouseEntered
+
+    private void salesreportMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreportMouseExited
+        salesreport.setBackground(new Color(0, 119, 176));
+        SalesReport.setForeground( new Color (255,255,255));
+    }//GEN-LAST:event_salesreportMouseExited
+
+    private void salesreport1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport1MouseClicked
+        dashboardAdmin dash = new dashboardAdmin();
+        dash.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_salesreport1MouseClicked
+
+    private void salesreport1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport1MouseEntered
+        salesreport1.setBackground(new Color(13, 59, 102));
+    }//GEN-LAST:event_salesreport1MouseEntered
+
+    private void salesreport1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport1MouseExited
+        salesreport1.setBackground(new Color(0, 119, 176));
+    }//GEN-LAST:event_salesreport1MouseExited
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1076,11 +1060,11 @@ public final class Product extends javax.swing.JFrame {
     private javax.swing.JLabel Pic;
     private javax.swing.JTable Product;
     private javax.swing.JLabel Products;
+    private javax.swing.JLabel Products1;
     private javax.swing.JLabel Profile;
     private javax.swing.JLabel SalesReport;
     private javax.swing.JLabel SalesReport1;
     private javax.swing.JTextField Stock;
-    private javax.swing.JLabel Users;
     private javax.swing.JPanel body;
     private javax.swing.JComboBox<String> cate;
     private javax.swing.JToggleButton delete;
@@ -1091,6 +1075,9 @@ public final class Product extends javax.swing.JFrame {
     private javax.swing.JPanel header1;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

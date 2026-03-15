@@ -74,10 +74,6 @@ public class DisplayProducts extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        header1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        Logout = new javax.swing.JToggleButton();
         footer = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         body = new javax.swing.JPanel();
@@ -87,6 +83,7 @@ public class DisplayProducts extends javax.swing.JFrame {
         jPanel12 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         cartno = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -106,6 +103,10 @@ public class DisplayProducts extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
+        header1 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jToggleButton6 = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -114,55 +115,6 @@ public class DisplayProducts extends javax.swing.JFrame {
             }
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        header1.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 48)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(13, 59, 102));
-        jLabel3.setText("J");
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel4.setText("TECHNOLOGY");
-
-        Logout.setBackground(new java.awt.Color(255, 255, 255));
-        Logout.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        Logout.setForeground(new java.awt.Color(13, 59, 102));
-        Logout.setText("Log out");
-        Logout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LogoutActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout header1Layout = new javax.swing.GroupLayout(header1);
-        header1.setLayout(header1Layout);
-        header1Layout.setHorizontalGroup(
-            header1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(header1Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 677, Short.MAX_VALUE)
-                .addComponent(Logout, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
-        );
-        header1Layout.setVerticalGroup(
-            header1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(header1Layout.createSequentialGroup()
-                .addGroup(header1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(header1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(header1Layout.createSequentialGroup()
-                            .addGap(21, 21, 21)
-                            .addComponent(jLabel4)))
-                    .addGroup(header1Layout.createSequentialGroup()
-                        .addComponent(Logout)
-                        .addGap(15, 15, 15)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(header1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 60));
 
         footer.setBackground(new java.awt.Color(127, 157, 177));
 
@@ -206,7 +158,7 @@ public class DisplayProducts extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(containerPanel);
 
-        body.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 880, 550));
+        body.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 880, 540));
 
         jToggleButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jToggleButton1.setText("Process");
@@ -215,9 +167,10 @@ public class DisplayProducts extends javax.swing.JFrame {
                 jToggleButton1ActionPerformed(evt);
             }
         });
-        body.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 154, 37));
+        body.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 10, 154, 37));
 
         jPanel12.setBackground(new java.awt.Color(0, 119, 176));
+        jPanel12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel12.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel12MouseClicked(evt);
@@ -228,14 +181,17 @@ public class DisplayProducts extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Total of Items :");
-        jPanel12.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+        jPanel12.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 7, -1, 40));
 
         cartno.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         cartno.setForeground(new java.awt.Color(255, 255, 255));
         cartno.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel12.add(cartno, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 0, 50, 40));
+        jPanel12.add(cartno, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, 50, 40));
 
-        body.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 10, 218, -1));
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Logo/chart-removebg-preview.png"))); // NOI18N
+        jPanel12.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 60, -1));
+
+        body.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 260, 50));
 
         jPanel1.setBackground(new java.awt.Color(13, 59, 102));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -559,6 +515,54 @@ public class DisplayProducts extends javax.swing.JFrame {
 
         getContentPane().add(body, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 1000, 600));
 
+        header1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 48)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(13, 59, 102));
+        jLabel3.setText("J");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel4.setText("TECHNOLOGY");
+
+        jToggleButton6.setBackground(new java.awt.Color(255, 255, 255));
+        jToggleButton6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jToggleButton6.setForeground(new java.awt.Color(13, 59, 102));
+        jToggleButton6.setText("Log out");
+        jToggleButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton6ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout header1Layout = new javax.swing.GroupLayout(header1);
+        header1.setLayout(header1Layout);
+        header1Layout.setHorizontalGroup(
+            header1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(header1Layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 676, Short.MAX_VALUE)
+                .addComponent(jToggleButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
+        );
+        header1Layout.setVerticalGroup(
+            header1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(header1Layout.createSequentialGroup()
+                .addGroup(header1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(header1Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jToggleButton6))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(header1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel4)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(header1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 60));
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -690,16 +694,6 @@ public class DisplayProducts extends javax.swing.JFrame {
         jPanel11.setBackground(new Color(0, 119, 176));
     }//GEN-LAST:event_jPanel11MouseExited
 
-    private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
-
-        login log = new login();
-        log.setLocationRelativeTo(null);
-        log.setVisible(true);
-        Session.destroy();
-        this.dispose();
-
-    }//GEN-LAST:event_LogoutActionPerformed
-
     private void jPanel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel12MouseClicked
 
     }//GEN-LAST:event_jPanel12MouseClicked
@@ -720,6 +714,14 @@ public class DisplayProducts extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         getdata();
     }//GEN-LAST:event_formWindowActivated
+
+    private void jToggleButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton6ActionPerformed
+
+        login log = new login();
+        log.setLocationRelativeTo(null);
+        log.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jToggleButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -758,7 +760,6 @@ public class DisplayProducts extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton Logout;
     private javax.swing.JPanel body;
     private javax.swing.JLabel cartno;
     private javax.swing.JPanel containerPanel;
@@ -767,6 +768,7 @@ public class DisplayProducts extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
@@ -790,5 +792,6 @@ public class DisplayProducts extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JToggleButton jToggleButton6;
     // End of variables declaration//GEN-END:variables
 }
