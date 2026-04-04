@@ -343,5 +343,25 @@ public class config {
         }
         return totalSum;
     }
+    
+    public int getSingleInt(String sql, Object... values) {
+    int result = -1;
+    try (Connection conn = connectDB();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+        for (int i = 0; i < values.length; i++) {
+            pstmt.setObject(i + 1, values[i]);
+        }
+
+        try (ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                result = rs.getInt(1);
+            }
+        }
+    } catch (SQLException e) {
+        System.out.println("Error fetching single int: " + e.getMessage());
+    }
+    return result;
+}
 
 }

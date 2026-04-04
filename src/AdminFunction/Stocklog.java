@@ -17,11 +17,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-public final class Product extends javax.swing.JFrame {
+public final class Stocklog extends javax.swing.JFrame {
 
     private String path;
 
-    public Product() {
+    public Stocklog() {
         initComponents();
 
         config con = new config();
@@ -43,15 +43,7 @@ public final class Product extends javax.swing.JFrame {
 
         con.setProfileIcon(Profile, s.getImagePath());
 
-        display();
-    }
-
-    void display() {
-
-        config con = new config();
-        String sql = "SELECT id AS ID, part_name AS Product, category AS Category, price AS Price, stock As Stock FROM parts_inventory";
-        con.displayData(sql, Product);
-
+        displayStockLogs();
     }
 
     public void getdata() {
@@ -77,38 +69,23 @@ public final class Product extends javax.swing.JFrame {
         // Reset your image label here if needed
     }
 
-    private void processStockUpdate(boolean isAdding, int row) {
-        try {
-            // Get the ID from the selected row (Assuming ID is in Column 0)
-            String id = Product.getValueAt(row, 0).toString();
+    public void displayStockLogs() {
+        config con = new config();
 
-            // Get the quantity the user typed in your Stock text field
-            String input = JOptionPane.showInputDialog(null, "Enter the Quantity : ");
+        // Added s.log_id as the first column
+        String sql = "SELECT s.log_id AS 'Log ID', "
+                + "p.part_name AS 'Product Name', "
+                + "u.fullname AS 'Staff Name', "
+                + "s.qty AS 'Quantity', "
+                + "s.status AS 'Type', "
+                + "s.log_date AS 'Date' "
+                + "FROM StockLog s "
+                + "JOIN parts_inventory p ON s.product_id = p.id "
+                + "JOIN user_account u ON s.u_id = u.id "
+                + "ORDER BY s.log_date DESC";
 
-            if (input.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Please enter a quantity in the Stock field.");
-                return;
-            }
-
-            int amount = Integer.parseInt(input);
-
-            // If Deducting, turn the number negative (e.g., 5 becomes -5)
-            int finalChange = isAdding ? amount : -amount;
-
-            config con = new config();
-            // Use p_stock = p_stock + ? so SQL handles the math correctly
-            String sql = "UPDATE parts_inventory SET stock = stock + ? WHERE id = ?";
-
-            con.updateRecord(sql, finalChange, id);
-
-            JOptionPane.showMessageDialog(this, (isAdding ? "Added " : "Deducted ") + amount + " units successfully.");
-
-            // Refresh your table to show the new stock levels
-            display();
-
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Please enter a valid whole number for the quantity.");
-        }
+        // Update your JTable (make sure the variable name matches your UI)
+        con.displayData(sql, Stocktable);
     }
 
     @SuppressWarnings("unchecked")
@@ -118,16 +95,10 @@ public final class Product extends javax.swing.JFrame {
         body = new javax.swing.JPanel();
         tab = new javax.swing.JTabbedPane();
         table1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        Product = new javax.swing.JTable();
-        update = new javax.swing.JToggleButton();
-        delete = new javax.swing.JToggleButton();
-        find = new javax.swing.JTextField();
-        search = new javax.swing.JToggleButton();
-        Edit = new javax.swing.JToggleButton();
-        delete1 = new javax.swing.JToggleButton();
-        jLabel2 = new javax.swing.JLabel();
+        Stocktable = new javax.swing.JTable();
         table2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -180,79 +151,25 @@ public final class Product extends javax.swing.JFrame {
         body.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         body.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jLabel2.setBackground(new java.awt.Color(13, 59, 102));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(13, 59, 102));
+        jLabel2.setText("Stock Log");
+
+        jPanel3.setBackground(new java.awt.Color(13, 59, 102));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Product.setModel(new javax.swing.table.DefaultTableModel(
+        Stocktable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Product Name", "Category", "Price", "Stock"
+
             }
         ));
-        Product.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ProductMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(Product);
-        if (Product.getColumnModel().getColumnCount() > 0) {
-            Product.getColumnModel().getColumn(4).setResizable(false);
-        }
+        jScrollPane1.setViewportView(Stocktable);
 
-        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 730, 460));
-
-        update.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        update.setText("Update Product");
-        update.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateActionPerformed(evt);
-            }
-        });
-        jPanel3.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 150, -1));
-
-        delete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        delete.setText("Delete Product");
-        delete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteActionPerformed(evt);
-            }
-        });
-        jPanel3.add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, 140, -1));
-        jPanel3.add(find, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, 270, 30));
-
-        search.setText("Search");
-        search.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchActionPerformed(evt);
-            }
-        });
-        jPanel3.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 30, 80, 30));
-
-        Edit.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        Edit.setText("Refresh");
-        Edit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EditActionPerformed(evt);
-            }
-        });
-        jPanel3.add(Edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 150, -1));
-
-        delete1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        delete1.setText("Add Product");
-        delete1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                delete1ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(delete1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, 140, -1));
-
-        jLabel2.setBackground(new java.awt.Color(13, 59, 102));
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(13, 59, 102));
-        jLabel2.setText("Products");
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 770, 490));
 
         javax.swing.GroupLayout table1Layout = new javax.swing.GroupLayout(table1);
         table1.setLayout(table1Layout);
@@ -262,18 +179,16 @@ public final class Product extends javax.swing.JFrame {
                 .addGap(304, 304, 304)
                 .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(table1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 745, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         table1Layout.setVerticalGroup(
             table1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(table1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         tab.addTab("tab1", table1);
@@ -723,12 +638,6 @@ public final class Product extends javax.swing.JFrame {
         getdata();        // TODO add your handling code here:
     }//GEN-LAST:event_formWindowActivated
 
-    private void delete1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delete1ActionPerformed
-
-        tab.setSelectedIndex(1);
-
-    }//GEN-LAST:event_delete1ActionPerformed
-
     private void priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_priceActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_priceActionPerformed
@@ -804,39 +713,33 @@ public final class Product extends javax.swing.JFrame {
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
 
         config con = new config();
-        Session session = Session.getInstance();
 
+        // 1. Collect data from UI
         String pname = naaaaa.getText().trim();
         String category = cate.getSelectedItem().toString();
         String amount = price.getText().trim();
         String stock = Stock.getText().trim();
 
-        int currentUserId = session.getId();
-
+        // 2. Validation: Check if fields are empty
         if (pname.isEmpty() || amount.isEmpty() || stock.isEmpty() || path == null) {
-            JOptionPane.showMessageDialog(null, "Please fill in all fields!");
+            JOptionPane.showMessageDialog(null, "Please fill in all fields and select an image!");
             return;
         }
 
         try {
+
             double d_price = Double.parseDouble(amount);
             int i_stock = Integer.parseInt(stock);
 
-            String sqlProduct = "INSERT INTO parts_inventory (part_name, category, price, stock, image_path) VALUES (?, ?, ?, ?, ?)";
-            con.addRecord(sqlProduct, pname, category, d_price, i_stock, path);
+            String sql = "INSERT INTO parts_inventory (part_name, category, price, stock, image_path) VALUES (?, ?, ?, ?, ?)";
+            con.addRecord(sql, pname, category, d_price, i_stock, path);
 
-            int p_id = con.getSingleInt("SELECT id FROM parts_inventory WHERE part_name = ?", pname);
-
-            if (p_id != -1) {
-                String sqlLog = "INSERT INTO StockLog (product_id, u_id, status, qty) VALUES (?, ?, ?, ?)";
-                con.addRecord(sqlLog, p_id, currentUserId, "IN", i_stock);
-                JOptionPane.showMessageDialog(null, "Product and Restock Logged by User ID: " + currentUserId);
-            }
+            JOptionPane.showMessageDialog(null, "Product Added Successfully!");
 
             clearFields();
 
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Invalid number format!");
+            JOptionPane.showMessageDialog(null, "Price must be a decimal and Stock must be a whole number!");
         }
 
     }//GEN-LAST:event_saveActionPerformed
@@ -844,128 +747,6 @@ public final class Product extends javax.swing.JFrame {
     private void cateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cateActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cateActionPerformed
-
-    private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
-        
-        config con = new config();
-        Session session = Session.getInstance();
-
-        // 1. Check if a row is selected
-        int row = Product.getSelectedRow();
-        if (row < 0) {
-            JOptionPane.showMessageDialog(this, "Please select a Product from the table.");
-            return;
-        }
-
-        // 2. Ask user: Add or Deduct?
-        Object[] options = {"Add Stock", "Deduct Stock", "Cancel"};
-        int response = JOptionPane.showOptionDialog(this,
-                "Would you like to Add or Deduct stock?",
-                "Inventory Action",
-                JOptionPane.YES_NO_CANCEL_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null, options, options[0]);
-
-        if (response == 2 || response == -1) {
-            return; // Cancel or closed
-        }
-        boolean isAdding = (response == 0); // true if Add, false if Deduct
-
-        try {
-            // 3. Get current data from the table
-            String id = Product.getValueAt(row, 0).toString();
-            int currentQty = Integer.parseInt(Product.getValueAt(row, 4).toString());
-            int u_id = session.getId();
-
-            // 4. Ask for amount
-            String input = JOptionPane.showInputDialog(this,
-                    (isAdding ? "Enter amount to ADD:" : "Enter amount to DEDUCT:"));
-
-            if (input == null || input.trim().isEmpty()) {
-                return;
-            }
-            int changeAmount = Integer.parseInt(input);
-
-            // 5. Calculate new stock and set status
-            int newStock;
-            String status;
-
-            if (isAdding) {
-                newStock = currentQty + changeAmount;
-                status = "IN";
-            } else {
-                if (changeAmount > currentQty) {
-                    JOptionPane.showMessageDialog(this, "Error: Not enough stock!");
-                    return;
-                }
-                newStock = currentQty - changeAmount;
-                status = "OUT";
-            }
-
-            // 6. Update Database (Inventory and Log)
-            con.updateRecord("UPDATE parts_inventory SET stock = ? WHERE id = ?", newStock, id);
-            con.addRecord("INSERT INTO StockLog (product_id, u_id, status, qty) VALUES (?, ?, ?, ?)",
-                    id, u_id, status, changeAmount);
-
-            // 7. Instant UI Update
-            Product.setValueAt(newStock, row, 4);
-
-            JOptionPane.showMessageDialog(this, "Stock Updated Successfully!");
-
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Please enter a valid whole number!");
-        }
-    }//GEN-LAST:event_updateActionPerformed
-
-    private void ProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductMouseClicked
-
-    }//GEN-LAST:event_ProductMouseClicked
-
-    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
-
-        config con = new config();
-
-        int row = Product.getSelectedRow();
-
-        if (row < 0) {
-
-            JOptionPane.showMessageDialog(this, "Please select a Product.");
-
-            return;
-        }
-
-        int pid = Integer.parseInt(Product.getValueAt(row, 0).toString());
-
-        int response = JOptionPane.showConfirmDialog(this,
-                "Do you want to proceed with this action?",
-                "Confirm Action",
-                JOptionPane.YES_NO_OPTION);
-
-        if (response == JOptionPane.YES_OPTION) {
-
-            String sql = "DELETE FROM parts_inventory WHERE id = ?";
-
-            con.deleteRecord(sql, pid);
-
-            display();
-
-            JOptionPane.showMessageDialog(null, "Product has beed DELETED!");
-        } else {
-
-            return;
-        }
-
-
-    }//GEN-LAST:event_deleteActionPerformed
-
-    private void EditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditActionPerformed
-
-        display();
-    }//GEN-LAST:event_EditActionPerformed
-
-    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchActionPerformed
 
     private void editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseClicked
 
@@ -1074,21 +855,85 @@ public final class Product extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Product.class
+            java.util.logging.Logger.getLogger(Stocklog.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Product.class
+            java.util.logging.Logger.getLogger(Stocklog.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Product.class
+            java.util.logging.Logger.getLogger(Stocklog.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Product.class
+            java.util.logging.Logger.getLogger(Stocklog.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -1157,28 +1002,24 @@ public final class Product extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Product().setVisible(true);
+                new Stocklog().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton Edit;
     private javax.swing.JLabel Pic;
-    private javax.swing.JTable Product;
     private javax.swing.JLabel Products;
     private javax.swing.JLabel Products1;
     private javax.swing.JLabel Profile;
     private javax.swing.JLabel SalesReport;
     private javax.swing.JLabel SalesReport1;
     private javax.swing.JTextField Stock;
+    private javax.swing.JTable Stocktable;
     private javax.swing.JPanel body;
     private javax.swing.JComboBox<String> cate;
-    private javax.swing.JToggleButton delete;
-    private javax.swing.JToggleButton delete1;
     private javax.swing.JLabel edit;
     private javax.swing.JLabel email;
-    private javax.swing.JTextField find;
     private javax.swing.JPanel header1;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -1208,12 +1049,10 @@ public final class Product extends javax.swing.JFrame {
     private javax.swing.JPanel salesreport1;
     private javax.swing.JPanel salesreport2;
     private javax.swing.JButton save;
-    private javax.swing.JToggleButton search;
     private javax.swing.JLabel sta;
     private javax.swing.JTabbedPane tab;
     private javax.swing.JPanel table1;
     private javax.swing.JPanel table2;
-    private javax.swing.JToggleButton update;
     private javax.swing.JPanel user;
     // End of variables declaration//GEN-END:variables
 }

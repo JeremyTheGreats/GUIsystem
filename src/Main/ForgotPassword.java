@@ -297,7 +297,7 @@ public class ForgotPassword extends javax.swing.JFrame {
 
     private void lActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lActionPerformed
 
-        ForgotPassword log = new ForgotPassword();
+        login log = new login();
         log.setLocationRelativeTo(null);
         log.setVisible(true);
         this.dispose();

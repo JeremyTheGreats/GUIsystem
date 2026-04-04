@@ -71,6 +71,9 @@ public class Sales extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         salesreport3 = new javax.swing.JPanel();
         SalesReport3 = new javax.swing.JLabel();
+        log = new javax.swing.JPanel();
+        SalesReport4 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Sales = new javax.swing.JTable();
@@ -223,9 +226,9 @@ public class Sales extends javax.swing.JFrame {
             salesreport2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, salesreport2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(salesreport2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(SalesReport2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(salesreport2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SalesReport2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jPanel3.add(salesreport2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 220, 50));
@@ -264,7 +267,49 @@ public class Sales extends javax.swing.JFrame {
                 .addComponent(SalesReport3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel3.add(salesreport3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 520, 220, 50));
+        jPanel3.add(salesreport3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 540, 220, 50));
+
+        log.setBackground(new java.awt.Color(0, 119, 176));
+        log.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                logMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                logMouseExited(evt);
+            }
+        });
+
+        SalesReport4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        SalesReport4.setForeground(new java.awt.Color(255, 255, 255));
+        SalesReport4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        SalesReport4.setText("Stock Log");
+
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Logo/log-removebg-preview.png"))); // NOI18N
+
+        javax.swing.GroupLayout logLayout = new javax.swing.GroupLayout(log);
+        log.setLayout(logLayout);
+        logLayout.setHorizontalGroup(
+            logLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logLayout.createSequentialGroup()
+                .addContainerGap(19, Short.MAX_VALUE)
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(SalesReport4, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        logLayout.setVerticalGroup(
+            logLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(logLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(SalesReport4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12)))
+        );
+
+        jPanel3.add(log, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 470, -1, -1));
 
         body.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 600));
 
@@ -408,6 +453,7 @@ public class Sales extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void SalesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SalesMouseClicked
+        
         int row = Sales.getSelectedRow();
         String t_id = Sales.getModel().getValueAt(row, 0).toString();
 
@@ -436,8 +482,7 @@ public class Sales extends javax.swing.JFrame {
     }//GEN-LAST:event_userMouseClicked
 
     private void userMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userMouseEntered
-        user.setBackground(new Color (255,255,255));
-        Products1.setForeground( new Color (13, 59, 102));
+        
     }//GEN-LAST:event_userMouseEntered
 
     private void userMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userMouseExited
@@ -557,6 +602,21 @@ public class Sales extends javax.swing.JFrame {
         salesreport3.setBackground(new Color(0, 119, 176));
     }//GEN-LAST:event_salesreport3MouseExited
 
+    private void logMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logMouseClicked
+        new Stocklog().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_logMouseClicked
+
+    private void logMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logMouseEntered
+        log.setBackground(new Color (255,255,255));
+        log.setForeground( new Color (13, 59, 102));
+    }//GEN-LAST:event_logMouseEntered
+
+    private void logMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logMouseExited
+        log.setBackground(new Color(0, 119, 176));
+        log.setForeground( new Color (255,255,255));
+    }//GEN-LAST:event_logMouseExited
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -598,29 +658,20 @@ public class Sales extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton Logout;
-    private javax.swing.JLabel Products;
-    private javax.swing.JLabel Products1;
     private javax.swing.JLabel Products2;
     private javax.swing.JLabel Products3;
-    private javax.swing.JLabel Profile;
     private javax.swing.JLabel Profile1;
     private javax.swing.JTable Sales;
-    private javax.swing.JLabel SalesReport;
-    private javax.swing.JLabel SalesReport1;
     private javax.swing.JLabel SalesReport2;
     private javax.swing.JLabel SalesReport3;
+    private javax.swing.JLabel SalesReport4;
     private javax.swing.JPanel body;
     private javax.swing.JTable details;
-    private javax.swing.JLabel edit;
     private javax.swing.JLabel edit1;
-    private javax.swing.JLabel email;
     private javax.swing.JLabel email1;
     private javax.swing.JPanel header1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
@@ -630,19 +681,14 @@ public class Sales extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel name;
+    private javax.swing.JPanel log;
     private javax.swing.JLabel name1;
-    private javax.swing.JPanel product;
     private javax.swing.JPanel product1;
-    private javax.swing.JPanel salesreport;
-    private javax.swing.JPanel salesreport1;
     private javax.swing.JPanel salesreport2;
     private javax.swing.JPanel salesreport3;
-    private javax.swing.JPanel user;
     private javax.swing.JPanel user1;
     // End of variables declaration//GEN-END:variables
 }

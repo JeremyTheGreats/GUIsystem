@@ -86,6 +86,9 @@ public final class Users extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         salesreport1 = new javax.swing.JPanel();
         SalesReport1 = new javax.swing.JLabel();
+        salesreport2 = new javax.swing.JPanel();
+        sta = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         header1 = new javax.swing.JPanel();
@@ -318,9 +321,9 @@ public final class Users extends javax.swing.JFrame {
             salesreportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, salesreportLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(salesreportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(SalesReport, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(salesreportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SalesReport, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jPanel2.add(salesreport, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 220, 50));
@@ -359,7 +362,49 @@ public final class Users extends javax.swing.JFrame {
                 .addComponent(SalesReport1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel2.add(salesreport1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 520, 220, 50));
+        jPanel2.add(salesreport1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 540, 220, 50));
+
+        salesreport2.setBackground(new java.awt.Color(0, 119, 176));
+        salesreport2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                salesreport2MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                salesreport2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                salesreport2MouseExited(evt);
+            }
+        });
+
+        sta.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        sta.setForeground(new java.awt.Color(255, 255, 255));
+        sta.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        sta.setText("Stock Log");
+
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Logo/log-removebg-preview.png"))); // NOI18N
+
+        javax.swing.GroupLayout salesreport2Layout = new javax.swing.GroupLayout(salesreport2);
+        salesreport2.setLayout(salesreport2Layout);
+        salesreport2Layout.setHorizontalGroup(
+            salesreport2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, salesreport2Layout.createSequentialGroup()
+                .addContainerGap(19, Short.MAX_VALUE)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(sta, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        salesreport2Layout.setVerticalGroup(
+            salesreport2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, salesreport2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(salesreport2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(sta, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11)))
+        );
+
+        jPanel2.add(salesreport2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 470, -1, -1));
 
         body.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 600));
 
@@ -704,6 +749,21 @@ public final class Users extends javax.swing.JFrame {
         salesreport1.setBackground(new Color(0, 119, 176));
     }//GEN-LAST:event_salesreport1MouseExited
 
+    private void salesreport2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport2MouseClicked
+        new Stocklog().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_salesreport2MouseClicked
+
+    private void salesreport2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport2MouseEntered
+        salesreport2.setBackground(new Color (255,255,255));
+        sta.setForeground( new Color (13, 59, 102));
+    }//GEN-LAST:event_salesreport2MouseEntered
+
+    private void salesreport2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesreport2MouseExited
+       salesreport2.setBackground(new Color(0, 119, 176));
+        sta.setForeground( new Color (255,255,255));
+    }//GEN-LAST:event_salesreport2MouseExited
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -782,6 +842,7 @@ public final class Users extends javax.swing.JFrame {
     private javax.swing.JPanel header1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
@@ -797,7 +858,9 @@ public final class Users extends javax.swing.JFrame {
     private javax.swing.JPanel product;
     private javax.swing.JPanel salesreport;
     private javax.swing.JPanel salesreport1;
+    private javax.swing.JPanel salesreport2;
     private javax.swing.JToggleButton search;
+    private javax.swing.JLabel sta;
     private javax.swing.JTable table;
     private javax.swing.JToggleButton update;
     private javax.swing.JToggleButton update1;

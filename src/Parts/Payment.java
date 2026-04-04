@@ -5,6 +5,9 @@ import StaffFuction.Staff;
 import config.Session;
 import config.config;
 import java.awt.Color;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JOptionPane;
@@ -42,6 +45,34 @@ public class Payment extends javax.swing.JFrame {
 
         // Generate the text-based receipt and calculate totals
         generateReceipt();
+    }
+
+    private void saveReceiptToFile() {
+
+        try {
+            // 1. Define the folder path
+            String folderPath = "src/receipt";
+            File folder = new File(folderPath);
+
+            // 2. Create the folder if it doesn't exist
+            if (!folder.exists()) {
+                folder.mkdirs();
+            }
+
+            // 3. Create a unique filename (e.g., Receipt_1712245.txt)
+            String filename = "Receipt_" + System.currentTimeMillis() + ".txt";
+            File file = new File(folder, filename);
+
+            // 4. Write the content of txtReceipt (JTextArea) to the file
+            PrintWriter out = new PrintWriter(new FileWriter(file));
+            out.println(txtReceipt.getText());
+            out.close();
+
+            JOptionPane.showMessageDialog(this, "Receipt saved!" );
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error saving receipt: " + e.getMessage());
+        }
     }
 
     private void generateReceipt() {
@@ -111,12 +142,10 @@ public class Payment extends javax.swing.JFrame {
         Session session = Session.getInstance();
         int userId = session.getId();
 
-        
         String salesSql = "INSERT INTO sales (u_id, total_amount, cash_received, cash_change, sale_date) "
                 + "VALUES (?, ?, ?, ?, DATETIME('now', 'localtime'))";
         db.addRecord(salesSql, userId, grandTotal, cash, change);
 
-    
         int salesId = db.getLastSaleID();
 
         if (salesId != -1) {
@@ -125,13 +154,17 @@ public class Payment extends javax.swing.JFrame {
                 int qty = Integer.parseInt(item.get("quantity").toString());
                 double total = Double.parseDouble(item.get("total").toString());
 
-             
                 String detailsSql = "INSERT INTO sales_details (sales_id, p_name, p_qty, p_total) VALUES (?, ?, ?, ?)";
                 db.addRecord(detailsSql, salesId, name, qty, total);
 
-           
                 String updateStockSql = "UPDATE parts_inventory SET stock = stock - ? WHERE part_name = ?";
                 db.updateRecord(updateStockSql, qty, name);
+
+                int p_id = db.getSingleInt("SELECT id FROM parts_inventory WHERE part_name = ?", name);
+                if (p_id != -1) {
+                    String logSql = "INSERT INTO StockLog (product_id, u_id, status, qty) VALUES (?, ?, 'OUT', ?)";
+                    db.addRecord(logSql, p_id, userId, qty);
+                }
             }
 
             JOptionPane.showMessageDialog(this, "Transaction successful! Stock updated.");
@@ -412,11 +445,15 @@ public class Payment extends javax.swing.JFrame {
             double change = cash - grandTotal;
             lblChange.setText("₱" + String.format("%.2f", change));
 
-            // 1. Update the visual receipt
+            // Update the UI receipt and save to DB
             updateFinalReceipt(cash, change);
-
-            // 2. Save everything to the database (Sale + All Items)
             saveTransactionToDatabase(cash, change);
+
+            // AUTO-SAVE to src/receipt
+            saveReceiptToFile();
+
+            // Optional: Disable button so they don't double-click
+            btnProceed.setEnabled(false);
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Please enter a valid cash amount.");
